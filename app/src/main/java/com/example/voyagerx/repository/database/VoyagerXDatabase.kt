@@ -9,6 +9,6 @@ import com.example.voyagerx.repository.model.Launch
 abstract class VoyagerXDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
-    abstract fun LaunchDao(): LaunchDao
+    abstract fun launchDao(): LaunchDao
 
 }
