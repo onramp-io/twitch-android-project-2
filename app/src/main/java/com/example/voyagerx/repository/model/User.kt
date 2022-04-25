@@ -13,5 +13,7 @@ data class User (
 
     var name: String,
     var location: String,
-    var bio: String
+    var bio: String,
+
+    var favoriteLaunches: List<Launch>
 )

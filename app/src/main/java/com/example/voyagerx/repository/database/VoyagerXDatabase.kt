@@ -11,5 +11,4 @@ abstract class VoyagerXDatabase : RoomDatabase() {
 
     abstract fun LaunchDao(): LaunchDao
 
-    abstract fun FavoriteLaunchDao(): FavoriteLaunchDao
 }
