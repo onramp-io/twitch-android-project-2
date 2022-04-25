@@ -1,0 +1,23 @@
+query LaunchList {
+    launches(sort: "launch_date_utc", order: "desc") {
+        id
+        mission_name
+        details
+        launch_date_utc
+        launch_year
+
+        rocket {
+            rocket_name
+        }
+
+        launch_site {
+            site_name_long
+        }
+
+        links {
+            flickr_images
+            article_link
+            video_link
+        }
+    }
+}
