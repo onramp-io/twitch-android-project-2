@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.29583333333333334" />
+        <entry key="app/src/main/res/layout/launch_overview_card.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/launch_overview_card_field_separator.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/launch_overview_card_separator.xml" value="0.375" />
+        <entry key="../../../../layout/custom_preview.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/drawable/bg_search_rounded.xml" value="0.137" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.30885416666666665" />
