@@ -32,6 +32,8 @@ android {
     }
 }
 
+apply plugin: 'kotlin-kapt'
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
