@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.voyagerx.repository.database.UserDao
 import com.example.voyagerx.repository.database.VoyagerXDatabase
+import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.repository.model.User
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.After
@@ -46,6 +47,24 @@ class SimpleEntityReadWriteTest {
         userDao.insertNoProfile("test email", "test password")
         val byEmail = userDao.findUserByEmail("test email")
         assertThat(byEmail, equalTo(user))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun addLaunchToUserAndRead(){
+        val launch = Launch("1", "", "", "", "", "", "", "", listOf())
+        val user = User(1, "test email", "test password", "", "", "", listOf(launch))
+
+        userDao.insertNoProfile("test email", "test password")
+        val byEmail = userDao.findUserByEmail("test email")
+        val newLaunches = mutableListOf<Launch>()
+        byEmail.favoriteLaunches?.let { newLaunches.addAll(it) }
+        newLaunches.add(launch)
+        Log.d("new launches", newLaunches.toString())
+        userDao.updateUserFavoriteLaunches(byEmail.id, newLaunches)
+
+        val newByEmail = userDao.findUserByEmail("test email")
+        assertThat(newByEmail, equalTo(user))
     }
 
 }
