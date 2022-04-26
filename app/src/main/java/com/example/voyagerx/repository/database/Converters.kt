@@ -9,7 +9,7 @@ import com.google.gson.reflect.TypeToken
 class Converters {
 
     @TypeConverter
-    fun fromStringToListOfLaunch(value: String?): List<Launch>?{
+    fun fromStringToListOfLaunch(value: String?): MutableList<Launch>?{
         if(value == null){
             return null
         }
@@ -24,11 +24,11 @@ class Converters {
         }
 
         Log.d("launchlist", listOfLaunch.toString())
-        return listOfLaunch.toList()
+        return listOfLaunch
     }
 
     @TypeConverter
-    fun fromListOfLaunchToString(list: List<Launch>?): String?{
+    fun fromListOfLaunchToString(list: MutableList<Launch>?): String?{
         if(list == null){
             return null
         }

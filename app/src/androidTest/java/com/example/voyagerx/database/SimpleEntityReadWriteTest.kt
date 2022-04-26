@@ -43,7 +43,7 @@ class SimpleEntityReadWriteTest {
     @Test
     @Throws(Exception::class)
     fun writeNoProfileUserAndReadInList(){
-        val user = User(1, "test email", "test password", "", "", "", null)
+        val user = User(1, "test email", "test password", null, null, null, null)
         userDao.insertNoProfile("test email", "test password")
         val byEmail = userDao.findUserByEmail("test email")
         assertThat(byEmail, equalTo(user))
@@ -52,17 +52,21 @@ class SimpleEntityReadWriteTest {
     @Test
     @Throws(Exception::class)
     fun addLaunchToUserAndRead(){
-        val launch = Launch("1", "", "", "", "", "", "", "", listOf())
-        val user = User(1, "test email", "test password", "", "", "", listOf(launch))
+        // test user with launch in favoriteLaunches
+        val launch = Launch("1", null, null, null, null, null, null, null, null)
+        val user = User(1, "test email", "test password", null, null, null, mutableListOf(launch))
 
+        // creating a new user and inserting into db
         userDao.insertNoProfile("test email", "test password")
         val byEmail = userDao.findUserByEmail("test email")
+
+        // adding launch to user's favorites
         val newLaunches = mutableListOf<Launch>()
         byEmail.favoriteLaunches?.let { newLaunches.addAll(it) }
         newLaunches.add(launch)
-        Log.d("new launches", newLaunches.toString())
         userDao.updateUserFavoriteLaunches(byEmail.id, newLaunches)
 
+        // assert db's user equal to test user
         val newByEmail = userDao.findUserByEmail("test email")
         assertThat(newByEmail, equalTo(user))
     }
