@@ -6,16 +6,20 @@ import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import apolloClient
 import com.example.rocketreserver.LaunchListQuery
+import com.example.voyagerx.repository.LaunchRepository
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var repository: LaunchRepository
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        repository = LaunchRepository()
+
 
         lifecycleScope.launchWhenResumed {
-            val response = apolloClient.query(LaunchListQuery()).execute()
-
-            Log.d("LaunchList", "Success ${response.data}")
+            Log.d("LaunchList", "Success!!!! ${repository.getLaunches()}")
         }
 
     }
