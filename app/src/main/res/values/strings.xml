@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VoyagerX</string>
+    <string name="example_mission_name">FalconSat</string>
+    <string name="example_launch_overview_year">2006</string>
+    <string name="example_launch_overview_site_name">Kwajalein Atoll Omelek Island</string>
+    <string name="field_separator">•</string>
 </resources>
