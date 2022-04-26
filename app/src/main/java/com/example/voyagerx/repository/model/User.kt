@@ -11,9 +11,9 @@ data class User (
     val email: String,
     val password: String,
 
-    var name: String,
-    var location: String,
-    var bio: String,
+    var name: String?,
+    var location: String?,
+    var bio: String?,
 
-    var favoriteLaunches: List<Launch>
+    var favoriteLaunches: List<Launch>?
 )
