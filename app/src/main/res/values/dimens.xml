@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_sm">4dp</dimen>
+    <dimen name="margin_md">8dp</dimen>
     <dimen name="launch_overview_card_corner_radius">4dp</dimen>
 </resources>
