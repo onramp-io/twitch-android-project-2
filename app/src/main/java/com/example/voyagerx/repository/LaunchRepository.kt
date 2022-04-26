@@ -18,7 +18,7 @@ class LaunchRepository {
 //    private fun convertLaunches(launches: List<LaunchListQuery.Launch>): List<Launch>? {
 //        val customLaunches = launches.map{ launch ->
 //            Launch(
-//                launch.id,
+//                launch.id.toInt(),
 //                launch.mission_name,
 //                launch.launch_site?.site_name_long,
 //                launch.launch_date_utc,
@@ -30,4 +30,10 @@ class LaunchRepository {
 //        }
 //        return customLaunches
 //    }
+
+////    insert launches into launch table
+//    private fun insertLaunches{
+//
+//    }
+
 }
