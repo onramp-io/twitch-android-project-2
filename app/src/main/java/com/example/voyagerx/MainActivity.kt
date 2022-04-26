@@ -9,7 +9,6 @@ import com.example.rocketreserver.LaunchListQuery
 import com.example.voyagerx.repository.LaunchRepository
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
