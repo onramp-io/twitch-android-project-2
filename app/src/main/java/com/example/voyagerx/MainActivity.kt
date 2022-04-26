@@ -9,19 +9,9 @@ import com.example.rocketreserver.LaunchListQuery
 import com.example.voyagerx.repository.LaunchRepository
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var repository: LaunchRepository
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        repository = LaunchRepository()
-
-
-        lifecycleScope.launchWhenResumed {
-            Log.d("LaunchList", "Success!!!! ${repository.getLaunches()}")
-        }
-
     }
-
 }
