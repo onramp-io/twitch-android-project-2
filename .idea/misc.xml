@@ -9,6 +9,11 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.35" />
+        <entry key="../../../../layout/custom_preview.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.29583333333333334" />
+        <entry key="app/src/main/res/layout/launch_overview_card.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/launch_overview_card_field_separator.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/launch_overview_card_separator.xml" value="0.375" />
       </map>
     </option>
   </component>
