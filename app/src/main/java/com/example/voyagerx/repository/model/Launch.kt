@@ -17,5 +17,5 @@ data class Launch(
 
     val article_link: String?,
     val video_link: String?,
-    val image_links: List<String>?
+    val image_links: List<String?>?
 )
