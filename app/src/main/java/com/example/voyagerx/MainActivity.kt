@@ -18,17 +18,14 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavView = binding.bottomNavigationView
 
-        val landingPageFragment = LandingPageFragment()
-        val profileFragment = ProfileFragment()
-        val settingsFragment = SettingsFragment()
 
-        changeFragmentView(landingPageFragment) //setting initial view to landing page as you only get here after bypassing login/register screens
+        changeFragmentView(LandingPageFragment()) //setting initial view to landing page as you only get here after bypassing login/register screens
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.landingPageFragment -> changeFragmentView(landingPageFragment)
-                R.id.profileFragment -> changeFragmentView(profileFragment)
-                R.id.settingsFragment -> changeFragmentView(settingsFragment)
+                R.id.landingPageFragment -> changeFragmentView(LandingPageFragment())
+                R.id.profileFragment -> changeFragmentView(ProfileFragment())
+                R.id.settingsFragment -> changeFragmentView(SettingsFragment())
             }
             true
         }
