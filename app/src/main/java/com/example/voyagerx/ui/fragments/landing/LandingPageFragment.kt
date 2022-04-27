@@ -68,13 +68,11 @@ class LandingPageFragment : Fragment() {
         binding.landingPageLaunchListing.layoutParams = layoutParams
     }
 
-    private fun convertDpToPx(dp: Float): Int {
-        return TypedValue.applyDimension(
+    private fun convertDpToPx(dp: Float): Int = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             dp,
             resources.displayMetrics
         ).toInt()
-    }
 
     private fun getStatusBarHeight(): Int {
         val resourceId = resources.getIdentifier(STATUS_BAR_HEIGHT, DIMEN, ANDROID)
