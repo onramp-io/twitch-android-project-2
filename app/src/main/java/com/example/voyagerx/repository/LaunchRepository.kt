@@ -1,5 +1,6 @@
 package com.example.voyagerx.repository
 
+import android.util.Log
 import apolloClient
 import com.example.rocketreserver.LaunchListQuery
 import com.example.voyagerx.repository.model.Launch
@@ -8,6 +9,7 @@ import com.example.voyagerx.repository.model.Launch
 object LaunchRepository {
 
     suspend fun getLaunches() : List<Launch?>? {
+        Log.d("Repository", "attempting to fetch launch data")
         return try {
             val apiResult = apolloClient.query(LaunchListQuery()).execute().data?.launches
             if (apiResult.isNullOrEmpty()) {
