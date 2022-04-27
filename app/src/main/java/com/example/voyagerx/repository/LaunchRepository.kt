@@ -3,7 +3,8 @@ package com.example.voyagerx.repository
 import apolloClient
 import com.example.rocketreserver.LaunchListQuery
 
-class LaunchRepository {
+
+object LaunchRepository {
 
     suspend fun getLaunches() : List<LaunchListQuery.Launch?>? {
         try {
