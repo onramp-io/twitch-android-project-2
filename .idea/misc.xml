@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_filter_alt_32.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.137" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/landing_page.xml" value="0.25" />
