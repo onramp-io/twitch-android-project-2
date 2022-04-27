@@ -10,7 +10,7 @@ import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var bottomNavView : BottomNavigationView
+    private lateinit var bottomNavView: BottomNavigationView
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +34,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeFragmentView(desiredFragment: Fragment) =
+    private fun changeFragmentView(desiredFragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frame, desiredFragment)
             commit()
         }
+    }
 }
