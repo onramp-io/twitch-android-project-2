@@ -3,12 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/ic_landing_page.xml" value="0.2625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.29393115942028986" />
-        <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.24921135646687698" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.29393115942028986" />
-        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.29393115942028986" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.35" />
         <entry key="../../../../layout/custom_preview.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/drawable-v24/bg_event_listing_rounded.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.137" />
@@ -16,9 +10,11 @@
         <entry key="app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/ic_baseline_filter_alt_32.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.137" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.29583333333333334" />
-        <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.30885416666666665" />
-        <entry key="app/src/main/res/layout/landing_page.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/landing_page.xml" value="0.25" />
         <entry key="app/src/main/res/layout/launch_overview_card.xml" value="0.5" />
         <entry key="app/src/main/res/layout/launch_overview_card_field_separator.xml" value="0.165" />
         <entry key="app/src/main/res/layout/launch_overview_card_separator.xml" value="0.375" />

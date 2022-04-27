@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.voyagerx.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,8 +40,3 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 }
-
-        setContentView(R.layout.activity_main)
-    }
-}
-
