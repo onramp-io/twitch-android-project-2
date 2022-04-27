@@ -33,12 +33,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeFragmentView(desiredFragment: Fragment) =
+    private fun changeFragmentView(desiredFragment: Fragment){
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frame, desiredFragment)
             commit()
         }
-}
 
         setContentView(R.layout.activity_main)
     }

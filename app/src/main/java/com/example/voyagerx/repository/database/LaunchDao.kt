@@ -12,6 +12,12 @@ interface LaunchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(launch: Launch)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(launches: List<Launch>)
+
     @Query("SELECT * FROM Launch")
     fun getAll(): List<Launch>
+
+    @Query("SELECT * FROM Launch WHERE id = :id")
+    fun findLaunchById(id: String): Launch
 }
