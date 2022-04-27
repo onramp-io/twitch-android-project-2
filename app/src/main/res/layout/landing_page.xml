@@ -7,34 +7,57 @@
     android:background="#5A5A5A">
 
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/landing_page_filter_button"
+        android:layout_width="@dimen/landing_filter_icon_size"
+        android:layout_height="@dimen/landing_filter_icon_size"
+        android:layout_marginStart="@dimen/margin_md"
+        android:layout_marginTop="@dimen/margin_md"
+        android:layout_marginBottom="@dimen/margin_md"
         android:backgroundTint="@android:color/transparent"
-        app:srcCompat="@drawable/ic_baseline_filter_alt_24"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="6dp" />
+        android:contentDescription="@string/filter_launches_content_description"
+        app:layout_constraintBottom_toTopOf="@+id/landing_page_welcome_card"
+        app:layout_constraintEnd_toStartOf="@+id/landing_page_search_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_filter_alt_32" />
 
-    <SearchView
-        android:id="@+id/searchView"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/landing_page_search_bar"
         android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="@dimen/landing_search_height"
+        android:layout_marginTop="@dimen/landing_section_margin"
+        android:layout_marginEnd="@dimen/landing_section_margin"
         android:background="@drawable/bg_search_rounded"
+        android:searchIcon="@android:drawable/ic_menu_search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintStart_toEndOf="@+id/landing_page_filter_button"
         app:layout_constraintTop_toTopOf="parent">
 
-    </SearchView>
+    </androidx.appcompat.widget.SearchView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/welcome_card"
+        android:id="@+id/landing_page_welcome_card"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginLeft="@dimen/landing_section_margin"
+        android:layout_marginTop="@dimen/landing_section_margin"
+        android:layout_marginRight="@dimen/landing_section_margin"
+        app:cardCornerRadius="@dimen/landing_corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/landing_page_search_bar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/landing_page_launch_listing"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/landing_section_margin"
+        android:layout_marginTop="@dimen/landing_section_margin"
+        android:layout_marginEnd="@dimen/landing_section_margin"
+        android:layout_marginBottom="@dimen/landing_section_margin"
+        android:background="@drawable/bg_event_listing_rounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/landing_page_welcome_card" />
 </androidx.constraintlayout.widget.ConstraintLayout>

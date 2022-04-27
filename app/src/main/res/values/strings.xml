@@ -4,4 +4,5 @@
     <string name="example_launch_overview_year">2006</string>
     <string name="example_launch_overview_site_name">Kwajalein Atoll Omelek Island</string>
     <string name="field_separator">•</string>
+    <string name="filter_launches_content_description">Filter launches</string>
 </resources>
