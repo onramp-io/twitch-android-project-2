@@ -24,10 +24,9 @@
 
             <TextView
                 android:id="@+id/header"
-                tools:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_md"
+                android:layout_marginTop="@dimen/margin_x_lg"
                 android:hint="@string/launch_listing_header"
                 android:text=""
                 android:textColor="@color/white"
@@ -35,7 +34,8 @@
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listing"
