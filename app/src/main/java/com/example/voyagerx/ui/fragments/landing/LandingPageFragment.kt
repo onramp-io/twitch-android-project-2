@@ -44,15 +44,15 @@ class LandingPageFragment : Fragment() {
     }
 
     private fun showSpinner() {
-        binding.landingPageLaunchListingSpinner.visibility = View.VISIBLE
+        binding.listing.spinner.visibility = View.VISIBLE
     }
 
     private fun hideSpinner() {
-        binding.landingPageLaunchListingSpinner.visibility = View.INVISIBLE
+        binding.listing.spinner.visibility = View.INVISIBLE
     }
 
     private fun setListHeaderText(amount: Int) {
-        binding.landingPageLaunchListingHeader.text = resources.getString(R.string.launch_listing_header, amount)
-        binding.landingPageLaunchListingHeader.visibility = View.VISIBLE
+        binding.listing.header.text = resources.getString(R.string.launch_listing_header, amount)
+        binding.listing.header.visibility = View.VISIBLE
     }
 }

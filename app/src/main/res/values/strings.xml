@@ -7,4 +7,5 @@
     <string name="field_separator">•</string>
     <string name="filter_launches_content_description">Filter launches</string>
     <string name="launch_listing_header">There are %1$d total launches 🚀</string>
+    <string name="landing_page_network_failed_message">Please try again later.</string>
 </resources>
