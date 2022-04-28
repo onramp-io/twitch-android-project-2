@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/landing_page_error_constraint_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#505050">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image"
@@ -30,6 +31,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="34sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/message2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
