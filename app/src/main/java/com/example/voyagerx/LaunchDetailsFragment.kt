@@ -25,7 +25,7 @@ class LaunchDetailsFragment : Fragment() {
     //placeholder data until we get landing page connected
     private var launchObj : Launch = Launch(
         "1",
-        "Thaicom6",
+        "Thaicom 6",
         "Cape Canaveral Air Force Station Space Launch Complex 40",
         "2020-12-13T17:30:00.000Z",
         "2020",
@@ -63,44 +63,49 @@ class LaunchDetailsFragment : Fragment() {
             var imgUrl = launchObj.image_links?.elementAt(0)
             binding.ivLaunchPictures.load(imgUrl)
         } ?: run {
+            //default photo
             binding.ivLaunchPictures.load("https://www.spacex.com/static/images/share.jpg")
         }
 
         launchObj.mission_name?.let {
             binding.tvMissionName.text = it
         } ?:  run {
-            binding.tvMissionName.visibility = View.GONE
+            hideView(binding.tvMissionName)
         }
 
         launchObj.launch_site_long?.let {
             binding.tvSiteName.text = it
         } ?: run {
-            binding.tvSiteName.visibility = View.GONE
+            hideView(binding.tvSiteName)
         }
 
         launchObj.launch_date_utc?.let {
             binding.tvLaunchDate.text = it
         } ?: run {
-                binding.tvLaunchDate.visibility = View.GONE
+            hideView(binding.tvLaunchDate)
         }
 
         launchObj.details?.let {
             binding.tvDetailParagraph.text = it
         } ?: run {
-            binding.tvDetailHeader.visibility = View.GONE
-            binding.tvDetailParagraph.visibility = View.GONE
+            hideView(binding.tvDetailHeader)
+            hideView(binding.tvDetailParagraph)
         }
 
         if (launchObj.article_link.isNullOrBlank() && launchObj.video_link.isNullOrBlank()) {
-            binding.tvLinksHeader.visibility = View.GONE
+            hideView(binding.tvLinksHeader)
         }
 
         if (launchObj.article_link.isNullOrBlank()) {
-            binding.tvArticleLink.visibility = View.GONE
+            hideView(binding.tvArticleLink)
         }
 
         if (launchObj.video_link.isNullOrBlank()) {
-            binding.tvVideoLink.visibility = View.GONE
+            hideView(binding.tvVideoLink)
         }
+    }
+
+    private fun hideView(view: View) {
+        view.visibility = View.GONE
     }
 }
