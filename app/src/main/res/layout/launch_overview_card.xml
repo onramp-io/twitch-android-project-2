@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/launch_overview_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/launch_overview_card_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#515151"
+        app:cardCornerRadius="@dimen/landing_corner_radius"
+        app:contentPaddingBottom="@dimen/margin_sm"
+        app:contentPaddingTop="@dimen/margin_lg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/launch_overview_card_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/launch_overview_card_mission_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/example_mission_name"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/launch_overview_card_separator_one"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_separator_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_separator"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/launch_overview_card_site_name"
+                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_mission_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_site_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/example_launch_overview_site_name"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/launch_overview_card_separator_one3"
+                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_separator_one"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_separator_one3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_separator"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/launch_overview_card_year"
+                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_site_name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_marginBaseline="100dp" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/example_launch_overview_year"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_separator_one3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/launch_overview_card_underline"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/margin_md"
+                android:layout_marginTop="@dimen/margin_md"
+                android:layout_marginRight="@dimen/margin_md"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="@color/white"
+                android:backgroundTintMode="add"
+                app:layout_constraintBottom_toBottomOf="@+id/launch_overview_card_constraint_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_mission_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
