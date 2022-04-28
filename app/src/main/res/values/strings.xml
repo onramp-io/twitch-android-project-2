@@ -9,4 +9,10 @@
     <string name="launch_listing_header">There are %1$d total launches 🚀</string>
     <string name="landing_page_network_try_later">Please try again later.</string>
     <string name="landing_page_connection_failed">Connection Failed.</string>
+    <string name="avatarInitial">U</string>
+    <string name="your_favorite_launches_label">Your Favorite Launches</string>
+    <string name="user_bio_on_profile">A spaceman wanting to go into space, man!</string>
+    <string name="users_profile_heading">User\'s Profile</string>
+    <string name="edit_profile_button_content_description">Edit profile button</string>
+    <string name="first_letter_of_user_name_content_description">First letter of user\'s name</string>
 </resources>
