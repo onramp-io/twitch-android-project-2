@@ -32,7 +32,7 @@
         android:layout_height="@dimen/landing_welcome_card_height"
         android:layout_marginStart="@dimen/landing_section_margin"
         android:layout_marginEnd="@dimen/landing_section_margin"
-        app:cardCornerRadius="@dimen/landing_corner_radius"
+        app:cardCornerRadius="@dimen/landing_card_corner_radius"
         app:layout_constraintBottom_toTopOf="@+id/listing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

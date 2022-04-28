@@ -5,7 +5,8 @@
     <dimen name="margin_lg">12dp</dimen>
     <dimen name="margin_x_lg">16dp</dimen>
     <dimen name="landing_section_margin">15dp</dimen>
-    <dimen name="landing_corner_radius">@dimen/margin_sm</dimen>
+    <dimen name="landing_card_corner_radius">@dimen/margin_sm</dimen>
+    <dimen name="landing_search_corner_radius">@dimen/margin_lg</dimen>
     <dimen name="landing_card_padding">20dp</dimen>
     <dimen name="landing_search_height">30dp</dimen>
     <dimen name="landing_filter_icon_size">48dp</dimen>
