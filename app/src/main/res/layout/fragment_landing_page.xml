@@ -45,23 +45,75 @@
         android:layout_marginStart="@dimen/margin_x_lg"
         android:layout_marginEnd="@dimen/margin_x_lg"
         app:cardCornerRadius="@dimen/landing_corner_radius"
-        app:layout_constraintBottom_toTopOf="@+id/landing_page_launch_listing"
+        app:layout_constraintBottom_toTopOf="@+id/landing_page_launch_listing_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/landing_page_filter_button" />
+        app:layout_constraintTop_toBottomOf="@+id/landing_page_filter_button" >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/landing_page_launch_listing"
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/landing_page_launch_listing_card"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_x_lg"
         android:layout_marginTop="@dimen/landing_section_margin"
         android:layout_marginEnd="@dimen/margin_x_lg"
         android:layout_marginBottom="@dimen/landing_list_bottom_margin"
-        android:background="@drawable/bg_event_listing_rounded"
+        app:cardBackgroundColor="@color/material_dynamic_neutral_variant20"
+        app:cardCornerRadius="@dimen/landing_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/landing_page_welcome_card" />
+        app:layout_constraintTop_toBottomOf="@+id/landing_page_welcome_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/landing_page_launch_listing_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_md"
+                android:text=""
+                android:hint="@string/launch_listing_header"
+                android:visibility="invisible"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/landing_page_launch_listing"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_x_lg"
+                android:background="@drawable/bg_event_listing_rounded"
+                android:backgroundTint="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/landing_page_launch_listing_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTint="#F00"
+                android:indeterminateTintMode="src_in"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
