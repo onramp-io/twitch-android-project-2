@@ -4,7 +4,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5A5A5A">
+    android:background="#FFFFFF">
 
     <include
         android:id="@+id/filters"
@@ -14,7 +14,7 @@
         android:layout_marginStart="@dimen/landing_section_margin"
         android:layout_marginTop="@dimen/landing_section_margin"
         android:layout_marginEnd="@dimen/landing_section_margin"
-        android:layout_marginBottom="@dimen/landing_section_margin"
+        android:layout_marginBottom="@dimen/margin_md"
         app:layout_constraintBottom_toTopOf="@id/welcome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,6 +36,7 @@
         android:layout_marginStart="@dimen/landing_section_margin"
         android:layout_marginEnd="@dimen/landing_section_margin"
         app:cardCornerRadius="@dimen/landing_card_corner_radius"
+        app:cardElevation="@dimen/landing_welcome_card_elevation"
         app:layout_constraintBottom_toTopOf="@+id/listing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

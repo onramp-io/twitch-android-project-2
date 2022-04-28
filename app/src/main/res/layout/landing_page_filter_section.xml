@@ -19,7 +19,6 @@
         android:id="@+id/search"
         android:layout_width="0dp"
         android:layout_height="@dimen/landing_search_height"
-        android:layout_marginStart="@dimen/margin_x_lg"
         android:layout_marginTop="@dimen/margin_md"
         android:background="@drawable/bg_search_rounded_lg"
         android:searchIcon="@android:drawable/ic_menu_search"
