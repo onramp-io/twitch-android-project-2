@@ -71,4 +71,11 @@ class SimpleEntityReadWriteTest {
         assertThat(newByEmail, equalTo(user))
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun readEmptyUser(){
+        val user = userDao.findUserByEmail("test email")
+        assertThat(user, equalTo(null))
+    }
+
 }

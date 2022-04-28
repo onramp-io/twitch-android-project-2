@@ -39,5 +39,7 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.frame, desiredFragment)
             commit()
         }
+
+        setContentView(R.layout.activity_main)
     }
 }
