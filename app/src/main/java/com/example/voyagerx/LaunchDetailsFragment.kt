@@ -1,10 +1,14 @@
 package com.example.voyagerx
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
+import coil.size.Precision
+import coil.size.Scale
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.repository.model.Launch
 
@@ -18,6 +22,7 @@ class LaunchDetailsFragment : Fragment() {
     private var _binding: FragmentLaunchDetailsBinding? = null
     private val binding get() = _binding!!
 
+    //placeholder data until we get landing page connected
     private var launchObj : Launch = Launch(
         "1",
         "Thaicom6",
@@ -35,11 +40,6 @@ class LaunchDetailsFragment : Fragment() {
             "https://live.staticflickr.com/65535/50631643917_cb7db291d0_o.jpg")
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        displayLaunchDetails()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,12 +48,24 @@ class LaunchDetailsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        displayLaunchDetails()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     private fun displayLaunchDetails() {
+        launchObj.image_links?.let {
+            var imgUrl = launchObj.image_links?.elementAt(0)
+            binding.ivLaunchPictures.load(imgUrl)
+        } ?: run {
+            binding.ivLaunchPictures.load("https://www.spacex.com/static/images/share.jpg")
+        }
+
         launchObj.mission_name?.let {
             binding.tvMissionName.text = it
         } ?:  run {
@@ -83,14 +95,12 @@ class LaunchDetailsFragment : Fragment() {
             binding.tvLinksHeader.visibility = View.GONE
         }
 
-        launchObj.article_link.isNullOrBlank().let {
+        if (launchObj.article_link.isNullOrBlank()) {
             binding.tvArticleLink.visibility = View.GONE
         }
 
-        launchObj.video_link.isNullOrBlank().let {
+        if (launchObj.video_link.isNullOrBlank()) {
             binding.tvVideoLink.visibility = View.GONE
         }
     }
-
-
 }
