@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# User-specific configurations
+.idea/misc.xml
