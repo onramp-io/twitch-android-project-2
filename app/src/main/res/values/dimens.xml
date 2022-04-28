@@ -12,4 +12,6 @@
     <dimen name="landing_filter_icon_size">48dp</dimen>
     <dimen name="landing_welcome_card_height">100dp</dimen>
     <dimen name="landing_list_bottom_margin">70dp</dimen>
+    <dimen name="landing_error_image_size">250dp</dimen>
+    <dimen name="landing_error_image_elevation">10dp</dimen>
 </resources>

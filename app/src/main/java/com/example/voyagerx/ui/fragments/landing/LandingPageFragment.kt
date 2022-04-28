@@ -25,6 +25,7 @@ class LandingPageFragment : Fragment() {
         binding = FragmentLandingPageBinding.inflate(inflater)
 
         showSpinner()
+        hideNetworkError()
 
         return binding.root
     }
@@ -39,6 +40,8 @@ class LandingPageFragment : Fragment() {
             if (result != null) {
                 launchData = result
                 setListHeaderText(launchData.size)
+            } else {
+                showNetworkError()
             }
         }
     }
@@ -54,5 +57,19 @@ class LandingPageFragment : Fragment() {
     private fun setListHeaderText(amount: Int) {
         binding.listing.header.text = resources.getString(R.string.launch_listing_header, amount)
         binding.listing.header.visibility = View.VISIBLE
+    }
+
+    private fun showNetworkError() {
+        binding.error.root.visibility = View.VISIBLE
+        binding.listing.root.visibility = View.INVISIBLE
+        binding.welcome.visibility = View.INVISIBLE
+        binding.filters.root.visibility = View.INVISIBLE
+    }
+
+    private fun hideNetworkError() {
+        binding.error.root.visibility = View.INVISIBLE
+        binding.listing.root.visibility = View.VISIBLE
+        binding.welcome.visibility = View.VISIBLE
+        binding.filters.root.visibility = View.VISIBLE
     }
 }
