@@ -205,7 +205,6 @@
                 android:minWidth="45dp"
                 android:background="@android:color/transparent"
                 android:textColor="@color/purple_200"
-                android:text="@string/password_symbols_profile"
                 android:ems="30"
                 android:inputType="textPassword|textNoSuggestions" />
         </com.google.android.material.textfield.TextInputLayout>
