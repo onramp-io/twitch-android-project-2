@@ -59,12 +59,13 @@ class LaunchDetailsFragment : Fragment() {
     }
 
     private fun displayLaunchDetails() {
-        launchObj.image_links?.let {
-            var imgUrl = launchObj.image_links?.elementAt(0)
-            binding.ivLaunchPictures.load(imgUrl)
-        } ?: run {
+        //launchObj.image_links will return an empty list (instead of null) if no photos are available
+        if (launchObj.image_links.isNullOrEmpty()) {
             //default photo
             binding.ivLaunchPictures.load("https://www.spacex.com/static/images/share.jpg")
+        } else {
+            var imgUrl = launchObj.image_links?.elementAt(0)
+            binding.ivLaunchPictures.load(imgUrl)
         }
 
         launchObj.mission_name?.let {
