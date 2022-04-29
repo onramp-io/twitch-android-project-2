@@ -1,5 +1,5 @@
 query LaunchList {
-    launches(sort: "launch_date_utc", order: "desc") {
+    launches(sort: "launch_date_utc", order: "desc", limit: 20) {
         id
         mission_name
         details
