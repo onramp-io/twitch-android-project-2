@@ -1,6 +1,7 @@
 package com.example.voyagerx.ui.fragments.landing
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,15 @@ import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.repository.model.Launch
+import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
+import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewClickListener
+import com.example.voyagerx.ui.fragments.landing.translators.LaunchOverviewTranslator
 
 
 class LandingPageFragment : Fragment() {
+    private val launchOverviewTranslator: LaunchOverviewTranslator = LaunchOverviewTranslator
     private lateinit var binding: FragmentLandingPageBinding
-    private lateinit var launchData: List<Launch?>
+    private var launchData: List<LaunchOverviewData> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +29,9 @@ class LandingPageFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLandingPageBinding.inflate(inflater)
 
-        showSpinner()
+        if (launchData.isEmpty()) {
+            showSpinner()
+        }
         hideNetworkError()
 
         return binding.root
@@ -33,12 +40,22 @@ class LandingPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupList()
+    }
+
+    private fun setupList() {
+        val adapter = LaunchOverviewAdapter(LaunchOverviewClickListener {
+            Log.i("LandingPageFragment","$it.missionName clicked.")
+        })
+        binding.listing.list.adapter = adapter
+
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             val result = LaunchRepository.getLaunches()
             hideSpinner()
 
             if (result != null) {
-                launchData = result
+                launchData = launchOverviewTranslator.translate(result)
+                adapter.initializeList(launchData)
                 setListHeaderText(launchData.size)
             } else {
                 showNetworkError()

@@ -38,7 +38,7 @@
                 tools:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listing"
+                android:id="@+id/list"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/margin_x_lg"
@@ -48,7 +48,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/landing_page_overview_card">
 
             </androidx.recyclerview.widget.RecyclerView>
 
