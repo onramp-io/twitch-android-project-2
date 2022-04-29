@@ -12,8 +12,9 @@
         android:id="@+id/launch_overview_card_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#515151"
+        app:cardBackgroundColor="@color/purple_500"
         app:cardCornerRadius="@dimen/landing_card_corner_radius"
+        app:cardElevation="5dp"
         app:contentPaddingBottom="@dimen/margin_sm"
         app:contentPaddingTop="@dimen/margin_lg"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,117 +26,99 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/mission_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_x_lg"
+                android:layout_marginBottom="@dimen/margin_md"
+                app:layout_constraintBottom_toTopOf="@id/dotted_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_rocket_launch_24" />
+
             <TextView
                 android:id="@+id/launch_overview_card_mission_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_sm"
-                android:layout_marginEnd="@dimen/margin_sm"
-                android:ellipsize="end"
+                android:layout_marginStart="@dimen/margin_md"
+                android:layout_marginBottom="@dimen/margin_sm"
                 android:hint="@string/example_mission_name"
-                android:singleLine="true"
                 android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_one"
-                app:layout_constraintStart_toStartOf="@id/launch_overview_card_underline"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/mission_icon"
+                app:layout_constraintEnd_toStartOf="@id/guideline_one"
+                app:layout_constraintStart_toEndOf="@id/mission_icon" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.25" />
+                app:layout_constraintGuide_percent="0.75" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_two"
+            <ImageView
+                android:id="@+id/calendar_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.26" />
-
-            <TextView
-                android:id="@+id/launch_overview_card_separator_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/field_separator"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                app:layout_constraintEnd_toStartOf="@id/guideline_two"
-                app:layout_constraintStart_toStartOf="@+id/guideline_one"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/launch_overview_card_site_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_sm"
-                android:layout_marginEnd="@dimen/margin_sm"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:hint="@string/example_launch_overview_site_name"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_three"
-                app:layout_constraintStart_toStartOf="@+id/guideline_two"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/launch_overview_card_separator_one3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/field_separator"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_four"
-                app:layout_constraintStart_toStartOf="@+id/guideline_three"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_marginBaseline="100dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.85" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.86" />
+                android:layout_marginBottom="@dimen/margin_md"
+                app:layout_constraintBottom_toTopOf="@+id/dotted_line"
+                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_mission_name"
+                app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
             <TextView
                 android:id="@+id/launch_overview_card_year"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_sm"
-                android:layout_marginEnd="@dimen/margin_sm"
+                android:layout_marginStart="@dimen/margin_md"
+                android:layout_marginEnd="@dimen/margin_x_lg"
+                android:layout_marginBottom="@dimen/margin_sm"
                 android:hint="@string/example_launch_overview_year"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/calendar_icon"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline_four"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/calendar_icon" />
 
-            <View
-                android:id="@+id/launch_overview_card_underline"
+            <ImageView
+                android:id="@+id/dotted_line"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/margin_md"
-                android:layout_marginTop="@dimen/margin_md"
-                android:layout_marginRight="@dimen/margin_md"
-                android:background="?android:attr/listDivider"
-                android:backgroundTint="@color/white"
-                android:backgroundTintMode="add"
-                app:layout_constraintBottom_toBottomOf="@+id/launch_overview_card_constraint_layout"
+                android:layout_height="wrap_content"
+                android:layerType="software"
+                app:layout_constraintBottom_toTopOf="@+id/launch_overview_card_site_name"
+                app:layout_constraintEnd_toEndOf="@id/launch_overview_card_year"
+                app:layout_constraintStart_toStartOf="@id/mission_icon"
+                app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_mission_name"
+                app:srcCompat="@drawable/dotted" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_site_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_md"
+                android:layout_marginEnd="@dimen/margin_x_lg"
+                android:hint="@string/example_launch_overview_site_name"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/place_icon"
+                app:layout_constraintTop_toTopOf="@+id/place_icon" />
+
+            <ImageView
+                android:id="@+id/place_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_x_lg"
+                android:layout_marginTop="@dimen/margin_md"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_mission_name" />
+                app:layout_constraintTop_toTopOf="@+id/dotted_line"
+                app:srcCompat="@drawable/ic_baseline_place_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,12 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/dotted.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_filter_alt_32.xml" value="0.355" />
+        <entry key="app/src/main/res/drawable/ic_baseline_pin_drop_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_place_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_editprofile.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/rocket_launch_24px.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/rounded_edittext.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/fragment_launch_details.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/landing_page_error.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/landing_page_filter_section.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/landing_page_launch_listing.xml" value="0.28804347826086957" />
-        <entry key="app/src/main/res/layout/landing_page_overview_card.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/landing_page_overview_card.xml" value="0.5" />
       </map>
     </option>
   </component>
