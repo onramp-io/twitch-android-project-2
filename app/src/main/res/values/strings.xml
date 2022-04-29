@@ -5,6 +5,23 @@
     <string name="example_launch_overview_year">2006</string>
     <string name="example_launch_overview_site_name">Kwajalein Atoll Omelek Island</string>
     <string name="field_separator">•</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_login">Login</string>
+    <string name="title_register">Register</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="login_button">Launch!</string>
+
     <string name="filter_launches_content_description">Filter launches</string>
     <string name="launch_listing_header">There are %1$d total launches 🚀</string>
     <string name="landing_page_network_try_later">Please try again later.</string>
@@ -15,8 +32,7 @@
     <string name="users_profile_heading">User\'s Profile</string>
     <string name="edit_profile_button_content_description">Edit profile button</string>
     <string name="first_letter_of_user_name_content_description">First letter of user\'s name</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="launch_image_description">Image of launch</string>
     <string name="detailSubheader">DETAILS</string>
     <string name="sample_launch_date">2014-01-08</string>
