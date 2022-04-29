@@ -1,67 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/landing_page_constraint_layout"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5A5A5A">
+    android:background="#FFFFFF">
 
-    <ImageButton
-        android:id="@+id/landing_page_filter_button"
-        android:layout_width="@dimen/landing_filter_icon_size"
-        android:layout_height="@dimen/landing_filter_icon_size"
-        android:layout_marginStart="@dimen/margin_md"
-        android:layout_marginTop="@dimen/landing_section_margin"
-        android:layout_marginBottom="@dimen/landing_section_margin"
-        android:backgroundTint="@android:color/transparent"
-        android:contentDescription="@string/filter_launches_content_description"
-        app:layout_constraintBottom_toTopOf="@+id/landing_page_welcome_card"
-        app:layout_constraintEnd_toStartOf="@+id/landing_page_search_bar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_filter_alt_32" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/landing_page_search_bar"
+    <include
+        android:id="@+id/filters"
+        layout="@layout/landing_page_filter_section"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/landing_section_margin"
         android:layout_marginTop="@dimen/landing_section_margin"
-        android:layout_marginEnd="@dimen/margin_x_lg"
-        android:layout_marginBottom="@dimen/landing_section_margin"
-        android:background="@drawable/bg_search_rounded"
-        android:searchIcon="@android:drawable/ic_menu_search"
-        app:layout_constraintBottom_toTopOf="@+id/landing_page_welcome_card"
+        android:layout_marginEnd="@dimen/landing_section_margin"
+        android:layout_marginBottom="@dimen/margin_md"
+        app:layout_constraintBottom_toTopOf="@id/welcome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/landing_page_filter_button"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.appcompat.widget.SearchView>
+    <include
+        android:id="@+id/error"
+        layout="@layout/landing_page_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/landing_page_welcome_card"
+        android:id="@+id/welcome"
         android:layout_width="0dp"
         android:layout_height="@dimen/landing_welcome_card_height"
-        android:layout_marginStart="@dimen/margin_x_lg"
-        android:layout_marginEnd="@dimen/margin_x_lg"
-        app:cardCornerRadius="@dimen/landing_corner_radius"
-        app:layout_constraintBottom_toTopOf="@+id/landing_page_launch_listing"
+        android:layout_marginStart="@dimen/landing_section_margin"
+        android:layout_marginEnd="@dimen/landing_section_margin"
+        app:cardCornerRadius="@dimen/landing_card_corner_radius"
+        app:cardElevation="@dimen/landing_welcome_card_elevation"
+        app:layout_constraintBottom_toTopOf="@+id/listing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/landing_page_filter_button" />
+        app:layout_constraintTop_toBottomOf="@+id/filters">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/landing_page_launch_listing"
+    </com.google.android.material.card.MaterialCardView>
+
+    <include
+        android:id="@+id/listing"
+        layout="@layout/landing_page_launch_listing"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_x_lg"
+        android:layout_marginStart="@dimen/landing_section_margin"
         android:layout_marginTop="@dimen/landing_section_margin"
-        android:layout_marginEnd="@dimen/margin_x_lg"
+        android:layout_marginEnd="@dimen/landing_section_margin"
         android:layout_marginBottom="@dimen/landing_list_bottom_margin"
-        android:background="@drawable/bg_event_listing_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/landing_page_welcome_card" />
+        app:layout_constraintTop_toBottomOf="@id/welcome"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
