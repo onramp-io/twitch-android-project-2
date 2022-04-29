@@ -3,7 +3,7 @@ package com.example.voyagerx.ui.fragments.landing.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.voyagerx.R
+import com.example.voyagerx.databinding.LandingPageOverviewCardBinding
 import com.example.voyagerx.ui.fragments.landing.data.LaunchOverviewData
 
 class LaunchOverviewAdapter(private val listener: LaunchOverviewClickListener) :
@@ -17,8 +17,8 @@ class LaunchOverviewAdapter(private val listener: LaunchOverviewClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchOverviewViewHolder =
         LaunchOverviewViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.landing_page_overview_card, parent, false)
+            LandingPageOverviewCardBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false)
         )
 
     override fun onBindViewHolder(holder: LaunchOverviewViewHolder, position: Int) {

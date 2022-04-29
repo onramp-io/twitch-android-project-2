@@ -3,16 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/ic_landing_page.xml" value="0.29" />
-        <entry key="app/src/main/res/drawable/login_background.xml" value="0.29" />
-        <entry key="app/src/main/res/drawable/login_button.xml" value="0.29" />
-        <entry key="app/src/main/res/drawable/rounded_edittext.xml" value="0.29" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2859375" />
-        <entry key="app/src/main/res/layout/fragment_landing_page.xml" value="0.2859375" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_launch_details.xml" value="0.17983789260385005" />
+        <entry key="app/src/main/res/drawable/ic_baseline_filter_alt_32.xml" value="0.355" />
+        <entry key="app/src/main/res/layout/fragment_launch_details.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/landing_page_filter_section.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/landing_page_launch_listing.xml" value="0.28804347826086957" />
+        <entry key="app/src/main/res/layout/landing_page_overview_card.xml" value="0.33" />
       </map>
     </option>
   </component>
