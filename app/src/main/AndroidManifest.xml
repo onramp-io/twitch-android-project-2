@@ -13,7 +13,7 @@
         android:theme="@style/Theme.VoyagerX">
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="false">
         </activity>
         <activity
             android:name=".MainActivity"
