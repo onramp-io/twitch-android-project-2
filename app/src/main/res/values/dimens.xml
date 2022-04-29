@@ -3,8 +3,18 @@
     <dimen name="margin_sm">4dp</dimen>
     <dimen name="margin_md">8dp</dimen>
     <dimen name="margin_lg">12dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="margin_x_lg">16dp</dimen>
+    <dimen name="landing_section_margin">15dp</dimen>
+    <dimen name="landing_corner_radius">@dimen/margin_sm</dimen>
+    <dimen name="landing_card_padding">20dp</dimen>
+    <dimen name="landing_search_height">30dp</dimen>
+    <dimen name="landing_filter_icon_size">48dp</dimen>
+    <dimen name="landing_welcome_card_height">100dp</dimen>
+    <dimen name="landing_list_bottom_margin">70dp</dimen>
 
 </resources>

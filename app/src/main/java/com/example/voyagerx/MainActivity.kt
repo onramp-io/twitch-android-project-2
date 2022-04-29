@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import com.example.voyagerx.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
+import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var bottomNavView : BottomNavigationView
+    private lateinit var bottomNavView: BottomNavigationView
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeFragmentView(desiredFragment: Fragment){
+    private fun changeFragmentView(desiredFragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frame, desiredFragment)
             commit()
@@ -42,4 +44,3 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
-
