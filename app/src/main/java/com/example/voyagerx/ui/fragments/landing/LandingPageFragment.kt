@@ -1,6 +1,7 @@
 package com.example.voyagerx.ui.fragments.landing
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,15 @@ import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.repository.model.Launch
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
+class LandingPageFragment(): Fragment() {
 
-class LandingPageFragment : Fragment() {
+    @Inject
+    lateinit var launchRepository: LaunchRepository
+
     private lateinit var binding: FragmentLandingPageBinding
     private lateinit var launchData: List<Launch?>
 
@@ -34,7 +41,7 @@ class LandingPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            val result = LaunchRepository.getLaunches()
+            val result = launchRepository.getLaunches()
             hideSpinner()
 
             if (result != null) {

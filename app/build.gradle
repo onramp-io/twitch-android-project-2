@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id("com.apollographql.apollo3").version("3.2.2")
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -15,6 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner "com.example.voyagerx.di.MyTestRunner"
     }
 
     buildTypes {
@@ -35,8 +38,6 @@ android {
         viewBinding true
     }
 }
-
-apply plugin: 'kotlin-kapt'
 
 dependencies {
 
@@ -64,8 +65,19 @@ dependencies {
 
     //Coil
     implementation("io.coil-kt:coil:2.0.0-rc03")
+
+    //Hilt
+    implementation 'com.google.dagger:hilt-android:2.41'
+    kapt 'com.google.dagger:hilt-compiler:2.41'
+
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.41'
+    kaptAndroidTest 'com.google.dagger:hilt-compiler:2.41'
 }
 
 apollo {
     packageName.set("com.example.rocketreserver")
+}
+
+kapt {
+    correctErrorTypes = true
 }

@@ -8,8 +8,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
 import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavView: BottomNavigationView
     lateinit var binding: ActivityMainBinding
