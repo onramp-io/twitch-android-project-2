@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import coil.load
 import coil.size.Precision
 import coil.size.Scale
@@ -60,12 +61,12 @@ class LaunchDetailsFragment : Fragment() {
 
     private fun displayLaunchDetails() {
         //launchObj.image_links will return an empty list (instead of null) if no photos are available
-        if (launchObj.image_links.isNullOrEmpty()) {
-            //default photo
-            binding.ivLaunchPictures.load("https://www.spacex.com/static/images/share.jpg")
-        } else {
+        if (!launchObj.image_links.isNullOrEmpty()) {
             var imgUrl = launchObj.image_links?.elementAt(0)
-            binding.ivLaunchPictures.load(imgUrl)
+            binding.ivLaunchPictures.let {
+                it.scaleType = ImageView.ScaleType.FIT_CENTER
+                it.load(imgUrl)
+            }
         }
 
         launchObj.mission_name?.let {

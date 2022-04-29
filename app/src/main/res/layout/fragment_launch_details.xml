@@ -17,7 +17,9 @@
             android:id="@+id/ivLaunchPictures"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:contentDescription="@string/launch_image_description" />
+            android:contentDescription="@string/launch_image_description"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/spacex_logo" />
 
             <LinearLayout
                 android:id="@+id/llContentBody"
