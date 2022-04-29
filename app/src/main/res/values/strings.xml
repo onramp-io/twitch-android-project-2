@@ -23,6 +23,9 @@
     <string name="login_button">Launch!</string>
 
     <string name="filter_launches_content_description">Filter launches</string>
+    <string name="launch_listing_header">There are %1$d total launches 🚀</string>
+    <string name="landing_page_network_try_later">Please try again later.</string>
+    <string name="landing_page_connection_failed">Connection Failed.</string>
     <string name="avatarInitial">U</string>
     <string name="your_favorite_launches_label">Your Favorite Launches</string>
     <string name="user_bio_on_profile">A spaceman wanting to go into space, man!</string>
@@ -30,4 +33,15 @@
     <string name="edit_profile_button_content_description">Edit profile button</string>
     <string name="first_letter_of_user_name_content_description">First letter of user\'s name</string>
 
+    <string name="launch_image_description">Image of launch</string>
+    <string name="detailSubheader">DETAILS</string>
+    <string name="sample_launch_date">2014-01-08</string>
+    <string name="sample_launch_details">Second GTO launch for Falcon 9. The USAF evaluated launch data from this flight as part of a separate certification program for SpaceX to qualify to fly U.S. military payloads and found that the Thaicom 6 launch had \'unacceptable fuel reserves at engine cutoff of the stage 2 second burnoff\'</string>
+    <string name="location_icon_description">location icon</string>
+    <string name="sample_mission_name">Thaicom 6</string>
+    <string name="sample_site_name_long">Cape Canaveral Air Force Station</string>
+    <string name="LinksHeader">LINKS</string>
+    <string name="video_link_text">Watch the launch video</string>
+    <string name="article_link_text">Read the latest article</string>
+    <string name="external_link_icon_description">External link button</string>
 </resources>

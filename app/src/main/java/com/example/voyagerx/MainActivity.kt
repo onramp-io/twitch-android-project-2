@@ -41,6 +41,5 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
-        setContentView(R.layout.activity_main)
     }
 }
