@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.voyagerx.R
-import com.example.voyagerx.ui.fragments.landing.LaunchOverviewData
+import com.example.voyagerx.ui.fragments.landing.data.LaunchOverviewData
 
 class LaunchOverviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val missionName: TextView =
@@ -15,6 +15,6 @@ class LaunchOverviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     fun bind(item: LaunchOverviewData) {
         missionName.text = item.missionName
         siteName.text = item.siteName
-        year.text = item.year.toString()
+        year.text = item.year
     }
 }

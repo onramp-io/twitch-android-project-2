@@ -10,14 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.repository.LaunchRepository
-import com.example.voyagerx.repository.model.Launch
+import com.example.voyagerx.ui.fragments.landing.data.LaunchOverviewData
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewClickListener
 import com.example.voyagerx.ui.fragments.landing.translators.LaunchOverviewTranslator
 
 
-class LandingPageFragment : Fragment() {
-    private val launchOverviewTranslator: LaunchOverviewTranslator = LaunchOverviewTranslator
+class LandingPageFragment(private val launchOverviewTranslator: LaunchOverviewTranslator = LaunchOverviewTranslator) :
+    Fragment() {
     private lateinit var binding: FragmentLandingPageBinding
     private var launchData: List<LaunchOverviewData> = listOf()
 
@@ -45,7 +45,7 @@ class LandingPageFragment : Fragment() {
 
     private fun setupList() {
         val adapter = LaunchOverviewAdapter(LaunchOverviewClickListener {
-            Log.i("LandingPageFragment","$it.missionName clicked.")
+            Log.i("LandingPageFragment", "$it.missionName clicked.")
         })
         binding.listing.list.adapter = adapter
 
@@ -63,17 +63,17 @@ class LandingPageFragment : Fragment() {
         }
     }
 
+    private fun setListHeaderText(amount: Int) {
+        binding.listing.header.text = resources.getString(R.string.launch_listing_header, amount)
+        binding.listing.header.visibility = View.VISIBLE
+    }
+
     private fun showSpinner() {
         binding.listing.spinner.visibility = View.VISIBLE
     }
 
     private fun hideSpinner() {
         binding.listing.spinner.visibility = View.INVISIBLE
-    }
-
-    private fun setListHeaderText(amount: Int) {
-        binding.listing.header.text = resources.getString(R.string.launch_listing_header, amount)
-        binding.listing.header.visibility = View.VISIBLE
     }
 
     private fun showNetworkError() {

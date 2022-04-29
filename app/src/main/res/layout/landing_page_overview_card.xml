@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/launch_overview_constraint_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_sm"
+    android:layout_marginBottom="@dimen/margin_sm">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/launch_overview_card_view"
@@ -25,14 +27,33 @@
 
             <TextView
                 android:id="@+id/launch_overview_card_mission_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_sm"
+                android:layout_marginEnd="@dimen/margin_sm"
+                android:ellipsize="end"
                 android:hint="@string/example_mission_name"
+                android:singleLine="true"
+                android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/launch_overview_card_separator_one"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_one"
+                app:layout_constraintStart_toStartOf="@id/launch_overview_card_underline"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.26" />
 
             <TextView
                 android:id="@+id/launch_overview_card_separator_one"
@@ -41,19 +62,24 @@
                 android:text="@string/field_separator"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/launch_overview_card_site_name"
-                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_mission_name"
+                app:layout_constraintEnd_toStartOf="@id/guideline_two"
+                app:layout_constraintStart_toStartOf="@+id/guideline_one"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/launch_overview_card_site_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_sm"
+                android:layout_marginEnd="@dimen/margin_sm"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:hint="@string/example_launch_overview_site_name"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/launch_overview_card_separator_one3"
-                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_separator_one"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_three"
+                app:layout_constraintStart_toStartOf="@+id/guideline_two"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -63,20 +89,37 @@
                 android:text="@string/field_separator"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/launch_overview_card_year"
-                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_site_name"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_four"
+                app:layout_constraintStart_toStartOf="@+id/guideline_three"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_marginBaseline="100dp" />
 
-            <TextView
-                android:id="@+id/launch_overview_card_year"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_three"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.85" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.86" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_sm"
+                android:layout_marginEnd="@dimen/margin_sm"
                 android:hint="@string/example_launch_overview_year"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_separator_one3"
+                app:layout_constraintStart_toStartOf="@+id/guideline_four"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View

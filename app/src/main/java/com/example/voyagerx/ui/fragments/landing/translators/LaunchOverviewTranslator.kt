@@ -1,7 +1,7 @@
 package com.example.voyagerx.ui.fragments.landing.translators
 
 import com.example.voyagerx.repository.model.Launch
-import com.example.voyagerx.ui.fragments.landing.LaunchOverviewData
+import com.example.voyagerx.ui.fragments.landing.data.LaunchOverviewData
 
 object LaunchOverviewTranslator {
     fun translate(result: List<Launch?>) =

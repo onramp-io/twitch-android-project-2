@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.voyagerx.R
-import com.example.voyagerx.ui.fragments.landing.LaunchOverviewData
+import com.example.voyagerx.ui.fragments.landing.data.LaunchOverviewData
 
 class LaunchOverviewAdapter(private val listener: LaunchOverviewClickListener) :
     RecyclerView.Adapter<LaunchOverviewViewHolder>() {
