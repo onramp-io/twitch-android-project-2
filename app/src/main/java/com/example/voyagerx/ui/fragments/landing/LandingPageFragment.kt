@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.repository.LaunchRepository
+import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.ui.fragments.landing.data.LaunchOverviewData
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewClickListener
@@ -19,7 +20,7 @@ import com.example.voyagerx.ui.fragments.landing.translators.LaunchOverviewTrans
 class LandingPageFragment(private val launchOverviewTranslator: LaunchOverviewTranslator = LaunchOverviewTranslator) :
     Fragment() {
     private lateinit var binding: FragmentLandingPageBinding
-    private var launchData: List<LaunchOverviewData> = listOf()
+    private lateinit var launchData: List<LaunchOverviewData>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +30,7 @@ class LandingPageFragment(private val launchOverviewTranslator: LaunchOverviewTr
         // Inflate the layout for this fragment
         binding = FragmentLandingPageBinding.inflate(inflater)
 
-        if (launchData.isEmpty()) {
+        if (!this::launchData.isInitialized) {
             showSpinner()
         }
         hideNetworkError()
@@ -40,7 +41,9 @@ class LandingPageFragment(private val launchOverviewTranslator: LaunchOverviewTr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupList()
+        if (!this::launchData.isInitialized) {
+            setupList()
+        }
     }
 
     private fun setupList() {

@@ -18,7 +18,8 @@ class LaunchOverviewAdapter(private val listener: LaunchOverviewClickListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchOverviewViewHolder =
         LaunchOverviewViewHolder(
             LandingPageOverviewCardBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false)
+                LayoutInflater.from(parent.context), parent, false
+            )
         )
 
     override fun onBindViewHolder(holder: LaunchOverviewViewHolder, position: Int) {
