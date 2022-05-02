@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import com.example.voyagerx.R
+import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
 
 
 class ProfileFragment : Fragment() {
@@ -19,8 +20,8 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         val editProfileBtn : ImageButton = view.findViewById(R.id.editProfileImageBtn)
-        editProfileBtn.setOnClickListener {//uncomment when EditProfile() Fragment has been created
-            //val transaction = requireFragmentManager().beginTransaction().replace(R.id.frame, EditProfile()).commit()
+        editProfileBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, EditProfileFragment()).commit()
         }
         return view
     }
