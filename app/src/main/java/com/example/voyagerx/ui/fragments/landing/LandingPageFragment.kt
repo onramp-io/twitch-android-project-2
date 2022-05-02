@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
+import com.example.voyagerx.LaunchDetailsFragment
 import com.example.voyagerx.R
+import com.example.voyagerx.data.LaunchDetailBundle
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
@@ -17,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LandingPageFragment(): Fragment() {
+class LandingPageFragment: Fragment() {
 
     @Inject
     lateinit var launchRepository: LaunchRepository
@@ -51,6 +54,25 @@ class LandingPageFragment(): Fragment() {
 
         val adapter = LaunchOverviewAdapter(LaunchClickListener {
             Log.i("LandingPageFragment", "$it.missionName clicked.")
+            val bundle = Bundle()
+            bundle.putString(LaunchDetailBundle.id, it.id)
+            bundle.putString(LaunchDetailBundle.missionName, it.mission_name)
+            bundle.putString(LaunchDetailBundle.launchSite, it.launch_site_long)
+            bundle.putString(LaunchDetailBundle.launchDate, it.launch_date_utc)
+            bundle.putString(LaunchDetailBundle.launchYear, it.launch_year)
+            bundle.putString(LaunchDetailBundle.details, it.details)
+            bundle.putString(LaunchDetailBundle.articleLink, it.article_link)
+            bundle.putString(LaunchDetailBundle.videoLink, it.video_link)
+            bundle.putStringArray(LaunchDetailBundle.imageLinks, it.image_links?.toTypedArray())
+
+            val launchDetailsFragment = LaunchDetailsFragment()
+            launchDetailsFragment.arguments = bundle
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
+                    R.anim.slide_in_from_left, R.anim.slide_out_to_right)
+                .replace(R.id.frame, launchDetailsFragment)
+                .commit()
         })
         binding.listing.list.adapter = adapter
 

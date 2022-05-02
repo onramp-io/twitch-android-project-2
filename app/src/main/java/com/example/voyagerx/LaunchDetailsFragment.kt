@@ -10,6 +10,7 @@ import android.widget.ImageView
 import coil.load
 import coil.size.Precision
 import coil.size.Scale
+import com.example.voyagerx.data.LaunchDetailBundle
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.repository.model.Launch
 
@@ -23,29 +24,26 @@ class LaunchDetailsFragment : Fragment() {
     private var _binding: FragmentLaunchDetailsBinding? = null
     private val binding get() = _binding!!
 
-    //placeholder data until we get landing page connected
-    private var launchObj : Launch = Launch(
-        "1",
-        "Thaicom 6",
-        "Cape Canaveral Air Force Station Space Launch Complex 40",
-        "2020-12-13T17:30:00.000Z",
-        "2020",
-        "SpaceX will launch Sentinel-6 Michael Freilich into low Earth orbit for NASA, NOAA, ESA, and the European Organization for the Exploitation of Meteorological Satellites aboard a Falcon 9 from SLC-4E, Vandenberg Air Force Station. Sentinel-6(A) is an ocean observation satellite providing radar ocean surface altimetry data and also atmospheric temperature profiles as a secondary mission. The booster for this mission is will land at LZ-4.",
-        "https://spaceflightnow.com/2020/11/21/international-satellite-launches-to-extend-measurements-of-sea-level-rise/",
-        "https://youtu.be/aVFPzTDCihQ",
-        listOf("https://live.staticflickr.com/65535/50630802488_8cc373728e_o.jpg",
-            "https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg",
-            "https://live.staticflickr.com/65535/50631544171_66bd43eaa9_o.jpg",
-            "https://live.staticflickr.com/65535/50631543966_e8035d5cca_o.jpg",
-            "https://live.staticflickr.com/65535/50631643257_c214ceee7b_o.jpg",
-            "https://live.staticflickr.com/65535/50631643917_cb7db291d0_o.jpg")
-    )
+    private lateinit var launchObj: Launch
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLaunchDetailsBinding.inflate(inflater, container, false)
+
+        launchObj = Launch(
+            arguments?.getString(LaunchDetailBundle.id)!!,
+            arguments?.getString(LaunchDetailBundle.missionName),
+            arguments?.getString(LaunchDetailBundle.launchSite),
+            arguments?.getString(LaunchDetailBundle.launchDate),
+            arguments?.getString(LaunchDetailBundle.launchYear),
+            arguments?.getString(LaunchDetailBundle.details),
+            arguments?.getString(LaunchDetailBundle.articleLink),
+            arguments?.getString(LaunchDetailBundle.videoLink),
+            arguments?.getStringArray(LaunchDetailBundle.imageLinks)?.toList()
+        )
+
         return binding.root
     }
 
