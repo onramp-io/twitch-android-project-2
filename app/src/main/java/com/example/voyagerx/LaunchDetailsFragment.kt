@@ -1,15 +1,14 @@
 package com.example.voyagerx
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.viewpager.widget.ViewPager
 import coil.load
-import coil.size.Precision
-import coil.size.Scale
+import com.example.voyagerx.adapters.LaunchCarouselAdapter
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.repository.model.Launch
 
@@ -59,14 +58,21 @@ class LaunchDetailsFragment : Fragment() {
         _binding = null
     }
 
+    private fun displayCarousel() {
+        val viewPager :ViewPager = binding.vpLaunchPhotos
+        val imageAdapter = LaunchCarouselAdapter(requireContext(),
+            launchObj.image_links
+        )
+        viewPager.adapter = imageAdapter
+    }
+
     private fun displayLaunchDetails() {
         //launchObj.image_links will return an empty list (instead of null) if no photos are available
-        if (!launchObj.image_links.isNullOrEmpty()) {
-            var imgUrl = launchObj.image_links?.elementAt(0)
-            binding.ivLaunchPictures.let {
-                it.scaleType = ImageView.ScaleType.FIT_CENTER
-                it.load(imgUrl)
-            }
+        if (launchObj.image_links.isNullOrEmpty()) {
+            binding.ivDefaultImage.visibility = ImageView.VISIBLE
+            hideView(binding.vpLaunchPhotos)
+        } else {
+            displayCarousel()
         }
 
         launchObj.mission_name?.let {

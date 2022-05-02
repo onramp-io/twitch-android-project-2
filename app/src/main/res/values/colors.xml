@@ -10,4 +10,5 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="gray">#717171</color>
     <color name="user_profile_background">#A39494</color>
+    <color name="hint_color">#B09BCA</color>
 </resources>

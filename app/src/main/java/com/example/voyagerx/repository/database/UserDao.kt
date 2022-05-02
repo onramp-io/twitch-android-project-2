@@ -20,9 +20,10 @@ interface UserDao {
     fun insertNoProfile(email: String, password: String)
 
     @Query("SELECT * FROM User WHERE email = :email")
-    fun findUserByEmail(email: String): User
+    fun findUserByEmail(email: String): User?
 
     @Query("UPDATE User SET favoriteLaunches = :favoriteLaunches WHERE id = :userId")
-    fun updateUserFavoriteLaunches(userId: Int, favoriteLaunches: List<Launch>?)
+    fun updateUserFavoriteLaunches(userId: Int, favoriteLaunches: MutableList<Launch>?)
+
 
 }
