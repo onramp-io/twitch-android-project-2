@@ -44,4 +44,19 @@
     <string name="video_link_text">Watch the launch video</string>
     <string name="article_link_text">Read the latest article</string>
     <string name="external_link_icon_description">External link button</string>
+    <string name="appearance_settings_label">APPEARANCE</string>
+    <string name="alerts_settings_label">ALERTS</string>
+    <string name="stars_background_content_desc">Stars background</string>
+    <string name="rockets_background_content_desc">Rockets background</string>
+    <string name="settings_fragment_name">Settings</string>
+    <string name="font_size_img_content_desc">Font size image</string>
+    <string name="large_menu_label">Large</string>
+    <string name="rocket_notification_content_desc">Rocket notification</string>
+    <string name="notify_me_of_new_launches">Notify me of new launches</string>
+
+    <string-array name="font_sizes">
+        <item>Large</item>
+        <item>Medium</item>
+        <item>Small</item>
+    </string-array>
 </resources>
