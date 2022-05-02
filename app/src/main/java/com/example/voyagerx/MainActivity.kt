@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavView = binding.bottomNavigationView
 
 
-        changeFragmentView(LaunchDetailsFragment()) //setting initial view to landing page as you only get here after bypassing login/register screens
+        changeFragmentView(LandingPageFragment()) //setting initial view to landing page as you only get here after bypassing login/register screens
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
