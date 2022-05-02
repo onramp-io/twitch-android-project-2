@@ -68,7 +68,7 @@
 
 
         <ImageView
-            android:id="@+id/avatarBackgroundIv"
+            android:id="@+id/ivAvatarBackground"
             android:layout_width="135sp"
             android:layout_height="135sp"
             android:layout_marginTop="12dp"

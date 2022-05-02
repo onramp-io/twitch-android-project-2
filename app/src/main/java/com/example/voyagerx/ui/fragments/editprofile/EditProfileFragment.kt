@@ -20,7 +20,7 @@ class EditProfileFragment : Fragment() {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 
         setButtonListeners()
-        grabCurrentInfoFromDatabase()
+        getUserInfoFromDb()
 
 
         return binding.root
@@ -35,7 +35,7 @@ class EditProfileFragment : Fragment() {
 
     }
 
-    private fun getUserUserCurrentInfoFromDatabase() {
+    private fun getUserInfoFromDb() {
 
     }
 
