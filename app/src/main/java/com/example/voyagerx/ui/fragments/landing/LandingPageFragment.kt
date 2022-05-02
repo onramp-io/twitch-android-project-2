@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.repository.LaunchRepository
+import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
+import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.Launch
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,7 +23,7 @@ class LandingPageFragment(): Fragment() {
     lateinit var launchRepository: LaunchRepository
 
     private lateinit var binding: FragmentLandingPageBinding
-    private lateinit var launchData: List<Launch?>
+    private lateinit var launches: List<Launch>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,26 +33,44 @@ class LandingPageFragment(): Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLandingPageBinding.inflate(inflater)
 
-        showSpinner()
-        hideNetworkError()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        hideNetworkError()
+
+        if (!this::launches.isInitialized) {
+            setupList()
+        }
+    }
+
+    private fun setupList() {
+        showSpinner()
+
+        val adapter = LaunchOverviewAdapter(LaunchClickListener {
+            Log.i("LandingPageFragment", "$it.missionName clicked.")
+        })
+        binding.listing.list.adapter = adapter
+
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             val result = launchRepository.getLaunches()
             hideSpinner()
 
             if (result != null) {
-                launchData = result
-                setListHeaderText(launchData.size)
+                launches = result.filterNotNull()
+                adapter.initializeList(launches)
+                setListHeaderText(launches.size)
             } else {
                 showNetworkError()
             }
         }
+    }
+
+    private fun setListHeaderText(amount: Int) {
+        binding.listing.header.text = resources.getString(R.string.launch_listing_header, amount)
+        binding.listing.header.visibility = View.VISIBLE
     }
 
     private fun showSpinner() {
@@ -59,11 +79,6 @@ class LandingPageFragment(): Fragment() {
 
     private fun hideSpinner() {
         binding.listing.spinner.visibility = View.INVISIBLE
-    }
-
-    private fun setListHeaderText(amount: Int) {
-        binding.listing.header.text = resources.getString(R.string.launch_listing_header, amount)
-        binding.listing.header.visibility = View.VISIBLE
     }
 
     private fun showNetworkError() {
