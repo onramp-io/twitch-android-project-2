@@ -13,10 +13,15 @@ import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.Launch
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
+class LandingPageFragment(): Fragment() {
 
-class LandingPageFragment :
-    Fragment() {
+    @Inject
+    lateinit var launchRepository: LaunchRepository
+
     private lateinit var binding: FragmentLandingPageBinding
     private lateinit var launches: List<Launch>
 
@@ -50,7 +55,7 @@ class LandingPageFragment :
         binding.listing.list.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            val result = LaunchRepository.getLaunches()
+            val result = launchRepository.getLaunches()
             hideSpinner()
 
             if (result != null) {
