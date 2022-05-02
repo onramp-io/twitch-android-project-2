@@ -53,7 +53,7 @@
                         tools:text="@string/sample_mission_name" />
 
                     <ImageView
-                        android:id="@+id/imageButton"
+                        android:id="@+id/ivFavorite"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
@@ -64,13 +64,13 @@
                         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
                     <ImageView
-                        android:id="@+id/imageButton2"
+                        android:id="@+id/ivShare"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                        app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_share_24" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
