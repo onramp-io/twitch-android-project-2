@@ -16,8 +16,8 @@ class LaunchCarouselAdapter(private val mContext: Context, private val imageList
         return imageList?.size ?: 0
     }
 
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view === `object`
+    override fun isViewFromObject(view: View, carouselView: Any): Boolean {
+        return view === carouselView
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -28,7 +28,7 @@ class LaunchCarouselAdapter(private val mContext: Context, private val imageList
         return imageView
     }
 
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as ImageView)
+    override fun destroyItem(container: ViewGroup, position: Int, carouselView: Any) {
+        container.removeView(carouselView as ImageView)
     }
 }
