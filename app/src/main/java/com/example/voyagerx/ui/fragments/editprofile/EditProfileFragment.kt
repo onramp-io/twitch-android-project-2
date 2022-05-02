@@ -19,14 +19,14 @@ class EditProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 
-        settingButtonListeners()
+        setButtonListeners()
         grabCurrentInfoFromDatabase()
 
 
         return binding.root
     }
 
-    private fun settingButtonListeners() {
+    private fun setButtonListeners() {
         binding.tvCancelChanges.setOnClickListener {
                 parentFragmentManager.beginTransaction().replace(R.id.frame, ProfileFragment()).commit()
         }
@@ -35,7 +35,7 @@ class EditProfileFragment : Fragment() {
 
     }
 
-    private fun grabCurrentInfoFromDatabase() {
+    private fun getUserUserCurrentInfoFromDatabase() {
 
     }
 
