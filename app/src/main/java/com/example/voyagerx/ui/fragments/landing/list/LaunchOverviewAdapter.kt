@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.voyagerx.databinding.LandingPageOverviewCardBinding
-import com.example.voyagerx.ui.fragments.landing.data.LaunchOverviewData
+import com.example.voyagerx.helpers.LaunchClickListener
+import com.example.voyagerx.repository.model.Launch
 
-class LaunchOverviewAdapter(private val listener: LaunchOverviewClickListener) :
+class LaunchOverviewAdapter(private val listener: LaunchClickListener) :
     RecyclerView.Adapter<LaunchOverviewViewHolder>() {
-    private var launches: List<LaunchOverviewData> = listOf()
+    private var launches: List<Launch> = listOf()
 
-    fun initializeList(launches: List<LaunchOverviewData>) {
+    fun initializeList(launches: List<Launch>) {
         this.launches = launches
         notifyDataSetChanged()
     }

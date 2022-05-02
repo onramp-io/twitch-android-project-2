@@ -10,17 +10,15 @@ import androidx.lifecycle.lifecycleScope
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.repository.LaunchRepository
-import com.example.voyagerx.repository.model.Launch
-import com.example.voyagerx.ui.fragments.landing.data.LaunchOverviewData
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
-import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewClickListener
-import com.example.voyagerx.ui.fragments.landing.translators.LaunchOverviewTranslator
+import com.example.voyagerx.helpers.LaunchClickListener
+import com.example.voyagerx.repository.model.Launch
 
 
-class LandingPageFragment(private val launchOverviewTranslator: LaunchOverviewTranslator = LaunchOverviewTranslator) :
+class LandingPageFragment :
     Fragment() {
     private lateinit var binding: FragmentLandingPageBinding
-    private lateinit var launchData: List<LaunchOverviewData>
+    private lateinit var launches: List<Launch>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,24 +28,23 @@ class LandingPageFragment(private val launchOverviewTranslator: LaunchOverviewTr
         // Inflate the layout for this fragment
         binding = FragmentLandingPageBinding.inflate(inflater)
 
-        if (!this::launchData.isInitialized) {
-            showSpinner()
-        }
-        hideNetworkError()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (!this::launchData.isInitialized) {
+        hideNetworkError()
+
+        if (!this::launches.isInitialized) {
             setupList()
         }
     }
 
     private fun setupList() {
-        val adapter = LaunchOverviewAdapter(LaunchOverviewClickListener {
+        showSpinner()
+
+        val adapter = LaunchOverviewAdapter(LaunchClickListener {
             Log.i("LandingPageFragment", "$it.missionName clicked.")
         })
         binding.listing.list.adapter = adapter
@@ -57,9 +54,9 @@ class LandingPageFragment(private val launchOverviewTranslator: LaunchOverviewTr
             hideSpinner()
 
             if (result != null) {
-                launchData = launchOverviewTranslator.translate(result)
-                adapter.initializeList(launchData)
-                setListHeaderText(launchData.size)
+                launches = result.filterNotNull()
+                adapter.initializeList(launches)
+                setListHeaderText(launches.size)
             } else {
                 showNetworkError()
             }
