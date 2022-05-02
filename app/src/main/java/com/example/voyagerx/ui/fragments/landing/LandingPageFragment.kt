@@ -52,25 +52,27 @@ class LandingPageFragment: Fragment() {
     private fun setupList() {
         showSpinner()
 
+        // Add button press animation
         val adapter = LaunchOverviewAdapter(LaunchClickListener {
-            Log.i("LandingPageFragment", "$it.missionName clicked.")
             val bundle = Bundle()
-            bundle.putString(LaunchDetailBundle.id, it.id)
-            bundle.putString(LaunchDetailBundle.missionName, it.mission_name)
-            bundle.putString(LaunchDetailBundle.launchSite, it.launch_site_long)
-            bundle.putString(LaunchDetailBundle.launchDate, it.launch_date_utc)
-            bundle.putString(LaunchDetailBundle.launchYear, it.launch_year)
-            bundle.putString(LaunchDetailBundle.details, it.details)
-            bundle.putString(LaunchDetailBundle.articleLink, it.article_link)
-            bundle.putString(LaunchDetailBundle.videoLink, it.video_link)
-            bundle.putStringArray(LaunchDetailBundle.imageLinks, it.image_links?.toTypedArray())
+            bundle.apply {
+                putString(LaunchDetailBundle.id, it.id)
+                putString(LaunchDetailBundle.missionName, it.mission_name)
+                putString(LaunchDetailBundle.launchSite, it.launch_site_long)
+                putString(LaunchDetailBundle.launchDate, it.launch_date_utc)
+                putString(LaunchDetailBundle.launchYear, it.launch_year)
+                putString(LaunchDetailBundle.details, it.details)
+                putString(LaunchDetailBundle.articleLink, it.article_link)
+                putString(LaunchDetailBundle.videoLink, it.video_link)
+                putStringArray(LaunchDetailBundle.imageLinks, it.image_links?.toTypedArray())
+            }
 
             val launchDetailsFragment = LaunchDetailsFragment()
             launchDetailsFragment.arguments = bundle
 
+            // Button animation then fragment transition?
             parentFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
-                    R.anim.slide_in_from_left, R.anim.slide_out_to_right)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.frame, launchDetailsFragment)
                 .commit()
         })
