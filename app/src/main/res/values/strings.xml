@@ -13,7 +13,6 @@
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -44,4 +43,12 @@
     <string name="video_link_text">Watch the launch video</string>
     <string name="article_link_text">Read the latest article</string>
     <string name="external_link_icon_description">External link button</string>
+
+    <string name="user_preference">user_preference</string>
+    <string name="curr_user">current_user</string>
+
+    <!-- Errors -->
+    <string name="email_not_found_error">Email not found</string>
+    <string name="incorrect_password_error">Incorrect password</string>
+    <string name="email_already_registered_error">Email already registered</string>
 </resources>
