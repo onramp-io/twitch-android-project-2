@@ -70,6 +70,7 @@ class UserRepository @Inject constructor(
             val sharedPref = getSharedPreferences()
             with(sharedPref.edit()) {
                 putString(context.getString(R.string.curr_user), convertUserToJson(user))
+                apply()
             }
         }
     }
@@ -78,6 +79,7 @@ class UserRepository @Inject constructor(
         val sharedPref = getSharedPreferences()
         with (sharedPref.edit()) {
             putString(context.getString(R.string.curr_user), null)
+            apply()
         }
     }
 
