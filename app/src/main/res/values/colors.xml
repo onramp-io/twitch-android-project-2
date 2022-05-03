@@ -11,4 +11,10 @@
     <color name="gray">#717171</color>
     <color name="user_profile_background">#A39494</color>
     <color name="hint_color">#B09BCA</color>
+    <color name="primary">#424242</color>
+    <color name="primary_light">#6d6d6d</color>
+    <color name="primary_dark">#1b1b1b</color>
+    <color name="secondary">#3949ab</color>
+    <color name="secondary_light">#6f74dd</color>
+    <color name="secondary_dark">#00227b</color>
 </resources>
