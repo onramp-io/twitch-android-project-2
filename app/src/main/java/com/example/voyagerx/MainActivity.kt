@@ -1,7 +1,9 @@
 package com.example.voyagerx
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.ContactsContract
 
 import androidx.fragment.app.Fragment
 import com.example.voyagerx.databinding.ActivityMainBinding
@@ -11,6 +13,7 @@ import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
 import com.example.voyagerx.ui.fragments.settings.SettingsFragment
 import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
 import com.example.voyagerx.util.FontSizeUtility
+import com.example.voyagerx.util.SharedPreferencesManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
     }
 
     private fun changeFragmentView(desiredFragment: Fragment) {
@@ -47,6 +51,5 @@ class MainActivity : AppCompatActivity() {
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(FontSizeUtility().adjustFontScale(newBase, 1.0F))
     }
-
 
 }
