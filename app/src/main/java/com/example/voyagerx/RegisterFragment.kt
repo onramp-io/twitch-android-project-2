@@ -2,6 +2,7 @@ package com.example.voyagerx
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -55,6 +56,7 @@ class RegisterFragment : Fragment() {
             try {
                 validate(email, password, confirmPassword)
                 userRepository.register(email, password)
+                startActivity(Intent(activity, MainActivity::class.java))
             } catch (e: Exception) {
                 activity?.let {
                     Snackbar.make(
