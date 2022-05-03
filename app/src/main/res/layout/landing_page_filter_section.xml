@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/landing_search_height"
         android:layout_marginTop="@dimen/margin_md"
-        android:background="@drawable/bg_search_rounded_lg"
+        android:background="@drawable/bg_search_rounded_md"
         android:searchIcon="@android:drawable/ic_menu_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
