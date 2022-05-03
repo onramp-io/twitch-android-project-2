@@ -49,33 +49,35 @@ class LandingPageFragment: Fragment() {
         }
     }
 
+    private fun navigateToLaunchDetails(launch: Launch) {
+        val bundle = Bundle()
+        bundle.apply {
+            putString(LaunchDetailBundle.id, launch.id)
+            putString(LaunchDetailBundle.missionName, launch.mission_name)
+            putString(LaunchDetailBundle.launchSite, launch.launch_site_long)
+            putString(LaunchDetailBundle.launchDate, launch.launch_date_utc)
+            putString(LaunchDetailBundle.launchYear, launch.launch_year)
+            putString(LaunchDetailBundle.details, launch.details)
+            putString(LaunchDetailBundle.articleLink, launch.article_link)
+            putString(LaunchDetailBundle.videoLink, launch.video_link)
+            putStringArray(LaunchDetailBundle.imageLinks, launch.image_links?.toTypedArray())
+        }
+
+        val launchDetailsFragment = LaunchDetailsFragment()
+        launchDetailsFragment.arguments = bundle
+
+        // Button animation then fragment transition?
+        parentFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .replace(R.id.frame, launchDetailsFragment)
+            .commit()
+    }
+
     private fun setupList() {
         showSpinner()
 
         // Add button press animation
-        val adapter = LaunchOverviewAdapter(LaunchClickListener {
-            val bundle = Bundle()
-            bundle.apply {
-                putString(LaunchDetailBundle.id, it.id)
-                putString(LaunchDetailBundle.missionName, it.mission_name)
-                putString(LaunchDetailBundle.launchSite, it.launch_site_long)
-                putString(LaunchDetailBundle.launchDate, it.launch_date_utc)
-                putString(LaunchDetailBundle.launchYear, it.launch_year)
-                putString(LaunchDetailBundle.details, it.details)
-                putString(LaunchDetailBundle.articleLink, it.article_link)
-                putString(LaunchDetailBundle.videoLink, it.video_link)
-                putStringArray(LaunchDetailBundle.imageLinks, it.image_links?.toTypedArray())
-            }
-
-            val launchDetailsFragment = LaunchDetailsFragment()
-            launchDetailsFragment.arguments = bundle
-
-            // Button animation then fragment transition?
-            parentFragmentManager.beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.frame, launchDetailsFragment)
-                .commit()
-        })
+        val adapter = LaunchOverviewAdapter(LaunchClickListener(this::navigateToLaunchDetails))
         binding.listing.list.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
