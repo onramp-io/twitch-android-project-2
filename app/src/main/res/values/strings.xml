@@ -64,5 +64,9 @@
     <string name="email_not_found_error">Email not found</string>
     <string name="incorrect_password_error">Incorrect password</string>
     <string name="email_already_registered_error">Email already registered</string>
+    <string name="no_mission_msg">No mission name available</string>
+    <string name="no_location_msg">No location available</string>
+    <string name="no_date_msg">No date available</string>
+    <string name="no_details_msg">No details available</string>
 </resources>
 
