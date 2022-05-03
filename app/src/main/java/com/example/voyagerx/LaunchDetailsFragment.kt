@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.ViewPager
-import coil.load
 import com.example.voyagerx.adapters.LaunchCarouselAdapter
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
+import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.model.Launch
 
 /**
@@ -88,7 +88,7 @@ class LaunchDetailsFragment : Fragment() {
         }
 
         launchObj.launch_date_utc?.let {
-            binding.tvLaunchDate.text = it
+            binding.tvLaunchDate.text = DateFormatter.formatLaunchDate(launchObj.launch_date_utc)
         } ?: run {
             hideView(binding.tvLaunchDate)
         }
