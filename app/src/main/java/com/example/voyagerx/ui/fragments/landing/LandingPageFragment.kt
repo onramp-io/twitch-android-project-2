@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LandingPageFragment(): Fragment() {
+class LandingPageFragment : Fragment() {
 
     @Inject
     lateinit var launchRepository: LaunchRepository

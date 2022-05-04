@@ -16,6 +16,8 @@
         app:cardBackgroundColor="@color/secondary"
         app:cardCornerRadius="@dimen/landing_card_corner_radius"
         app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardMaxElevation="@dimen/cardview_default_elevation"
+        app:cardUseCompatPadding="true"
         app:contentPaddingBottom="@dimen/margin_sm"
         app:contentPaddingTop="@dimen/margin_lg"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,18 +33,43 @@
             android:layout_marginEnd="@dimen/margin_x_lg"
             android:layout_marginBottom="@dimen/margin_md">
 
+            <ImageView
+                android:id="@+id/mission_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/launch_overview_card_mission_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/launch_overview_card_mission_name"
+                app:srcCompat="@drawable/ic_rocket_launch_24" />
+
             <TextView
                 android:id="@+id/launch_overview_card_mission_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_md"
+                android:layout_marginEnd="@dimen/margin_x_lg"
                 android:hint="@string/example_mission_name"
                 android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/text_lg"
                 app:layout_constraintEnd_toStartOf="@id/launch_image"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mission_icon"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/dotted_line"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="@dimen/margin_sm"
+                android:layout_marginEnd="@dimen/margin_x_lg"
+                android:layerType="software"
+                app:layout_constraintBottom_toTopOf="@+id/launch_overview_card_site_name"
+                app:layout_constraintEnd_toStartOf="@id/launch_image"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/mission_icon"
+                app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_mission_name"
+                app:srcCompat="@drawable/dotted" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_one"
@@ -55,33 +82,22 @@
                 android:id="@+id/launch_overview_card_year"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_md"
+                android:layout_marginStart="@dimen/margin_md"
+                android:layout_marginTop="@dimen/margin_lg"
                 android:hint="@string/example_launch_overview_year"
                 android:textAlignment="textStart"
                 android:textColor="@color/material_dynamic_neutral_variant95"
                 android:textColorHint="@color/material_dynamic_neutral_variant95"
                 android:textSize="@dimen/text_sm"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/date_icon"
                 app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_site_name" />
-
-            <ImageView
-                android:id="@+id/dotted_line"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="@dimen/margin_sm"
-                android:layout_marginEnd="@dimen/margin_x_lg"
-                android:layerType="software"
-                app:layout_constraintBottom_toTopOf="@+id/launch_overview_card_site_name"
-                app:layout_constraintEnd_toStartOf="@id/launch_image"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@id/launch_overview_card_mission_name"
-                app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_mission_name"
-                app:srcCompat="@drawable/dotted" />
 
             <TextView
                 android:id="@+id/launch_overview_card_site_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_md"
                 android:layout_marginTop="@dimen/margin_sm"
                 android:layout_marginEnd="@dimen/margin_x_lg"
                 android:hint="@string/example_launch_overview_site_name"
@@ -90,7 +106,7 @@
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/text_md"
                 app:layout_constraintEnd_toStartOf="@id/launch_image"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/site_icon"
                 app:layout_constraintTop_toBottomOf="@+id/dotted_line" />
 
             <ImageView
@@ -103,6 +119,25 @@
                 app:layout_constraintStart_toEndOf="@id/guideline_one"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_rocket_launch_24" />
+
+            <ImageView
+                android:id="@+id/site_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_sm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/launch_overview_card_site_name"
+                app:srcCompat="@drawable/ic_baseline_place_24" />
+
+            <ImageView
+                android:id="@+id/date_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_lg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_site_name"
+                app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
