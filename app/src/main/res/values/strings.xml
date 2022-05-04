@@ -64,5 +64,7 @@
     <string name="email_not_found_error">Email not found</string>
     <string name="incorrect_password_error">Incorrect password</string>
     <string name="email_already_registered_error">Email already registered</string>
+    <string name="no_favorite_launches_case_msg">Failure to launch! No launches have been saved!</string>
+    <string name="no_favorite_launches_content_desc">You have no favorite launches!</string>
 </resources>
 
