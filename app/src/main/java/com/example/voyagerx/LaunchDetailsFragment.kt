@@ -1,5 +1,6 @@
 package com.example.voyagerx
 
+import android.app.Activity
 import android.graphics.Typeface
 import android.content.Intent
 import android.os.Bundle
@@ -23,6 +24,7 @@ import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.repository.model.User
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -163,12 +165,15 @@ class LaunchDetailsFragment : Fragment() {
     }
 
     private fun displayFavorite() {
-        lifecycleScope.launch{ //lifecycle scope is used here since we want to cancel coroutine if fragment is destroyed
+        lifecycleScope.launch { //lifecycle scope is used here since we want to cancel coroutine if fragment is destroyed
             try {
                 var currUser = userRepository.getCurrentUser()
                 if (currUser?.favoriteLaunches != null) {
                     if (currUser.favoriteLaunches!!.contains(launchObj)) {
-                        binding.ivFavoriteTrue.visibility = ImageView.VISIBLE
+                        // changes to ui need to happen on the main thread
+                         launch(Dispatchers.Main) {
+                            binding.ivFavoriteTrue.visibility = ImageView.VISIBLE
+                        }
                     }
                 }
             } catch (e: Exception){
