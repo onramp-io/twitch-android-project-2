@@ -80,21 +80,22 @@
                     android:id="@+id/tvSiteName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_baseline_pin_drop_24"
                     android:drawablePadding="@dimen/margin_sm"
                     android:paddingVertical="@dimen/margin_sm"
                     tools:text="@string/sample_site_name_long"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:drawableStartCompat="@drawable/ic_baseline_pin_drop_24" />
 
                 <TextView
                     android:id="@+id/tvLaunchDate"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_sm"
-                    android:drawableStart="@drawable/ic_baseline_calendar_today_24"
                     android:drawablePadding="@dimen/margin_sm"
-                    tools:text="@string/sample_launch_date"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:paddingVertical="@dimen/margin_sm"
+                    tools:text="@string/sample_site_name_long"
+                    android:drawableTint="@color/gray"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:drawableStartCompat="@drawable/ic_baseline_calendar_today_24" />
 
                 <LinearLayout
                     android:id="@+id/llDetailsSection"

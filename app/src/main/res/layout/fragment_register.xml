@@ -7,7 +7,7 @@
     android:gravity="center"
     android:background="@color/cardview_dark_background"
     android:orientation="vertical"
-    tools:context=".RegisterFragment">
+    tools:context=".RegisterFragment" >
 
     <TextView
         android:layout_width="match_parent"
@@ -16,6 +16,7 @@
         android:textSize="16sp"
         android:textColor="@color/white" />
     <EditText
+        android:id="@+id/email"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
         android:textColor="@color/white"
         android:layout_marginTop="20dp"/>
     <EditText
+        android:id="@+id/password"
         android:inputType="textPassword"
         android:maxLines="1"
         android:layout_width="match_parent"
@@ -46,6 +48,7 @@
         android:textColor="@color/white"
         android:layout_marginTop="20dp"/>
     <EditText
+        android:id="@+id/confirmPassword"
         android:inputType="textPassword"
         android:maxLines="1"
         android:layout_width="match_parent"
@@ -54,6 +57,7 @@
         android:textSize="20dp" />
 
     <Button
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_button"
