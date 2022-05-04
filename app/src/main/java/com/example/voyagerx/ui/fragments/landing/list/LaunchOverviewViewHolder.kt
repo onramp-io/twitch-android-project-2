@@ -7,6 +7,7 @@ import coil.transform.RoundedCornersTransformation
 import coil.transform.Transformation
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.LandingPageOverviewCardBinding
+import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.model.Launch
 import kotlin.math.round
 
@@ -16,11 +17,24 @@ class LaunchOverviewViewHolder(private val binding: LandingPageOverviewCardBindi
     fun bind(item: Launch) {
         binding.launchOverviewCardMissionName.text = item.mission_name
         binding.launchOverviewCardSiteName.text = item.launch_site_long
-        binding.launchOverviewCardYear.text = item.launch_year
+        binding.launchOverviewCardYear.text = DateFormatter.formatLaunchDate(item.launch_date_utc)
         binding.launchImage.scaleType = ImageView.ScaleType.CENTER_CROP
-        binding.launchImage.load(item.image_links?.getOrNull(0)) {
-            transformations(RoundedCornersTransformation(10f,10f,10f,10f))
-            fallback(R.drawable.ic_rocket_launch_24)
+        // placeholder() doesn't support transformations
+        // https://github.com/coil-kt/coil/issues/37
+        val rounded = RoundedCornersTransformation(10f,10f,10f,10f)
+        item.image_links?.getOrNull(0).let {
+            when (it) {
+                null -> {
+                    binding.launchImage.load(R.drawable.spacex_logo) {
+                        transformations(rounded)
+                    }
+                }
+                else -> {
+                    binding.launchImage.load(it) {
+                        transformations(rounded)
+                    }
+                }
+            }
         }
     }
 }
