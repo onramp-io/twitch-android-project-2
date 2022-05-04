@@ -2,7 +2,6 @@ package com.example.voyagerx.repository
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import com.example.voyagerx.R
 import com.example.voyagerx.repository.database.VoyagerXDatabase
 import com.example.voyagerx.repository.model.Launch
@@ -13,10 +12,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
-import java.nio.file.attribute.UserPrincipal
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.math.log
 
 @Singleton
 class UserRepository @Inject constructor(
