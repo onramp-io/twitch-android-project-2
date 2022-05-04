@@ -1,5 +1,6 @@
 package com.example.voyagerx
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.ViewPager
-import coil.load
 import com.example.voyagerx.adapters.LaunchCarouselAdapter
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.repository.model.Launch
@@ -51,6 +51,7 @@ class LaunchDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         displayLaunchDetails()
+        binding.ivShare.setOnClickListener { shareLaunch() }
     }
 
     override fun onDestroyView() {
@@ -115,5 +116,18 @@ class LaunchDetailsFragment : Fragment() {
 
     private fun hideView(view: View) {
         view.visibility = View.GONE
+    }
+
+    private fun shareLaunch() {
+        val share = Intent.createChooser(Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "Check out this SpaceX Launch!\n\n" +
+                    if (!launchObj.mission_name.isNullOrEmpty()) "${launchObj.mission_name}\n\n" else "" +
+                    if (!launchObj.details.isNullOrEmpty()) "${launchObj.details}\n\n" else "" +
+                    if(!launchObj.video_link.isNullOrEmpty()) "Watch the launch video:\n ${launchObj.video_link}" else ""
+            )
+            type = "text/plain"
+        }, null)
+        startActivity(share)
     }
 }
