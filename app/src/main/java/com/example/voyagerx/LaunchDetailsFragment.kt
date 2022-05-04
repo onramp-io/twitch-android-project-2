@@ -3,12 +3,14 @@ package com.example.voyagerx
 import android.graphics.Typeface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.example.voyagerx.adapters.LaunchCarouselAdapter
 import coil.size.Precision
@@ -16,19 +18,31 @@ import coil.size.Scale
 import com.example.voyagerx.data.LaunchDetailBundle
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.helpers.DateFormatter
+import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.repository.model.Launch
+import com.example.voyagerx.repository.model.User
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.lang.Exception
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  * Use the [LaunchDetailsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class LaunchDetailsFragment : Fragment() {
 
     private var _binding: FragmentLaunchDetailsBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var launchObj: Launch
+
+    @Inject
+    lateinit var userRepository: UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +69,7 @@ class LaunchDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         displayImages()
         displayLaunchDetails()
+        displayFavorite()
         binding.ivShare.setOnClickListener { shareLaunch() }
     }
 
@@ -145,5 +160,20 @@ class LaunchDetailsFragment : Fragment() {
             type = "text/plain"
         }, null)
         startActivity(share)
+    }
+
+    private fun displayFavorite() {
+        lifecycleScope.launch{ //lifecycle scope is used here since we want to cancel coroutine if fragment is destroyed
+            try {
+                var currUser = userRepository.getCurrentUser()
+                if (currUser?.favoriteLaunches != null) {
+                    if (currUser.favoriteLaunches!!.contains(launchObj)) {
+                        binding.ivFavoriteTrue.visibility = ImageView.VISIBLE
+                    }
+                }
+            } catch (e: Exception){
+                Log.d("user", "there was an error checking favorites $e")
+            }
+        }
     }
 }
