@@ -18,8 +18,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // NOTE: when directing to login activity, add extra to intent to direct to correct page ("view" = "register" or "login")
-        val intendedView = intent.getStringExtra("view")
-        changeView(intendedView?:"login")
+        val intendedView = intent.getStringExtra(getString(R.string.intended_login_view))
+        changeView(intendedView?:getString(R.string.title_login))
 
     }
 
@@ -28,20 +28,20 @@ class LoginActivity : AppCompatActivity() {
         val title = binding.loginFlowTitle
 
         when(intendedView){
-            "login" -> {
+            getString(R.string.title_login) -> {
                 changeFragmentView(LoginFragment())
-                title.text = "Login"
-                switchLoginRegisterButton.text = "Register"
+                title.text = getString(R.string.title_login)
+                switchLoginRegisterButton.text = getString(R.string.title_register)
                 switchLoginRegisterButton.setOnClickListener{
-                    changeView("register")
+                    changeView(getString(R.string.title_register))
                 }
             }
-            "register" -> {
+            getString(R.string.title_register) -> {
                 changeFragmentView(RegisterFragment())
-                title.text = "Register"
-                switchLoginRegisterButton.text = "Login"
+                title.text = getString(R.string.title_register)
+                switchLoginRegisterButton.text = getString(R.string.title_login)
                 switchLoginRegisterButton.setOnClickListener{
-                    changeView("login")
+                    changeView(getString(R.string.title_login))
                 }
             }
         }
