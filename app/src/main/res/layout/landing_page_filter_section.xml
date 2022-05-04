@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <ImageButton
-        android:id="@+id/icon"
-        android:layout_width="@dimen/landing_filter_icon_size"
-        android:layout_height="@dimen/landing_filter_icon_size"
-        android:backgroundTint="@android:color/transparent"
-        android:contentDescription="@string/filter_launches_content_description"
-        app:layout_constraintEnd_toStartOf="@id/search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_filter_alt_32" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search"
         android:layout_width="0dp"
         android:layout_height="@dimen/landing_search_height"
-        android:layout_marginTop="@dimen/margin_md"
         android:background="@drawable/bg_search_rounded_md"
         android:searchIcon="@android:drawable/ic_menu_search"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,5 +16,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.appcompat.widget.SearchView>
+
+    <ImageButton
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@android:color/transparent"
+        android:contentDescription="@string/filter_launches_content_description"
+        app:layout_constraintBottom_toBottomOf="@+id/search"
+        app:layout_constraintEnd_toStartOf="@id/search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search"
+        app:srcCompat="@drawable/ic_baseline_filter_alt_32" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

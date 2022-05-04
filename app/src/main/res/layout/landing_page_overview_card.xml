@@ -16,7 +16,6 @@
         app:cardBackgroundColor="@color/secondary"
         app:cardCornerRadius="@dimen/landing_card_corner_radius"
         app:cardElevation="@dimen/cardview_default_elevation"
-        app:cardUseCompatPadding="true"
         app:contentPaddingBottom="@dimen/margin_sm"
         app:contentPaddingTop="@dimen/margin_lg"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,18 +27,19 @@
             android:id="@+id/launch_overview_card_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_x_lg"
+            android:layout_marginEnd="@dimen/margin_x_lg"
             android:layout_marginBottom="@dimen/margin_md">
 
             <TextView
                 android:id="@+id/launch_overview_card_mission_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_md"
                 android:hint="@string/example_mission_name"
                 android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/text_lg"
                 app:layout_constraintEnd_toStartOf="@id/launch_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,13 +55,12 @@
                 android:id="@+id/launch_overview_card_year"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_md"
                 android:layout_marginTop="@dimen/margin_md"
                 android:hint="@string/example_launch_overview_year"
                 android:textAlignment="textStart"
                 android:textColor="@color/material_dynamic_neutral_variant95"
                 android:textColorHint="@color/material_dynamic_neutral_variant95"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_sm"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_site_name" />
 
@@ -70,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_marginTop="@dimen/margin_sm"
-                android:layout_marginEnd="@dimen/margin_md"
+                android:layout_marginEnd="@dimen/margin_x_lg"
                 android:layerType="software"
                 app:layout_constraintBottom_toTopOf="@+id/launch_overview_card_site_name"
                 app:layout_constraintEnd_toStartOf="@id/launch_image"
@@ -83,30 +82,25 @@
                 android:id="@+id/launch_overview_card_site_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_md"
                 android:layout_marginTop="@dimen/margin_sm"
                 android:layout_marginEnd="@dimen/margin_x_lg"
                 android:hint="@string/example_launch_overview_site_name"
                 android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_md"
                 app:layout_constraintEnd_toStartOf="@id/launch_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dotted_line" />
 
             <ImageView
                 android:id="@+id/launch_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="@dimen/margin_md"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="@dimen/margin_md"
-                android:layerType="software"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-
-
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline_one"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_rocket_launch_24" />
 
