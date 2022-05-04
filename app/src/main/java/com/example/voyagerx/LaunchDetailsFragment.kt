@@ -1,5 +1,6 @@
 package com.example.voyagerx
 
+import android.graphics.Typeface
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.example.voyagerx.adapters.LaunchCarouselAdapter
 import coil.size.Precision
@@ -51,6 +53,7 @@ class LaunchDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        displayImages()
         displayLaunchDetails()
         binding.ivShare.setOnClickListener { shareLaunch() }
     }
@@ -60,46 +63,32 @@ class LaunchDetailsFragment : Fragment() {
         _binding = null
     }
 
-    private fun displayCarousel() {
-        val viewPager :ViewPager = binding.vpLaunchPhotos
-        val imageAdapter = LaunchCarouselAdapter(requireContext(),
-            launchObj.image_links
-        )
-        viewPager.adapter = imageAdapter
-    }
-
     private fun displayLaunchDetails() {
-        //launchObj.image_links will return an empty list (instead of null) if no photos are available
-        if (launchObj.image_links.isNullOrEmpty()) {
-            binding.ivDefaultImage.visibility = ImageView.VISIBLE
-            hideView(binding.vpLaunchPhotos)
-        } else {
-            displayCarousel()
-        }
-
         launchObj.mission_name?.let {
             binding.tvMissionName.text = it
-        } ?:  run {
-            hideView(binding.tvMissionName)
+        } ?: run {
+            binding.tvMissionName.let{
+                displayNullMessage(getString(R.string.no_mission_msg), it)
+                it.textSize = 20F //sets text size to 20 sp
+            }
         }
 
         launchObj.launch_site_long?.let {
             binding.tvSiteName.text = it
         } ?: run {
-            hideView(binding.tvSiteName)
+            displayNullMessage(getString(R.string.no_location_msg), binding.tvSiteName)
         }
 
         launchObj.launch_date_utc?.let {
             binding.tvLaunchDate.text = DateFormatter.formatLaunchDate(launchObj.launch_date_utc)
         } ?: run {
-            hideView(binding.tvLaunchDate)
+            displayNullMessage(getString(R.string.no_date_msg), binding.tvLaunchDate)
         }
 
         launchObj.details?.let {
             binding.tvDetailParagraph.text = it
         } ?: run {
-            hideView(binding.tvDetailHeader)
-            hideView(binding.tvDetailParagraph)
+            displayNullMessage(getString(R.string.no_details_msg), binding.tvDetailParagraph)
         }
 
         if (launchObj.article_link.isNullOrBlank() && launchObj.video_link.isNullOrBlank()) {
@@ -118,6 +107,29 @@ class LaunchDetailsFragment : Fragment() {
     private fun hideView(view: View) {
         view.visibility = View.GONE
     }
+
+
+    private fun displayNullMessage(message:String, textView:TextView) {
+        textView.setTypeface(null, Typeface.ITALIC)
+        textView.text = message
+    }
+
+    private fun displayImages() {
+        //launchObj.image_links will return an empty list (instead of null) if no photos are available
+        if (launchObj.image_links.isNullOrEmpty()) {
+            binding.ivDefaultImage.visibility = ImageView.VISIBLE
+            hideView(binding.vpLaunchPhotos)
+        } else {
+            displayCarousel()
+        }
+    }
+
+    private fun displayCarousel() {
+        val viewPager :ViewPager = binding.vpLaunchPhotos
+        val imageAdapter = LaunchCarouselAdapter(requireContext(),
+            launchObj.image_links
+        )
+        viewPager.adapter = imageAdapter
 
     private fun shareLaunch() {
         val share = Intent.createChooser(Intent().apply {
