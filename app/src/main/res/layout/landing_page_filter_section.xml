@@ -18,13 +18,14 @@
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search"
         android:layout_width="0dp"
-        android:layout_height="@dimen/landing_search_height"
-        android:layout_marginTop="@dimen/margin_md"
-        android:background="@drawable/bg_search_rounded_lg"
-        android:searchIcon="@android:drawable/ic_menu_search"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:searchIcon="@drawable/ic_baseline_search_24"
+        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Search launches...">
 
     </androidx.appcompat.widget.SearchView>
 

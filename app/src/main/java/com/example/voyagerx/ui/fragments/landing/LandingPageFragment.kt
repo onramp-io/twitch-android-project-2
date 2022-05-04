@@ -1,10 +1,10 @@
 package com.example.voyagerx.ui.fragments.landing
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
@@ -12,12 +12,13 @@ import com.example.voyagerx.LaunchDetailsFragment
 import com.example.voyagerx.R
 import com.example.voyagerx.data.LaunchDetailBundle
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
-import com.example.voyagerx.repository.LaunchRepository
-import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import com.example.voyagerx.helpers.LaunchClickListener
+import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.repository.model.Launch
+import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class LandingPageFragment: Fragment() {
@@ -27,6 +28,7 @@ class LandingPageFragment: Fragment() {
 
     private lateinit var binding: FragmentLandingPageBinding
     private lateinit var launches: List<Launch>
+    private lateinit var adapter: LaunchOverviewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +49,18 @@ class LandingPageFragment: Fragment() {
         if (!this::launches.isInitialized) {
             setupList()
         }
+
+        binding.filters.search.setOnQueryTextListener(object : OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                adapter.filter(p0?.lowercase())
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                adapter.filter(p0?.lowercase())
+                return false
+            }
+        })
     }
 
     private fun navigateToLaunchDetails(launch: Launch) {
@@ -77,7 +91,7 @@ class LandingPageFragment: Fragment() {
         showSpinner()
 
         // Add button press animation
-        val adapter = LaunchOverviewAdapter(LaunchClickListener(this::navigateToLaunchDetails))
+        adapter = LaunchOverviewAdapter(LaunchClickListener(this::navigateToLaunchDetails))
         binding.listing.list.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
