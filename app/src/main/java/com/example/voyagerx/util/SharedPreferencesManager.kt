@@ -46,7 +46,7 @@ class SharedPreferencesManager(val context: Context) {
     fun getTextInDropdown() : String {
         PREF_DROP_DOWN_TEXT.getString()
         Log.d("font size drop dwn text", PREF_DROP_DOWN_TEXT.getString())
-        return PREF_DROP_DOWN_TEXT
+        return PREF_DROP_DOWN_TEXT.getString()
     }
 
     //to be updated later if styles are used
