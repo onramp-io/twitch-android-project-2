@@ -95,8 +95,8 @@ class LandingPageFragment: Fragment() {
     }
 
     private fun setListHeaderText(amount: Int) {
-        binding.header.text = resources.getString(R.string.launch_listing_header, amount)
-        binding.header.visibility = View.VISIBLE
+        binding.listing.header.text = resources.getString(R.string.launch_listing_header, amount)
+        binding.listing.header.visibility = View.VISIBLE
     }
 
     private fun showSpinner() {

@@ -7,31 +7,17 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_md"
-        android:layout_marginBottom="@dimen/margin_md"
-        android:text="@string/launch_listing_header"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/filters"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <include
         android:id="@+id/filters"
         layout="@layout/landing_page_filter_section"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_md"
         android:layout_marginEnd="@dimen/margin_md"
         app:layout_constraintBottom_toTopOf="@+id/listing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/error"
@@ -50,7 +36,7 @@
         android:layout_marginBottom="@dimen/landing_list_bottom_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filters"
         app:layout_constraintVertical_bias="1.0" />
