@@ -2,6 +2,9 @@ package com.example.voyagerx.di
 
 import android.content.Context
 import androidx.room.Room
+import apolloClient
+import com.example.rocketreserver.LaunchListQuery
+import com.example.voyagerx.repository.SpaceXApiService
 import com.example.voyagerx.repository.database.VoyagerXDatabase
 import dagger.Module
 import dagger.Provides
@@ -22,4 +25,7 @@ object AppModule {
             VoyagerXDatabase::class.java, "voyagerx_db"
         ).build()
 
+    @Singleton
+    @Provides
+    fun provideApiService(): SpaceXApiService = SpaceXApiService()
 }
