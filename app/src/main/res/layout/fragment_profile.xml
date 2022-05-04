@@ -38,7 +38,7 @@
 
 
         <ImageView
-            android:id="@+id/avatarBackgroundIv"
+            android:id="@+id/ivAvatarBackground"
             android:layout_width="135sp"
             android:layout_height="135sp"
             android:layout_marginTop="12dp"
@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="@string/user_bio_on_profile"
+        android:text="@string/user_bio"
         android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

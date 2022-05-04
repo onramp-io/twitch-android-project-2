@@ -14,12 +14,20 @@
             android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/ivLaunchPictures"
+            android:id="@+id/ivDefaultImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:contentDescription="@string/launch_image_description"
             android:scaleType="fitXY"
+            android:visibility="gone"
             app:srcCompat="@drawable/spacex_logo" />
+
+        <!-- viewpager to show images -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpLaunchPhotos"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+        </androidx.viewpager.widget.ViewPager>
 
             <LinearLayout
                 android:id="@+id/llContentBody"
@@ -42,10 +50,11 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.48"
                         tools:text="@string/sample_mission_name" />
 
                     <ImageView
-                        android:id="@+id/imageButton"
+                        android:id="@+id/ivFavorite"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
@@ -56,13 +65,13 @@
                         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
                     <ImageView
-                        android:id="@+id/imageButton2"
+                        android:id="@+id/ivShare"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                        app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_share_24" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -71,21 +80,22 @@
                     android:id="@+id/tvSiteName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_baseline_pin_drop_24"
                     android:drawablePadding="@dimen/margin_sm"
                     android:paddingVertical="@dimen/margin_sm"
                     tools:text="@string/sample_site_name_long"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:drawableStartCompat="@drawable/ic_baseline_pin_drop_24" />
 
                 <TextView
                     android:id="@+id/tvLaunchDate"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_sm"
-                    android:drawableStart="@drawable/ic_baseline_calendar_today_24"
                     android:drawablePadding="@dimen/margin_sm"
-                    tools:text="@string/sample_launch_date"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:paddingVertical="@dimen/margin_sm"
+                    tools:text="@string/sample_site_name_long"
+                    android:drawableTint="@color/gray"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:drawableStartCompat="@drawable/ic_baseline_calendar_today_24" />
 
                 <LinearLayout
                     android:id="@+id/llDetailsSection"

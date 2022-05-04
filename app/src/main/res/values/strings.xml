@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">VoyagerX</string>
 
-    <string name="example_mission_name">FalconSat</string>
-    <string name="example_launch_overview_year">2006</string>
-    <string name="example_launch_overview_site_name">Kwajalein Atoll Omelek Island</string>
+    <string name="example_mission_name">SXM-7</string>
+    <string name="example_launch_overview_year">2020</string>
+    <string name="example_launch_overview_site_name">Cape Canaveral Air Force Station Space Launch Complex 40</string>
     <string name="field_separator">•</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
@@ -11,9 +11,6 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -28,10 +25,23 @@
     <string name="landing_page_connection_failed">Connection Failed.</string>
     <string name="avatarInitial">U</string>
     <string name="your_favorite_launches_label">Your Favorite Launches</string>
-    <string name="user_bio_on_profile">A spaceman wanting to go into space, man!</string>
+    <string name="user_bio">A spaceman wanting to go into space, man!</string>
     <string name="users_profile_heading">User\'s Profile</string>
     <string name="edit_profile_button_content_description">Edit profile button</string>
     <string name="first_letter_of_user_name_content_description">First letter of user\'s name</string>
+
+    <string name="edit_profile">Edit profile</string>
+    <string name="cancel_edit_profile_x">X</string>
+    <string name="name_profile_label">NAME</string>
+    <string name="password_profile_label">PASSWORD</string>
+    <string name="location_profile_label">LOCATION</string>
+    <string name="bio_profile_label">BIO</string>
+    <string name="save_button_text">Save</string>
+    <string name="enter_location_here_hint">Enter location here</string>
+    <string name="password_symbols_profile">●●●●●●●●</string>
+    <string name="enter_bio_here">Enter bio here</string>
+    <string name="enter_name_here">Enter name here</string>
+    <string name="user_temp_name">User</string>
 
     <string name="launch_image_description">Image of launch</string>
     <string name="detailSubheader">DETAILS</string>
@@ -59,4 +69,21 @@
         <item>Medium</item>
         <item>Small</item>
     </string-array>
+
+
+    <string name="user_preference">user_preference</string>
+    <string name="curr_user">current_user</string>
+
+    <!-- Errors -->
+    <string name="email_not_found_error">Email not found</string>
+    <string name="incorrect_password_error">Incorrect password</string>
+    <string name="email_already_registered_error">Email already registered</string>
+    <string name="no_mission_msg">No mission name available</string>
+    <string name="no_location_msg">No location available</string>
+    <string name="no_date_msg">No date available</string>
+    <string name="no_details_msg">No details available</string>
+    <string name="invalid_email_error">Invalid email</string>
+    <string name="invalid_password_error">Invalid password - Must be at least 6 characters</string>
+    <string name="invalid_confirm_password_error">Passwords must match</string>
 </resources>
+

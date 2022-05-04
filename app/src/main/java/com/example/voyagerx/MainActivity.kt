@@ -13,9 +13,10 @@ import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
 import com.example.voyagerx.ui.fragments.settings.SettingsFragment
 import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
 import com.example.voyagerx.util.FontSizeUtility
-import com.example.voyagerx.util.SharedPreferencesManager
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavView: BottomNavigationView
     lateinit var binding: ActivityMainBinding

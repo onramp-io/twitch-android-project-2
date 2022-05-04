@@ -12,6 +12,7 @@ import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.databinding.FragmentSettingsBinding
 import com.example.voyagerx.util.SharedPreferencesManager
+import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
 
 
 class ProfileFragment : Fragment() {
@@ -25,8 +26,9 @@ class ProfileFragment : Fragment() {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         val editProfileBtn : ImageButton = binding.editProfileImageBtn
-        editProfileBtn.setOnClickListener {//uncomment when EditProfile() Fragment has been created
-            //val transaction = requireFragmentManager().beginTransaction().replace(R.id.frame, EditProfile()).commit()
+
+        editProfileBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, EditProfileFragment()).commit()
         }
 
         setProfileBackgroundWallpaper(SharedPreferencesManager.getBackgroundWallpaper())
