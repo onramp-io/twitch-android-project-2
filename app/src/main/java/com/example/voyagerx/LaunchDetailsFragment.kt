@@ -13,6 +13,7 @@ import coil.size.Precision
 import coil.size.Scale
 import com.example.voyagerx.data.LaunchDetailBundle
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
+import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.model.Launch
 
 /**
@@ -89,7 +90,7 @@ class LaunchDetailsFragment : Fragment() {
         }
 
         launchObj.launch_date_utc?.let {
-            binding.tvLaunchDate.text = it
+            binding.tvLaunchDate.text = DateFormatter.formatLaunchDate(launchObj.launch_date_utc)
         } ?: run {
             hideView(binding.tvLaunchDate)
         }
