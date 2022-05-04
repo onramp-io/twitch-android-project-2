@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favorite_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_sm"
+    android:layout_marginBottom="@dimen/margin_sm">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/launch_overview_card_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/purple_500"
+        app:cardCornerRadius="@dimen/landing_card_corner_radius"
+        app:cardElevation="5dp"
+        app:contentPaddingBottom="@dimen/margin_sm"
+        app:contentPaddingTop="@dimen/margin_lg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/launch_overview_card_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/mission_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_x_lg"
+                android:layout_marginBottom="@dimen/margin_md"
+                app:layout_constraintBottom_toTopOf="@id/dotted_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_rocket_launch_24" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_mission_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_md"
+                android:layout_marginBottom="@dimen/margin_sm"
+                android:hint="@string/example_mission_name"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/mission_icon"
+                app:layout_constraintEnd_toStartOf="@id/guideline_one"
+                app:layout_constraintStart_toEndOf="@id/mission_icon" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="309dp" />
+
+            <ImageView
+                android:id="@+id/calendar_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_md"
+                app:layout_constraintBottom_toTopOf="@+id/dotted_line"
+                app:layout_constraintStart_toEndOf="@+id/launch_overview_card_mission_name"
+                app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_md"
+                android:layout_marginEnd="@dimen/margin_x_lg"
+                android:layout_marginBottom="@dimen/margin_sm"
+                android:hint="@string/example_launch_overview_year"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/calendar_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/calendar_icon" />
+
+            <ImageView
+                android:id="@+id/dotted_line"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layerType="software"
+                app:layout_constraintBottom_toTopOf="@+id/launch_overview_card_site_name"
+                app:layout_constraintEnd_toEndOf="@id/launch_overview_card_year"
+                app:layout_constraintStart_toStartOf="@id/mission_icon"
+                app:layout_constraintTop_toBottomOf="@+id/launch_overview_card_mission_name"
+                app:srcCompat="@drawable/dotted" />
+
+            <TextView
+                android:id="@+id/launch_overview_card_site_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_md"
+                android:layout_marginEnd="@dimen/margin_x_lg"
+                android:hint="@string/example_launch_overview_site_name"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/place_icon"
+                app:layout_constraintTop_toTopOf="@+id/place_icon" />
+
+            <ImageView
+                android:id="@+id/place_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_x_lg"
+                android:layout_marginTop="@dimen/margin_md"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dotted_line"
+                app:srcCompat="@drawable/ic_baseline_place_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
