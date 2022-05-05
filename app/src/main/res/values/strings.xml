@@ -16,8 +16,12 @@
 
     <string name="title_login">Login</string>
     <string name="title_register">Register</string>
+    <string name="title_logout">Logout</string>
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="login_button">Launch!</string>
+    <string name="intended_login_view">View</string>
+    <string name="logout_message">You have logged out</string>
+    <string name="confrim_dialog">OK</string>
 
     <string name="filter_launches_content_description">Filter launches</string>
     <string name="launch_listing_header">There are %1$d total launches 🚀</string>
