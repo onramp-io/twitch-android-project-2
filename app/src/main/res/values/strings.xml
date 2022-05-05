@@ -97,5 +97,11 @@
     <string name="invalid_password_error">Invalid password - Must be at least 6 characters</string>
     <string name="invalid_confirm_password_error">Passwords must match</string>
 
+    <string name="cancel">cancel</string>
+    <string name="register">Register</string>
+    <string name="log_in">Log in</string>
+    <string name="need_account_msg">You must be signed in to favorite a launch.</string>
+    <string name="account_needed_title">Account Needed</string>
+
 </resources>
 

@@ -41,16 +41,16 @@ class MainActivity : AppCompatActivity() {
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.landingPageFragment -> changeFragmentView(LandingPageFragment())
-                R.id.profileFragment -> changeFragmentView(ProfileFragment())
+                R.id.profileFragment -> if(userRepository.getCurrentUser() == null) showLoginPopup() else changeFragmentView(ProfileFragment())
                 R.id.settingsFragment -> changeFragmentView(SettingsFragment())
             }
             true
         }
 
 
-        isLoggedIn()
+        setLogInOrLogoutButtonText()
         binding.logInOrOutButton.setOnClickListener {
-            setLogInOrOutButtonListener(isLoggedIn())
+            setLogInOrOutButtonListener()
         }
 
     }
@@ -62,19 +62,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isLoggedIn(): Boolean{
+    private fun setLogInOrLogoutButtonText(){
         val button = binding.logInOrOutButton
-        return if(userRepository.getCurrentUser() == null){
+        if(userRepository.getCurrentUser() == null){
             button.text = getString(R.string.title_login)
-            false
         }else{
             button.text = getString(R.string.title_logout)
-            true
         }
     }
 
-    private fun setLogInOrOutButtonListener(isLoggedIn: Boolean){
-        if(!isLoggedIn){
+    private fun setLogInOrOutButtonListener(){
+        if(userRepository.getCurrentUser() == null){
             val intent = Intent(this, LoginActivity::class.java).apply {
                 putExtra(getString(R.string.intended_login_view), getString(R.string.title_login))
             }
@@ -87,12 +85,34 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton(R.string.confrim_dialog){ _, _ -> }
                 .show()
 
-            isLoggedIn()
+            setLogInOrLogoutButtonText()
         }
     }
 
     //temporary function used to update fontScale
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(FontSizeUtility().adjustFontScale(newBase, 1.0F))
+    }
+
+    private fun showLoginPopup() {
+        MaterialAlertDialogBuilder(this@MainActivity)
+            .setTitle(getString(R.string.account_needed_title))
+            .setMessage(getString(R.string.need_account_msg))
+            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
+                //default closes the window
+            }
+            .setNegativeButton(getString(R.string.register)) { dialog, which ->
+                val intent = Intent(this, LoginActivity::class.java).apply {
+                    putExtra(getString(R.string.intended_login_view), getString(R.string.title_register))
+                }
+                startActivity(intent)
+            }
+            .setPositiveButton(getString(R.string.log_in)) { dialog, which ->
+                val intent = Intent(this, LoginActivity::class.java).apply {
+                    putExtra(getString(R.string.intended_login_view), getString(R.string.title_login))
+                }
+                startActivity(intent)
+            }
+            .show()
     }
 }
