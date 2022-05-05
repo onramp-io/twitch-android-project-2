@@ -78,6 +78,10 @@
     <string name="email_not_found_error">Email not found</string>
     <string name="incorrect_password_error">Incorrect password</string>
     <string name="email_already_registered_error">Email already registered</string>
+
+    <string name="no_favorite_launches_case_msg">Failure to launch! No launches have been saved!</string>
+    <string name="no_favorite_launches_content_desc">You have no favorite launches!</string>
+
     <string name="no_mission_msg">No mission name available</string>
     <string name="no_location_msg">No location available</string>
     <string name="no_date_msg">No date available</string>
@@ -85,5 +89,6 @@
     <string name="invalid_email_error">Invalid email</string>
     <string name="invalid_password_error">Invalid password - Must be at least 6 characters</string>
     <string name="invalid_confirm_password_error">Passwords must match</string>
+
 </resources>
 
