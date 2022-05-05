@@ -1,31 +1,28 @@
 package com.example.voyagerx.repository
 
-import android.content.Context
 import android.util.Log
-import apolloClient
 import com.example.rocketreserver.LaunchListQuery
 import com.example.voyagerx.repository.database.VoyagerXDatabase
 import com.example.voyagerx.repository.model.Launch
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LaunchRepository @Inject constructor(
-    private val database: VoyagerXDatabase
+    private val database: VoyagerXDatabase,
+    private val apiService: SpaceXApiService
 ){
 
     suspend fun getLaunches() : List<Launch?>? {
         Log.d("Repository", "attempting to fetch launch data")
         return try {
-            val apiResult = apolloClient.query(LaunchListQuery()).execute().data?.launches
+            val apiResult = apiService.getLaunches()
             if (apiResult.isNullOrEmpty()) {
                 null //if we receive empty data
             } else {
-                convertLaunches(apiResult!!) //if we receive launch data
+                convertLaunches(apiResult) //if we receive launch data
             }
-
         } catch (exception: Exception) {
             null //if we receive an error
         }
