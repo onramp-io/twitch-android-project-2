@@ -18,13 +18,22 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchCl
         notifyDataSetChanged()
     }
 
-    fun filter(searchTerm: String?) {
+    fun filterBySearchTerm(searchTerm: String?) {
         visibleLaunches = if (searchTerm?.isNotEmpty() == true) {
             allLaunches.filter {
                 it.mission_name?.lowercase()?.contains(searchTerm) ?: true ||
                         it.launch_site_long?.lowercase()?.contains(searchTerm) ?: true ||
                         it.launch_date_utc?.lowercase()?.contains(searchTerm) ?: true
             }
+        } else {
+            allLaunches
+        }
+        notifyDataSetChanged()
+    }
+
+    fun filterByLaunchSite(site: String) {
+        visibleLaunches = if (site.isNotBlank()) {
+            allLaunches.filter { it.launch_site_long == site }
         } else {
             allLaunches
         }
@@ -45,6 +54,13 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchCl
             listener.onClick(launch)
         }
     }
+
+    fun getVisibleSiteNames(): List<String> = visibleLaunches
+        .asSequence()
+        .map { it.launch_site_long }
+        .filterNotNull()
+        .distinct()
+        .toList()
 
     override fun getItemCount(): Int = visibleLaunches.size
 }

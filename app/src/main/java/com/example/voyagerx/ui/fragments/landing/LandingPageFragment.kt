@@ -3,15 +3,11 @@ package com.example.voyagerx.ui.fragments.landing
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.annotation.RequiresApi
+import android.widget.PopupMenu
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -60,7 +56,7 @@ class LandingPageFragment : Fragment() {
     }
 
     private fun filterLaunches(searchTerm: String?) {
-        adapter.filter(searchTerm?.lowercase())
+        adapter.filterBySearchTerm(searchTerm?.lowercase())
         setListHeaderText(adapter.itemCount)
     }
 
@@ -109,8 +105,30 @@ class LandingPageFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupFilterMenu() {
+        binding.filters.filterIcon.setOnClickListener { view ->
+            if (adapter.itemCount > 0) {
+                val siteNames = adapter.getVisibleSiteNames()
+                val popupMenu = PopupMenu(context, view)
+                val siteMenu = popupMenu.menu.addSubMenu("Launch Sites")
+                siteNames.forEach {
+                    val siteItem = siteMenu.add(it)
+                    siteItem.setOnMenuItemClickListener {
+                        adapter.filterByLaunchSite(it.title.toString())
+                        setListHeaderText(adapter.itemCount)
+                        true
+                    }
+                }
+                popupMenu.inflate(R.menu.filter_menu)
+                popupMenu.show()
+            }
+        }
+    }
+
     private fun setupList() {
         addSearchListeners()
+        setupFilterMenu()
         showSpinner()
 
         // Add button press animation

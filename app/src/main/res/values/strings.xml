@@ -91,6 +91,7 @@
     <string name="invalid_email_error">Invalid email</string>
     <string name="invalid_password_error">Invalid password - Must be at least 6 characters</string>
     <string name="invalid_confirm_password_error">Passwords must match</string>
+    <string name="menu_site">Site</string>
 
 </resources>
 
