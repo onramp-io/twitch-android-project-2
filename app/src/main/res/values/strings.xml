@@ -55,8 +55,7 @@
     <string name="video_link_text">Watch the launch video</string>
     <string name="article_link_text">Read the latest article</string>
     <string name="external_link_icon_description">External link button</string>
-    <string name="appearance_settings_label">APPEARANCE</string>
-    <string name="alerts_settings_label">ALERTS</string>
+
     <string name="stars_background_content_desc">Stars background</string>
     <string name="rockets_background_content_desc">Rockets background</string>
     <string name="settings_fragment_name">Settings</string>
@@ -65,11 +64,6 @@
     <string name="rocket_notification_content_desc">Rocket notification</string>
     <string name="notify_me_of_new_launches">Notify me of new launches</string>
 
-    <string-array name="font_sizes">
-        <item>Large</item>
-        <item>Medium</item>
-        <item>Small</item>
-    </string-array>
 
 
     <string name="user_preference">user_preference</string>
@@ -92,20 +86,18 @@
     <string name="invalid_email_error">Invalid email</string>
     <string name="invalid_password_error">Invalid password - Must be at least 6 characters</string>
     <string name="invalid_confirm_password_error">Passwords must match</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <!-- Preference Titles -->
+    <string name="appearance_settings_label">Appearance</string>
+    <string name="alerts_settings_label">Alerts</string>
+
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="starry_background_option">Starry user profile background</string>
+    <string name="font_size">Font size</string>
+    <string name="notify_user_of_launches">Notify me of new launches</string>
+    <string name="notified_of_launches">You will be notified of future launches!</string>
+    <string name="not_notified_of_launches">You will not be notified of future launches!</string>
 
 </resources>
 

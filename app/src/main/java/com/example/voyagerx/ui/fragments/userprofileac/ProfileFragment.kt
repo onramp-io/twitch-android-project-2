@@ -1,5 +1,6 @@
 package com.example.voyagerx.ui.fragments.userprofileac
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -74,9 +75,12 @@ class ProfileFragment : Fragment() {
     private fun setProfileBackgroundWallpaper(wallpaper: Boolean) {
         val profileLayout: ConstraintLayout = binding.profileLayout
         if (wallpaper) {
-            profileLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.rocket_background)
-        } else {
             profileLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.stars_background)
+            binding.tvNameinProfile.setTextColor(resources.getColor(android.R.color.white))
+
+        } else {
+            profileLayout.setBackgroundColor(resources.getColor(android.R.color.white))
+            binding.tvNameinProfile.setTextColor(resources.getColor(android.R.color.black))
         }
     }
     
