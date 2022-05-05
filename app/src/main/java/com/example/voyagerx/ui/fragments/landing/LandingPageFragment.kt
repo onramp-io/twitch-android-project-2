@@ -110,14 +110,12 @@ class LandingPageFragment: Fragment() {
     private fun showNetworkError() {
         binding.error.root.visibility = View.VISIBLE
         binding.listing.root.visibility = View.INVISIBLE
-        binding.welcome.visibility = View.INVISIBLE
         binding.filters.root.visibility = View.INVISIBLE
     }
 
     private fun hideNetworkError() {
         binding.error.root.visibility = View.INVISIBLE
         binding.listing.root.visibility = View.VISIBLE
-        binding.welcome.visibility = View.VISIBLE
         binding.filters.root.visibility = View.VISIBLE
     }
 }

@@ -46,7 +46,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/margin_lg"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        app:layout_constrainedWidth="true"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -63,6 +64,18 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+
+                    <ImageView
+                        android:id="@+id/ivFavoriteTrue"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_favorite_24"
+                        android:visibility="gone"/>
 
                     <ImageView
                         android:id="@+id/ivShare"

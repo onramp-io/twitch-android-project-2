@@ -12,6 +12,11 @@ import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.repository.model.User
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import com.example.voyagerx.R
+import com.example.voyagerx.databinding.FragmentProfileBinding
+import com.example.voyagerx.util.SharedPreferencesManager
 import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,6 +26,7 @@ class ProfileFragment : Fragment() {
     @Inject
     lateinit var userRepository: UserRepository
     private lateinit var binding: FragmentProfileBinding
+    private val SharedPreferencesManager by lazy {SharedPreferencesManager(requireContext())}
 
     //temporary launch object stolen from Celina's Details fragment
     private var launchObj : Launch = Launch(
@@ -50,22 +56,32 @@ class ProfileFragment : Fragment() {
         mutableListOf(launchObj)
     )
 
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
         val editProfileBtn : ImageButton = binding.editProfileImageBtn
+
         editProfileBtn.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.frame, EditProfileFragment()).commit()
         }
+
+        setProfileBackgroundWallpaper(SharedPreferencesManager.getBackgroundWallpaper())
+
         return binding.root
     }
 
-
+    private fun setProfileBackgroundWallpaper(wallpaper: Boolean) {
+        val profileLayout: ConstraintLayout = binding.profileLayout
+        if (wallpaper) {
+            profileLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.rocket_background)
+        } else {
+            profileLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.stars_background)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,7 +112,6 @@ class ProfileFragment : Fragment() {
         binding.tvEmptyFavoritesMsg.visibility = View.INVISIBLE
 
     }
-
 
     private fun showEmptyFavoritesRVCase() {
         binding.rvUserProfileFavorites.visibility = View.INVISIBLE
