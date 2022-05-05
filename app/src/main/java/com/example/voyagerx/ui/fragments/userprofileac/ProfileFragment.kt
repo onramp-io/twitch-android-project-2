@@ -14,8 +14,6 @@ import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.repository.model.User
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.example.voyagerx.R
-import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.util.SharedPreferencesManager
 import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
