@@ -41,15 +41,14 @@ class ProfileFragment : Fragment() {
     )
     //placeholder user object to create a user that has a favorited launch
     private var userObj : User = User(
-        1,
-        "bla@fake.com",
+        3,
+        "blaaa@faker.com",
         "password",
-        "User",
+        "Chris",
         null,
-        "A spaceman wanting to go into space, man!",
+        "Beam me up, Scotty!",
         mutableListOf(launchObj)
     )
-
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -65,14 +64,13 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
        //val userLoggedIn = checkIfLoggedIn() - will enable later when login repository is hooked up
 
         createRecyclerView()
+        getUserInfoFromDatabase()
 
     }
 
@@ -81,7 +79,7 @@ class ProfileFragment : Fragment() {
         binding.rvUserProfileFavorites.layoutManager = LinearLayoutManager(requireContext())
         binding.rvUserProfileFavorites.adapter = adapter
 
-        if (adapter.itemCount == 0) {
+        if (adapter.itemCount == 1) {
             showEmptyFavoritesRVCase()
         } else {
             hideEmptyFavoritesRVCase()
@@ -97,7 +95,6 @@ class ProfileFragment : Fragment() {
 
     }
 
-
     private fun showEmptyFavoritesRVCase() {
         binding.rvUserProfileFavorites.visibility = View.INVISIBLE
         binding.ivRocketShip.animate().apply {
@@ -110,13 +107,58 @@ class ProfileFragment : Fragment() {
             }
 
         }
-
     }
 
-    //will enable later when login repository is hooked up - need to create login case handling
-    //private fun checkIfLoggedIn() = loginRepository.isLoggedIn
+    private fun getUserInfoFromDatabase() {
+        val userWord = "User"
+        val userBio: String? = userObj.bio
+        val usersName: String? = userObj.name
 
+        //get first letter of user's name from database; pass to setting function
+        if (userObj.name.equals(null)) {
+                setInitialInAvatar(userWord.first().uppercaseChar())
+        } else {
+            val firstLetterUserName: Char = userObj.name
+                .toString()
+                .first()
+                .uppercaseChar()
 
+            setInitialInAvatar(firstLetterUserName)
+        }
+
+        //get user bio from database; pass to setting function
+        if (userBio == null) {
+            setUserBio(getString(R.string.no_bio_std_message))
+        } else {
+            setUserBio(userBio)
+        }
+
+        //get user name from database; pass to setting function
+        if (usersName.equals(null)) {
+            setUsernameInHeader(userWord)
+        } else {
+            setUsernameInHeader(usersName.toString())
+        }
+    }
+
+    private fun setUsernameInHeader(usersName: String) {
+        if ((usersName[usersName.length - 1]) == ('S') || (usersName[usersName.length - 1]) == ('s')) {
+            binding.tvNameinProfile.text = getString(R.string.users_profile_heading_last_char_s, usersName)
+        } else {
+            binding.tvNameinProfile.text = getString(R.string.users_profile_heading, usersName)
+        }
+    }
+
+    private fun setInitialInAvatar(initial: Char) {
+        binding.tvUserInitial.text = initial.toString()
+    }
+
+    private fun setUserBio(bio: String) {
+        binding.tvBio.text = bio
+    }
 
 
 }
+
+//will enable later when login repository is hooked up - need to create login case handling
+//private fun checkIfLoggedIn() = loginRepository.isLoggedIn

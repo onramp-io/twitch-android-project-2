@@ -28,7 +28,8 @@
     <string name="avatarInitial">U</string>
     <string name="your_favorite_launches_label">Your Favorite Launches</string>
     <string name="user_bio">A spaceman wanting to go into space, man!</string>
-    <string name="users_profile_heading">User\'s Profile</string>
+    <string name="users_profile_heading">%1$s\'s Profile</string>
+    <string name="users_profile_heading_last_char_s">%1$s\' Profile</string>
     <string name="edit_profile_button_content_description">Edit profile button</string>
     <string name="first_letter_of_user_name_content_description">First letter of user\'s name</string>
 
@@ -59,6 +60,8 @@
 
     <string name="user_preference">user_preference</string>
     <string name="curr_user">current_user</string>
+
+    <string name="no_bio_std_message">No bio needed in space!</string>
 
     <!-- Errors -->
     <string name="email_not_found_error">Email not found</string>
