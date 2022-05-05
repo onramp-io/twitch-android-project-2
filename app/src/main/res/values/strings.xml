@@ -92,6 +92,7 @@
     <string name="invalid_password_error">Invalid password - Must be at least 6 characters</string>
     <string name="invalid_confirm_password_error">Passwords must match</string>
     <string name="menu_site">Site</string>
+    <string name="filter_site_submenu">Launch Sites</string>
 
 </resources>
 

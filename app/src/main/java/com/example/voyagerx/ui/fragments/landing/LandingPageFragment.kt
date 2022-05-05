@@ -105,20 +105,22 @@ class LandingPageFragment : Fragment() {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    private fun addSiteToSubMenu(subMenu: SubMenu, site: String) {
+        subMenu.add(site).setOnMenuItemClickListener {
+            adapter.filterByLaunchSite(site)
+            setListHeaderText(adapter.itemCount)
+            true
+        }
+    }
+
     private fun setupFilterMenu() {
         binding.filters.filterIcon.setOnClickListener { view ->
             if (adapter.itemCount > 0) {
                 val siteNames = adapter.getVisibleSiteNames()
                 val popupMenu = PopupMenu(context, view)
-                val siteMenu = popupMenu.menu.addSubMenu("Launch Sites")
+                val siteMenu = popupMenu.menu.addSubMenu(getString(R.string.filter_site_submenu))
                 siteNames.forEach {
-                    val siteItem = siteMenu.add(it)
-                    siteItem.setOnMenuItemClickListener {
-                        adapter.filterByLaunchSite(it.title.toString())
-                        setListHeaderText(adapter.itemCount)
-                        true
-                    }
+                    addSiteToSubMenu(siteMenu, it)
                 }
                 popupMenu.inflate(R.menu.filter_menu)
                 popupMenu.show()
