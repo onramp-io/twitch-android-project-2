@@ -1,14 +1,11 @@
 package com.example.voyagerx.adapters
 
-import android.R
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import coil.load
-
 
 class LaunchCarouselAdapter(private val mContext: Context, private val imageList: List<String?>?) : PagerAdapter() {
 
