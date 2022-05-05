@@ -18,7 +18,7 @@ class FavoritesAdapter(
     class ViewHolder(val binding: FavoritesOverviewCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int {
-        return user?.favoriteLaunches!!.size
+        return user?.favoriteLaunches?.size ?: 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,7 +29,7 @@ class FavoritesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         if (itemCount == 0) {
-            Log.d("user favorites", "= {$itemCount}")
+            //do nothing in the adapter
         } else {
             holder.binding.launchOverviewCardMissionName.text = user!!.favoriteLaunches!![position].mission_name.toString()
             holder.binding.launchOverviewCardSiteName.text = user.favoriteLaunches!![position].launch_site_long.toString()
