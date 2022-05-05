@@ -13,7 +13,7 @@
     <dimen name="landing_card_corner_radius">@dimen/margin_sm</dimen>
     <dimen name="landing_search_corner_radius">@dimen/margin_lg</dimen>
     <dimen name="landing_card_padding">20dp</dimen>
-    <dimen name="landing_search_height">30dp</dimen>
+    <dimen name="landing_search_height">40dp</dimen>
     <dimen name="landing_filter_icon_size">48dp</dimen>
     <dimen name="landing_welcome_card_height">100dp</dimen>
     <dimen name="landing_list_bottom_margin">70dp</dimen>

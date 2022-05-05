@@ -1,9 +1,17 @@
 package com.example.voyagerx.ui.fragments.landing
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -21,7 +29,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class LandingPageFragment: Fragment() {
+class LandingPageFragment : Fragment() {
 
     @Inject
     lateinit var launchRepository: LaunchRepository
@@ -49,18 +57,11 @@ class LandingPageFragment: Fragment() {
         if (!this::launches.isInitialized) {
             setupList()
         }
+    }
 
-        binding.filters.search.setOnQueryTextListener(object : OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                adapter.filter(p0?.lowercase())
-                return false
-            }
-
-            override fun onQueryTextChange(p0: String?): Boolean {
-                adapter.filter(p0?.lowercase())
-                return false
-            }
-        })
+    private fun filterLaunches(searchTerm: String?) {
+        adapter.filter(searchTerm?.lowercase())
+        setListHeaderText(adapter.itemCount)
     }
 
     private fun navigateToLaunchDetails(launch: Launch) {
@@ -87,7 +88,29 @@ class LandingPageFragment: Fragment() {
             .commit()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun addSearchListeners() {
+        binding.filters.search.setOnQueryTextListener(object : OnQueryTextListener {
+            override fun onQueryTextSubmit(text: String?): Boolean {
+                filterLaunches(text)
+                return false
+            }
+
+            override fun onQueryTextChange(text: String?): Boolean {
+                filterLaunches(text)
+                return false
+            }
+        })
+
+        binding.root.setOnTouchListener { view, motionEvent ->
+            view?.performClick()
+            hideKeyboardOnTouchOutside(motionEvent)
+            true
+        }
+    }
+
     private fun setupList() {
+        addSearchListeners()
         showSpinner()
 
         // Add button press animation
@@ -108,8 +131,30 @@ class LandingPageFragment: Fragment() {
         }
     }
 
+    private fun hideKeyboardOnTouchOutside(event: MotionEvent) {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val v: View? = activity?.currentFocus
+            if (v is EditText) {
+                val outRect = Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    v.clearFocus()
+                    val imm: InputMethodManager =
+                        context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
+                }
+            }
+        }
+    }
+
+    private fun pluralizeLaunches(amount: Int): String = when {
+        amount == 0 -> "There aren't any launches..."
+        amount == 1 -> "There is 1 launch \uD83D\uDE80"
+        else -> "There are $amount total launches \uD83D\uDE80"
+    }
+
     private fun setListHeaderText(amount: Int) {
-        binding.listing.header.text = resources.getString(R.string.launch_listing_header, amount)
+        binding.listing.header.text = pluralizeLaunches(amount)
         binding.listing.header.visibility = View.VISIBLE
     }
 

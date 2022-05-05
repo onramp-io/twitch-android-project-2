@@ -7,7 +7,7 @@ import com.example.voyagerx.databinding.LandingPageOverviewCardBinding
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.Launch
 
-class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchClickListener {  }) :
+class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchClickListener { }) :
     RecyclerView.Adapter<LaunchOverviewViewHolder>() {
     private var visibleLaunches: List<Launch> = listOf()
     private var allLaunches: List<Launch> = listOf()
@@ -19,14 +19,14 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchCl
     }
 
     fun filter(searchTerm: String?) {
-        if (searchTerm?.isNotEmpty() == true) {
-            visibleLaunches = allLaunches.filter {
+        visibleLaunches = if (searchTerm?.isNotEmpty() == true) {
+            allLaunches.filter {
                 it.mission_name?.lowercase()?.contains(searchTerm) ?: true ||
-                it.launch_site_long?.lowercase()?.contains(searchTerm) ?: true ||
-                it.launch_year?.lowercase()?.contains(searchTerm) ?: true
+                        it.launch_site_long?.lowercase()?.contains(searchTerm) ?: true ||
+                        it.launch_year?.lowercase()?.contains(searchTerm) ?: true
             }
         } else {
-            visibleLaunches = allLaunches
+            allLaunches
         }
         notifyDataSetChanged()
     }

@@ -20,7 +20,6 @@
     <string name="login_button">Launch!</string>
 
     <string name="filter_launches_content_description">Filter launches</string>
-    <string name="launch_listing_header">There are %1$d total launches 🚀</string>
     <string name="landing_page_network_try_later">Please try again later.</string>
     <string name="landing_page_connection_failed">Connection Failed.</string>
     <string name="avatarInitial">U</string>

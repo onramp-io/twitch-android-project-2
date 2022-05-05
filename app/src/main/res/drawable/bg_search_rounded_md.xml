@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/material_dynamic_neutral_variant90"/>
-    <corners android:radius="@dimen/landing_card_corner_radius"/>
-    <padding android:left="@dimen/landing_card_padding"
-        android:bottom="@dimen/landing_card_padding"
-        android:right="@dimen/landing_card_padding"
-        android:top="@dimen/landing_card_padding"/>
+    <corners android:radius="@dimen/landing_card_corner_radius" />
 </shape>

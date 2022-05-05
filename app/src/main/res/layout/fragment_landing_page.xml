@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_md"
         android:layout_marginEnd="@dimen/margin_md"
+        android:layout_marginBottom="@dimen/margin_md"
         app:layout_constraintBottom_toTopOf="@+id/listing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
