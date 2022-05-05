@@ -1,6 +1,5 @@
 package com.example.voyagerx.ui.fragments.userprofileac
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -67,20 +66,32 @@ class ProfileFragment : Fragment() {
             parentFragmentManager.beginTransaction().replace(R.id.frame, EditProfileFragment()).commit()
         }
 
-        setProfileBackgroundWallpaper(SharedPreferencesManager.getBackgroundWallpaper())
+        setProfileBackgroundWallpaperAndFontColors(SharedPreferencesManager.getBackgroundWallpaper())
 
         return binding.root
     }
 
-    private fun setProfileBackgroundWallpaper(wallpaper: Boolean) {
+    private fun setProfileBackgroundWallpaperAndFontColors(wallpaper: Boolean) {
         val profileLayout: ConstraintLayout = binding.profileLayout
         if (wallpaper) {
             profileLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.stars_background)
-            binding.tvNameinProfile.setTextColor(resources.getColor(android.R.color.white))
-
+            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvBio.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvEmptyFavoritesMsg.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvFavoriteLaunchesLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.editProfileImageBtn.setImageResource(R.drawable.ic_editprofile_white)
         } else {
-            profileLayout.setBackgroundColor(resources.getColor(android.R.color.white))
-            binding.tvNameinProfile.setTextColor(resources.getColor(android.R.color.black))
+            profileLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvBio.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvEmptyFavoritesMsg.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvFavoriteLaunchesLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.editProfileImageBtn.setImageResource(R.drawable.ic_editprofile_black)
         }
     }
     

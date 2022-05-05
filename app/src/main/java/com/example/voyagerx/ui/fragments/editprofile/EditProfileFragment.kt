@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.preference.SwitchPreferenceCompat
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentEditProfileBinding
 import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
@@ -26,7 +25,7 @@ class EditProfileFragment : Fragment() {
 
         setButtonListeners()
         getUserInfoFromDb()
-        setProfileBackgroundWallpaper(SharedPreferencesManager.getBackgroundWallpaper())
+        setProfileBackgroundWallpaperAndFontColors(SharedPreferencesManager.getBackgroundWallpaper())
 
 
         return binding.root
@@ -45,12 +44,26 @@ class EditProfileFragment : Fragment() {
 
     }
 
-    private fun setProfileBackgroundWallpaper(wallpaper: Boolean) {
+    private fun setProfileBackgroundWallpaperAndFontColors(wallpaper: Boolean) {
         val profileLayout: ConstraintLayout = binding.profileLayout
         if (wallpaper) {
             profileLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.stars_background)
+            binding.tvBioLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvCancelChanges.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvEditProfileLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvLocationLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvNameLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvPasswordLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         } else {
-            profileLayout.setBackgroundColor(resources.getColor(android.R.color.white))
+            profileLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvBioLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvCancelChanges.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvEditProfileLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvLocationLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvNameLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.tvPasswordLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
         }
     }
 
