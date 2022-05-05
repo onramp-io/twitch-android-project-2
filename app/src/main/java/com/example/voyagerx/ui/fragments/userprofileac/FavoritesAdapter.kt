@@ -18,6 +18,7 @@ class FavoritesAdapter(
     class ViewHolder(val binding: FavoritesOverviewCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int {
+
         return user?.favoriteLaunches?.size ?: 0
     }
 
