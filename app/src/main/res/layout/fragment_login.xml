@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="30dp"
     android:gravity="center"
-    android:background="@color/cardview_dark_background"
+    android:background="@color/primary"
     android:orientation="vertical"
     tools:context=".LoginFragment"
     android:id="@+id/loginLayout">
@@ -53,6 +53,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingRight="30dp"
-        android:paddingLeft="30dp" />
+        android:paddingLeft="30dp"
+        android:backgroundTint="@color/secondary"/>
 
 </LinearLayout>

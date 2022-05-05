@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
             MaterialAlertDialogBuilder(this@MainActivity)
                 .setTitle(getString(R.string.logout_message))
-                .setPositiveButton(R.string.confrim_dialog){ _, _ -> }
+                .setPositiveButton(R.string.confirm_dialog){ _, _ -> }
                 .show()
 
             isLoggedIn()
