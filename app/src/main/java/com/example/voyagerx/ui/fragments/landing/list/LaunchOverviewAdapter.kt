@@ -23,7 +23,7 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchCl
             allLaunches.filter {
                 it.mission_name?.lowercase()?.contains(searchTerm) ?: true ||
                         it.launch_site_long?.lowercase()?.contains(searchTerm) ?: true ||
-                        it.launch_year?.lowercase()?.contains(searchTerm) ?: true
+                        it.launch_date_utc?.lowercase()?.contains(searchTerm) ?: true
             }
         } else {
             allLaunches
