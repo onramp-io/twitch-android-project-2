@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profileLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#A39494"
@@ -100,20 +101,67 @@
         app:layout_constraintTop_toBottomOf="@+id/tvFavoriteLaunchesLabel"
         tools:layout_editor_absoluteX="0dp" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_profile_favorites"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="40dp"
+        app:cardCornerRadius="@dimen/landing_card_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/material_divider"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/emptyFavesCaseCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/user_profile_background"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_user_profile_favorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/material_divider"
+        card_view:cardElevation="0dp">
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/ivRocketShip"
+        android:layout_width="135sp"
+        android:layout_height="135sp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/no_favorite_launches_content_desc"
+        android:src="@drawable/ic_rocket_launch_empty_case_24"
+        app:layout_constraintBottom_toBottomOf="@+id/emptyFavesCaseCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFavoriteLaunchesLabel" />
+
+    <TextView
+        android:id="@+id/tv_empty_favorites_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/no_favorite_launches_case_msg"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emptyFavesCaseCard"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 

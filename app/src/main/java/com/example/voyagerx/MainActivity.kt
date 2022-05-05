@@ -1,19 +1,24 @@
 package com.example.voyagerx
 
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-
+import android.content.Context
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
 import com.example.voyagerx.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
+import com.example.voyagerx.ui.fragments.settings.SettingsFragment
 import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.example.voyagerx.util.FontSizeUtility
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -31,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavView = binding.bottomNavigationView
 
-
         changeFragmentView(LandingPageFragment()) //setting initial view to landing page as you only get here after bypassing login/register screens
 
         bottomNavView.setOnItemSelectedListener {
@@ -43,10 +47,12 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+
         isLoggedIn()
         binding.logInOrOutButton.setOnClickListener {
             setLogInOrOutButtonListener(isLoggedIn())
         }
+
     }
 
     private fun changeFragmentView(desiredFragment: Fragment) {
@@ -54,7 +60,6 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.frame, desiredFragment)
             commit()
         }
-
     }
 
     private fun isLoggedIn(): Boolean{
@@ -84,5 +89,10 @@ class MainActivity : AppCompatActivity() {
 
             isLoggedIn()
         }
+    }
+
+    //temporary function used to update fontScale
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(FontSizeUtility().adjustFontScale(newBase, 1.0F))
     }
 }

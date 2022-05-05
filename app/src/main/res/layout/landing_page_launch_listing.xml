@@ -9,9 +9,7 @@
         android:id="@+id/landing_page_launch_listing_card"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
-        app:cardBackgroundColor="@color/material_dynamic_neutral10"
-        app:cardCornerRadius="@dimen/landing_card_corner_radius"
+        app:cardCornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,27 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_x_lg"
-                android:hint="@string/launch_listing_header"
-                android:text=""
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/bg_event_listing_rounded"
                 android:backgroundTint="@color/transparent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -66,6 +47,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="invisible" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_sm"
+                android:layout_marginBottom="@dimen/margin_sm"
+                android:text="@string/launch_listing_header"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
