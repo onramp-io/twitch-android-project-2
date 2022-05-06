@@ -37,32 +37,16 @@ class ProfileFragment : Fragment() {
             parentFragmentManager.beginTransaction().replace(R.id.frame, EditProfileFragment()).commit()
         }
 
-        setProfileBackgroundWallpaperAndFontColors(SharedPreferencesManager.getBackgroundWallpaper())
+        setProfileBackgroundWallpaper(SharedPreferencesManager.getBackgroundWallpaper())
 
         return binding.root
     }
 
-    private fun setProfileBackgroundWallpaperAndFontColors(wallpaper: Boolean) {
-        val profileLayout: ConstraintLayout = binding.profileLayout
+    private fun setProfileBackgroundWallpaper(wallpaper: Boolean) {
         if (wallpaper) {
-            profileLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.stars_background)
-            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvBio.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvEmptyFavoritesMsg.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvFavoriteLaunchesLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.editProfileImageBtn.setImageResource(R.drawable.ic_editprofile_white)
+            binding.headerCoverImage.setImageResource(R.drawable.stars_background)
         } else {
-            profileLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvBio.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvEmptyFavoritesMsg.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvFavoriteLaunchesLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.editProfileImageBtn.setImageResource(R.drawable.ic_editprofile_black)
+            binding.headerCoverImage.setImageResource(R.drawable.plain_background)
         }
     }
     
