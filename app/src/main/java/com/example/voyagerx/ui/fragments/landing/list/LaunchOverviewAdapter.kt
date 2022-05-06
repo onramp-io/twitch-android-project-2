@@ -7,12 +7,27 @@ import com.example.voyagerx.databinding.LandingPageOverviewCardBinding
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.Launch
 
-class LaunchOverviewAdapter(private val listener: LaunchClickListener) :
+class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchClickListener { }) :
     RecyclerView.Adapter<LaunchOverviewViewHolder>() {
-    private var launches: List<Launch> = listOf()
+    private var visibleLaunches: List<Launch> = listOf()
+    private var allLaunches: List<Launch> = listOf()
 
     fun initializeList(launches: List<Launch>) {
-        this.launches = launches
+        allLaunches = launches
+        visibleLaunches = launches.map { it.copy() }.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun filter(searchTerm: String?) {
+        visibleLaunches = if (searchTerm?.isNotEmpty() == true) {
+            allLaunches.filter {
+                it.mission_name?.lowercase()?.contains(searchTerm) ?: true ||
+                        it.launch_site_long?.lowercase()?.contains(searchTerm) ?: true ||
+                        it.launch_date_utc?.lowercase()?.contains(searchTerm) ?: true
+            }
+        } else {
+            allLaunches
+        }
         notifyDataSetChanged()
     }
 
@@ -24,12 +39,12 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener) :
         )
 
     override fun onBindViewHolder(holder: LaunchOverviewViewHolder, position: Int) {
-        val launch = launches[position]
+        val launch = visibleLaunches[position]
         holder.bind(launch)
         holder.itemView.setOnClickListener {
             listener.onClick(launch)
         }
     }
 
-    override fun getItemCount(): Int = launches.size
+    override fun getItemCount(): Int = visibleLaunches.size
 }
