@@ -1,24 +1,24 @@
 package com.example.voyagerx.ui.fragments.userprofileac
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.voyagerx.databinding.FavoritesOverviewCardBinding
+import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.User
 import com.example.voyagerx.ui.fragments.userprofileac.FavoritesAdapter.*
 
 
 class FavoritesAdapter(
-    val user: User?) :
+    private val user: User?,
+    private val listener: LaunchClickListener = LaunchClickListener { }
+) :
     RecyclerView.Adapter<ViewHolder>() {
 
 
     class ViewHolder(val binding: FavoritesOverviewCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int {
-
         return user?.favoriteLaunches?.size ?: 0
     }
 
@@ -28,15 +28,21 @@ class FavoritesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val favoriteLaunch = user!!.favoriteLaunches!![position]
+
         if (itemCount == 0) {
             //do nothing in the adapter
         } else {
-            holder.binding.launchOverviewCardMissionName.text = user!!.favoriteLaunches!![position].mission_name.toString()
-            holder.binding.launchOverviewCardSiteName.text = user.favoriteLaunches!![position].launch_site_long.toString()
-            holder.binding.launchOverviewCardYear.text = user.favoriteLaunches!![position].launch_year.toString()
-        }
-    }
+            holder.binding.launchOverviewCardMissionName.text = favoriteLaunch.mission_name.toString()
+            holder.binding.launchOverviewCardSiteName.text = favoriteLaunch.launch_site_long.toString()
+            holder.binding.launchOverviewCardYear.text = favoriteLaunch.launch_year.toString()
 
+            holder.binding.favoriteItemContainer.setOnClickListener {
+                listener.onClick(favoriteLaunch)
+            }
+        }
+
+    }
 
 
 }

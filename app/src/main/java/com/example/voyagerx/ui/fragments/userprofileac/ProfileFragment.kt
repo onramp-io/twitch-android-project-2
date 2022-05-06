@@ -10,11 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.voyagerx.repository.UserRepository
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
+import com.example.voyagerx.LaunchDetailsFragment
+import com.example.voyagerx.data.LaunchDetailFields
+import com.example.voyagerx.helpers.LaunchClickListener
+import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.util.SharedPreferencesManager
 import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
+import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,7 +32,6 @@ class ProfileFragment : Fragment() {
     lateinit var userRepository: UserRepository
     private lateinit var binding: FragmentProfileBinding
     private val SharedPreferencesManager by lazy {SharedPreferencesManager(requireContext())}
-
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +84,8 @@ class ProfileFragment : Fragment() {
 
 
     private fun createRecyclerView() {
-        val adapter = FavoritesAdapter(userRepository.getCurrentUser())
+        val adapter = FavoritesAdapter(userRepository.getCurrentUser(), LaunchClickListener(this::navigateToLaunchDetails))
+
         binding.rvUserProfileFavorites.layoutManager = LinearLayoutManager(requireContext())
         binding.rvUserProfileFavorites.adapter = adapter
 
@@ -85,6 +94,30 @@ class ProfileFragment : Fragment() {
         } else {
             hideEmptyFavoritesRVCase()
         }
+    }
+
+    private fun navigateToLaunchDetails(launch: Launch) {
+        val bundle = Bundle()
+        bundle.apply {
+            putString(LaunchDetailFields.id, launch.id)
+            putString(LaunchDetailFields.missionName, launch.mission_name)
+            putString(LaunchDetailFields.launchSite, launch.launch_site_long)
+            putString(LaunchDetailFields.launchDate, launch.launch_date_utc)
+            putString(LaunchDetailFields.launchYear, launch.launch_year)
+            putString(LaunchDetailFields.details, launch.details)
+            putString(LaunchDetailFields.articleLink, launch.article_link)
+            putString(LaunchDetailFields.videoLink, launch.video_link)
+            putStringArray(LaunchDetailFields.imageLinks, launch.image_links?.toTypedArray())
+        }
+
+        val launchDetailsFragment = LaunchDetailsFragment()
+        launchDetailsFragment.arguments = bundle
+
+        // Button animation then fragment transition?
+        parentFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .replace(R.id.frame, launchDetailsFragment)
+            .commit()
     }
 
     private fun hideEmptyFavoritesRVCase() {
