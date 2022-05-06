@@ -1,6 +1,7 @@
 package com.example.voyagerx.ui.fragments.userprofileac
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,8 @@ class ProfileFragment : Fragment() {
 
         setProfileBackgroundWallpaperAndFontColors(SharedPreferencesManager.getBackgroundWallpaper())
 
+        getUserInfoFromDatabase()
+
         return binding.root
     }
 
@@ -70,7 +73,6 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         createRecyclerView()
-        getUserInfoFromDatabase()
 
     }
 
@@ -114,7 +116,7 @@ class ProfileFragment : Fragment() {
         val userWord = "User"
         val userBio: String? = userRepository.getCurrentUser()?.bio
         val usersName: String? = userRepository.getCurrentUser()?.name
-
+        Log.d("getuserInfo","$usersName")
         //get first letter of user's name from database; pass to setting function
         if (userRepository.getCurrentUser()?.name.equals(null)) {
                 setInitialInAvatar(userWord.first().uppercaseChar())

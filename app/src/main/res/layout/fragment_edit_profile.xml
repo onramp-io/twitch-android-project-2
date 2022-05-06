@@ -100,18 +100,6 @@
         tools:layout_editor_absoluteX="0dp" />
 
 
-
-        <TextView
-            android:id="@+id/tvNameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:text="@string/name_profile_label"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/editNameField"
-            app:layout_constraintTop_toBottomOf="@+id/material_divider" />
-
     <EditText
         android:id="@+id/editNameField"
         android:layout_width="wrap_content"
@@ -129,86 +117,67 @@
         app:layout_constraintTop_toBottomOf="@+id/tvNameLabel" />
 
     <TextView
-            android:id="@+id/tvBioLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bio_profile_label"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/editBio"
-            app:layout_constraintTop_toBottomOf="@+id/editNameField" />
+        android:id="@+id/tvLocationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location_profile_label"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editLocationField"
+        app:layout_constraintTop_toBottomOf="@+id/editBio" />
 
     <EditText
         android:id="@+id/editBio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:hint="@string/enter_bio_here"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:minHeight="48dp"
         android:text="@string/user_bio"
-        android:hint="@string/enter_bio_here"
-        android:textColorHint="@color/hint_color"
         android:textColor="@color/purple_200"
+        android:textColorHint="@color/hint_color"
         app:layout_constraintStart_toStartOf="@+id/tvLocationLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvBioLabel"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBioLabel" />
 
-        <TextView
-            android:id="@+id/tvLocationLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/location_profile_label"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/editLocationField"
-            app:layout_constraintTop_toBottomOf="@+id/editBio" />
+    <TextView
+        android:id="@+id/tvBioLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bio_profile_label"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editBio"
+        app:layout_constraintTop_toBottomOf="@+id/editNameField" />
 
     <EditText
         android:id="@+id/editLocationField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:autofillHints=""
         android:background="@android:color/transparent"
         android:hint="@string/enter_location_here_hint"
+        android:inputType="text"
         android:minHeight="48dp"
         android:textColor="@color/purple_200"
         android:textColorHint="@color/hint_color"
-        app:layout_constraintStart_toStartOf="@+id/tvPasswordLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvLocationLabel"
-        android:inputType="text"
-        android:autofillHints="" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLocationLabel" />
 
-        <TextView
-            android:id="@+id/tvPasswordLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/password_profile_label"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/editPasswordLayout"
-            app:layout_constraintTop_toBottomOf="@+id/editLocationField" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editPasswordLayout"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.045"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPasswordLabel"
-            android:textColor="@color/purple_200"
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editPasswordField"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:minWidth="45dp"
-                android:background="@android:color/transparent"
-                android:textColor="@color/purple_200"
-                android:ems="30"
-                android:inputType="textPassword|textNoSuggestions" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/tvNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/name_profile_label"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editNameField"
+        app:layout_constraintTop_toBottomOf="@+id/material_divider" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

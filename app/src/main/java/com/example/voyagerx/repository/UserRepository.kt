@@ -52,7 +52,9 @@ class UserRepository @Inject constructor(
     suspend fun updateUser(user: User){
         withContext(Dispatchers.IO) {
             database.userDao().update(user)
+            updateSharedPrefUser(user)
         }
+
     }
 
     suspend fun logIn(email: String, password: String){
@@ -114,5 +116,13 @@ class UserRepository @Inject constructor(
 
     private fun getSharedPreferences(): SharedPreferences{
         return context.getSharedPreferences(context.getString(R.string.user_preference), Context.MODE_PRIVATE)
+    }
+
+    private fun updateSharedPrefUser(updatedUser: User) {
+        val sharedPref = getSharedPreferences()
+        with(sharedPref.edit()) {
+            putString(context.getString(R.string.curr_user), convertUserToJson(updatedUser))
+            apply()
+        }
     }
 }
