@@ -16,8 +16,13 @@
 
     <string name="title_login">Login</string>
     <string name="title_register">Register</string>
+    <string name="title_logout">Logout</string>
+    <string name="back_button">Back</string>
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="login_button">Launch!</string>
+    <string name="intended_login_view">View</string>
+    <string name="logout_message">You have logged out</string>
+    <string name="confirm_dialog">OK</string>
 
     <string name="filter_launches_content_description">Filter launches</string>
     <string name="launch_listing_header">There are %1$d total launches 🚀</string>
@@ -86,6 +91,12 @@
     <string name="invalid_email_error">Invalid email</string>
     <string name="invalid_password_error">Invalid password - Must be at least 6 characters</string>
     <string name="invalid_confirm_password_error">Passwords must match</string>
+
+    <string name="cancel">cancel</string>
+    <string name="register">Register</string>
+    <string name="log_in">Log in</string>
+    <string name="need_account_msg">You must be signed in to favorite a launch.</string>
+    <string name="account_needed_title">Account Needed</string>
 
     <!-- Preference Titles -->
     <string name="appearance_settings_label">Appearance</string>
