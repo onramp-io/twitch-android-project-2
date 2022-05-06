@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.voyagerx.repository.database.LaunchDao
 import com.example.voyagerx.repository.database.UserDao
 import com.example.voyagerx.repository.database.VoyagerXDatabase
 import com.example.voyagerx.repository.model.Launch
@@ -23,6 +24,7 @@ import kotlin.jvm.Throws
 class SimpleEntityReadWriteTest {
 
     private lateinit var userDao: UserDao
+    private lateinit var launchDao: LaunchDao
     private lateinit var db: VoyagerXDatabase
 
     @Before
@@ -31,6 +33,7 @@ class SimpleEntityReadWriteTest {
         db = Room.inMemoryDatabaseBuilder(
             context, VoyagerXDatabase::class.java).build()
         userDao = db.userDao()
+        launchDao = db.launchDao()
         Log.d("db", "running")
     }
 
@@ -62,9 +65,9 @@ class SimpleEntityReadWriteTest {
 
         // adding launch to user's favorites
         val newLaunches = mutableListOf<Launch>()
-        byEmail.favoriteLaunches?.let { newLaunches.addAll(it) }
+        byEmail?.favoriteLaunches?.let { newLaunches.addAll(it) }
         newLaunches.add(launch)
-        userDao.updateUserFavoriteLaunches(byEmail.id, newLaunches)
+        userDao.updateUserFavoriteLaunches(byEmail?.id ?: 1, newLaunches)
 
         // assert db's user equal to test user
         val newByEmail = userDao.findUserByEmail("test email")
@@ -76,6 +79,18 @@ class SimpleEntityReadWriteTest {
     fun readEmptyUser(){
         val user = userDao.findUserByEmail("test email")
         assertThat(user, equalTo(null))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun addLaunchesAndGetAll(){
+        val launch = Launch("1", null, null, null, null, null, null, null, null)
+        val launch2 = Launch("2", null, null, null, null, null, null, null, null)
+        val listOfLaunches = listOf(launch, launch2)
+        launchDao.insertAll(listOf(launch, launch2))
+        val fromDb = launchDao.getAll()
+
+        assertThat(fromDb, equalTo(listOfLaunches))
     }
 
 }
