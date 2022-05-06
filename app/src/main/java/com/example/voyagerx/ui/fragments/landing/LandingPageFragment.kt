@@ -3,30 +3,26 @@ package com.example.voyagerx.ui.fragments.landing
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.annotation.RequiresApi
+import android.widget.PopupMenu
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.example.voyagerx.LaunchDetailsFragment
 import com.example.voyagerx.R
-import com.example.voyagerx.data.LaunchDetailBundle
+import com.example.voyagerx.data.LaunchDetailFields
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -43,7 +39,7 @@ class LandingPageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentLandingPageBinding.inflate(inflater)
@@ -54,30 +50,25 @@ class LandingPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        hideNetworkError()
-
         if (!this::launches.isInitialized) {
             setupList()
         }
     }
 
-    private fun filterLaunches(searchTerm: String?) {
-        adapter.filter(searchTerm?.lowercase())
-        setListHeaderText(adapter.itemCount)
-    }
-
     private fun navigateToLaunchDetails(launch: Launch) {
         val bundle = Bundle()
         bundle.apply {
-            putString(LaunchDetailBundle.id, launch.id)
-            putString(LaunchDetailBundle.missionName, launch.mission_name)
-            putString(LaunchDetailBundle.launchSite, launch.launch_site_long)
-            putString(LaunchDetailBundle.launchDate, launch.launch_date_utc)
-            putString(LaunchDetailBundle.launchYear, launch.launch_year)
-            putString(LaunchDetailBundle.details, launch.details)
-            putString(LaunchDetailBundle.articleLink, launch.article_link)
-            putString(LaunchDetailBundle.videoLink, launch.video_link)
-            putStringArray(LaunchDetailBundle.imageLinks, launch.image_links?.toTypedArray())
+            LaunchDetailFields.let {
+                putString(it.id, launch.id)
+                putString(it.missionName, launch.mission_name)
+                putString(it.launchSite, launch.launch_site_long)
+                putString(it.launchDate, launch.launch_date_utc)
+                putString(it.launchYear, launch.launch_year)
+                putString(it.details, launch.details)
+                putString(it.articleLink, launch.article_link)
+                putString(it.videoLink, launch.video_link)
+                putStringArray(it.imageLinks, launch.image_links?.toTypedArray())
+            }
         }
 
         val launchDetailsFragment = LaunchDetailsFragment()
@@ -94,12 +85,12 @@ class LandingPageFragment : Fragment() {
     private fun addSearchListeners() {
         binding.filters.search.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
-                filterLaunches(text)
+                adapter.updateSearchTerm(text?.lowercase())
                 return false
             }
 
             override fun onQueryTextChange(text: String?): Boolean {
-                filterLaunches(text)
+                adapter.updateSearchTerm(text?.lowercase())
                 return false
             }
         })
@@ -111,12 +102,100 @@ class LandingPageFragment : Fragment() {
         }
     }
 
+    private fun addFilterChip(field: String, filter: String) {
+        val chipGroup = binding.filters.filterChipGroup
+        val filterChipLayout = layoutInflater.inflate(
+            R.layout.landing_page_filter_chip, null
+        ) as ConstraintLayout
+        val filterChip = filterChipLayout.getChildAt(0) as Chip
+        filterChipLayout.removeView(filterChip)
+
+        filterChip.setOnCloseIconClickListener {
+            chipGroup.removeView(filterChip)
+            adapter.removeAnyFilter(field, filter)
+        }
+
+        filterChip.text = filter
+        chipGroup.addView(filterChip)
+    }
+
+    private fun addAnyFilter(field: String, filter: String) {
+        if (!adapter.hasAnyFilter(field, filter)) {
+            adapter.addAnyFilter(field, filter)
+            addFilterChip(field, filter)
+        }
+    }
+
+    private fun addAllFilter(field: String, filter: String) {
+        if (!adapter.hasAllFilter(field, filter)) {
+            adapter.addAllFilter(field, filter)
+        }
+    }
+
+    private fun addSiteToSubMenu(subMenu: SubMenu, site: String) {
+        subMenu.add(site).setOnMenuItemClickListener {
+            addAnyFilter(LaunchDetailFields.launchSite, site)
+            true
+        }
+    }
+
+    private fun addCheckboxFilterToMenu(popupMenu: PopupMenu, filterText: String, field: String) {
+        val articleItem = popupMenu.menu.add(filterText)
+        articleItem.isCheckable = true
+        articleItem.isChecked =
+            adapter.hasAllFilter(field, filterText)
+        articleItem.setOnMenuItemClickListener {
+            it.isChecked = !it.isChecked
+            if (it.isChecked) {
+                addAllFilter(field, filterText)
+            } else {
+                adapter.removeAllFilter(field, filterText)
+            }
+            true
+        }
+    }
+
+    private fun setupFilterMenu() {
+        binding.filters.filterIcon.setOnClickListener { view ->
+            val popupMenu = PopupMenu(context, view)
+
+            val siteNames = adapter.getSiteFilters()
+            if (siteNames.isNotEmpty()) {
+                val siteMenu = popupMenu.menu.addSubMenu(getString(R.string.filter_site_submenu))
+                siteNames.forEach {
+                    addSiteToSubMenu(siteMenu, it)
+                }
+            }
+
+            addCheckboxFilterToMenu(popupMenu, getString(R.string.filter_article_link),
+                LaunchDetailFields.articleLink
+            )
+
+            addCheckboxFilterToMenu(popupMenu, getString(R.string.filter_image_link),
+                LaunchDetailFields.imageLinks
+            )
+
+            addCheckboxFilterToMenu(popupMenu, getString(R.string.filter_video_link),
+                LaunchDetailFields.videoLink
+            )
+
+            popupMenu.inflate(R.menu.filter_menu)
+            popupMenu.show()
+
+        }
+    }
+
     private fun setupList() {
         addSearchListeners()
+        setupFilterMenu()
+        hideNetworkError()
         showSpinner()
 
         // Add button press animation
-        adapter = LaunchOverviewAdapter(LaunchClickListener(this::navigateToLaunchDetails))
+        adapter = LaunchOverviewAdapter(
+            LaunchClickListener(this::navigateToLaunchDetails),
+            this::setListHeaderText
+        )
         binding.listing.list.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
@@ -151,9 +230,9 @@ class LandingPageFragment : Fragment() {
         }
     }
 
-    private fun pluralizeLaunches(amount: Int): String = when {
-        amount == 0 -> "There aren't any launches..."
-        amount == 1 -> "There is 1 launch \uD83D\uDE80"
+    private fun pluralizeLaunches(amount: Int): String = when (amount) {
+        0 -> "There aren't any launches..."
+        1 -> "There is 1 launch \uD83D\uDE80"
         else -> "There are $amount total launches \uD83D\uDE80"
     }
 

@@ -23,4 +23,6 @@
     <dimen name="text_sm">10sp</dimen>
     <dimen name="text_lg">20sp</dimen>
     <dimen name="text_md">12sp</dimen>
+    <dimen name="landing_page_filter_chip_width">100dp</dimen>
+    <dimen name="landing_page_filter_chip_height">45dp</dimen>
 </resources>

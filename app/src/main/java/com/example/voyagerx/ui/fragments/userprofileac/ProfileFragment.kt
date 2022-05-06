@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.voyagerx.R
-import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.repository.UserRepository
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.voyagerx.LaunchDetailsFragment
-import com.example.voyagerx.data.LaunchDetailBundle
+import com.example.voyagerx.data.LaunchDetailFields
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.Launch
+import com.example.voyagerx.R
+import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.util.SharedPreferencesManager
 import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
@@ -99,15 +99,15 @@ class ProfileFragment : Fragment() {
     private fun navigateToLaunchDetails(launch: Launch) {
         val bundle = Bundle()
         bundle.apply {
-            putString(LaunchDetailBundle.id, launch.id)
-            putString(LaunchDetailBundle.missionName, launch.mission_name)
-            putString(LaunchDetailBundle.launchSite, launch.launch_site_long)
-            putString(LaunchDetailBundle.launchDate, launch.launch_date_utc)
-            putString(LaunchDetailBundle.launchYear, launch.launch_year)
-            putString(LaunchDetailBundle.details, launch.details)
-            putString(LaunchDetailBundle.articleLink, launch.article_link)
-            putString(LaunchDetailBundle.videoLink, launch.video_link)
-            putStringArray(LaunchDetailBundle.imageLinks, launch.image_links?.toTypedArray())
+            putString(LaunchDetailFields.id, launch.id)
+            putString(LaunchDetailFields.missionName, launch.mission_name)
+            putString(LaunchDetailFields.launchSite, launch.launch_site_long)
+            putString(LaunchDetailFields.launchDate, launch.launch_date_utc)
+            putString(LaunchDetailFields.launchYear, launch.launch_year)
+            putString(LaunchDetailFields.details, launch.details)
+            putString(LaunchDetailFields.articleLink, launch.article_link)
+            putString(LaunchDetailFields.videoLink, launch.video_link)
+            putStringArray(LaunchDetailFields.imageLinks, launch.image_links?.toTypedArray())
         }
 
         val launchDetailsFragment = LaunchDetailsFragment()
