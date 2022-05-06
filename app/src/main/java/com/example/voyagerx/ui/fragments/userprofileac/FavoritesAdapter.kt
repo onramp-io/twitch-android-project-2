@@ -28,7 +28,6 @@ class FavoritesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         if (itemCount == 0) {
             //do nothing in the adapter
         } else {
@@ -36,7 +35,8 @@ class FavoritesAdapter(
             holder.binding.launchOverviewCardSiteName.text = user.favoriteLaunches!![position].launch_site_long.toString()
             holder.binding.launchOverviewCardYear.text = user.favoriteLaunches!![position].launch_year.toString()
         }
-
     }
+
+
 
 }
