@@ -139,6 +139,22 @@ class LandingPageFragment : Fragment() {
         }
     }
 
+    private fun addCheckboxFilterToMenu(popupMenu: PopupMenu, filterText: String, field: String) {
+        val articleItem = popupMenu.menu.add(filterText)
+        articleItem.isCheckable = true
+        articleItem.isChecked =
+            adapter.hasAllFilter(field, filterText)
+        articleItem.setOnMenuItemClickListener {
+            it.isChecked = !it.isChecked
+            if (it.isChecked) {
+                addAllFilter(field, filterText)
+            } else {
+                adapter.removeAllFilter(field, filterText)
+            }
+            true
+        }
+    }
+
     private fun setupFilterMenu() {
         binding.filters.filterIcon.setOnClickListener { view ->
             val popupMenu = PopupMenu(context, view)
@@ -151,48 +167,17 @@ class LandingPageFragment : Fragment() {
                 }
             }
 
-            val articleFilterText = getString(R.string.filter_article_link)
-            val articleItem = popupMenu.menu.add(articleFilterText)
-            articleItem.isCheckable = true
-            articleItem.isChecked =
-                adapter.hasAllFilter(LaunchDetailFields.articleLink, articleFilterText)
-            articleItem.setOnMenuItemClickListener {
-                it.isChecked = !it.isChecked
-                if (it.isChecked) {
-                    addAllFilter(LaunchDetailFields.articleLink, articleFilterText)
-                } else {
-                    adapter.removeAllFilter(LaunchDetailFields.articleLink, articleFilterText)
-                }
-                true
-            }
+            addCheckboxFilterToMenu(popupMenu, getString(R.string.filter_article_link),
+                LaunchDetailFields.articleLink
+            )
 
-            val imageFilterText = getString(R.string.filter_image_link)
-            val imageItem = popupMenu.menu.add(imageFilterText)
-            imageItem.isCheckable = true
-            imageItem.isChecked = adapter.hasAllFilter(LaunchDetailFields.imageLinks, imageFilterText)
-            imageItem.setOnMenuItemClickListener {
-                it.isChecked = !it.isChecked
-                if (it.isChecked) {
-                    addAllFilter(LaunchDetailFields.imageLinks, imageFilterText)
-                } else {
-                    adapter.removeAllFilter(LaunchDetailFields.imageLinks, imageFilterText)
-                }
-                true
-            }
+            addCheckboxFilterToMenu(popupMenu, getString(R.string.filter_image_link),
+                LaunchDetailFields.imageLinks
+            )
 
-            val videoFilterText = getString(R.string.filter_video_link)
-            val videoItem = popupMenu.menu.add(videoFilterText)
-            videoItem.isCheckable = true
-            videoItem.isChecked = adapter.hasAllFilter(LaunchDetailFields.videoLink, videoFilterText)
-            videoItem.setOnMenuItemClickListener {
-                it.isChecked = !it.isChecked
-                if (it.isChecked) {
-                    addAllFilter(LaunchDetailFields.videoLink, videoFilterText)
-                } else {
-                    adapter.removeAllFilter(LaunchDetailFields.videoLink, videoFilterText)
-                }
-                true
-            }
+            addCheckboxFilterToMenu(popupMenu, getString(R.string.filter_video_link),
+                LaunchDetailFields.videoLink
+            )
 
             popupMenu.inflate(R.menu.filter_menu)
             popupMenu.show()
