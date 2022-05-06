@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profileLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/stars_background"
@@ -116,18 +117,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:hint="@string/enter_name_here"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:text="@string/user_temp_name"
-        android:hint="@string/enter_name_here"
-        android:textColorHint="@color/hint_color"
         android:textColor="@color/purple_200"
+        android:textColorHint="@color/hint_color"
         app:layout_constraintStart_toStartOf="@+id/tvBioLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameLabel"
-        android:inputType="text"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNameLabel" />
 
-        <TextView
+    <TextView
             android:id="@+id/tvBioLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
