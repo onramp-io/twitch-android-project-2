@@ -3,15 +3,19 @@ package com.example.voyagerx.ui.fragments.landing.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.voyagerx.data.LaunchDetailFields
 import com.example.voyagerx.databinding.LandingPageOverviewCardBinding
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.Launch
 
-class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchClickListener { }) :
+class LaunchOverviewAdapter(
+    private val listener: LaunchClickListener = LaunchClickListener { },
+    private val filterCallback: (Int) -> Unit
+) :
     RecyclerView.Adapter<LaunchOverviewViewHolder>() {
     private var visibleLaunches: List<Launch> = listOf()
     private var allLaunches: List<Launch> = listOf()
-    private val launchSiteFilters: MutableSet<String> = mutableSetOf()
+    private val filters: MutableMap<String, String> = mutableMapOf()
     private var searchTerm: String = ""
 
     fun initializeList(launches: List<Launch>) {
@@ -30,17 +34,24 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchCl
         }
     }
 
-    private fun filterByLaunchSite(launch: Launch): Boolean {
-        return launchSiteFilters.isEmpty() || launchSiteFilters.contains(launch.launch_site_long)
+    private fun fieldMatchesFilter(field: String, launch: Launch, match: String) = when (field) {
+        LaunchDetailFields.launchSite -> launch.launch_site_long == match
+        else -> true
     }
 
+    // checks if item matches any of the selected filters or contains the search term
     private fun filterAll() {
         visibleLaunches = allLaunches
             .asSequence()
-            .filter(this::filterByLaunchSite)
+            .filter { launch ->
+                filters.isEmpty() || filters.entries.firstOrNull {
+                    fieldMatchesFilter(it.key, launch, it.value)
+                } != null
+            }
             .filter { filterBySearchTerm(it) }
             .toList()
         notifyDataSetChanged()
+        filterCallback(itemCount)
     }
 
     fun updateSearchTerm(searchTerm: String?) {
@@ -48,17 +59,17 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchCl
         filterAll()
     }
 
-    fun addLaunchSiteFilter(site: String) {
-        launchSiteFilters.add(site)
+    fun addFilter(field: String, match: String) {
+        filters[field] = match
         filterAll()
     }
 
-    fun removeLaunchSiteFilter(site: String) {
-        launchSiteFilters.remove(site)
+    fun removeFilter(field: String) {
+        filters.remove(field)
         filterAll()
     }
 
-    fun hasLaunchSiteFilter(site: String): Boolean = launchSiteFilters.contains(site)
+    fun hasFilter(field: String): Boolean = filters.contains(field)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchOverviewViewHolder =
         LaunchOverviewViewHolder(

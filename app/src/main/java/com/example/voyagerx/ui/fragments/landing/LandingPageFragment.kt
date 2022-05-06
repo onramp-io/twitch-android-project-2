@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.example.voyagerx.LaunchDetailsFragment
 import com.example.voyagerx.R
-import com.example.voyagerx.data.LaunchDetailBundle
+import com.example.voyagerx.data.LaunchDetailFields
 import com.example.voyagerx.databinding.FragmentLandingPageBinding
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.LaunchRepository
@@ -57,23 +57,18 @@ class LandingPageFragment : Fragment() {
         }
     }
 
-    private fun filterBySearchTerm(searchTerm: String?) {
-        adapter.updateSearchTerm(searchTerm?.lowercase())
-        setListHeaderText(adapter.itemCount)
-    }
-
     private fun navigateToLaunchDetails(launch: Launch) {
         val bundle = Bundle()
         bundle.apply {
-            putString(LaunchDetailBundle.id, launch.id)
-            putString(LaunchDetailBundle.missionName, launch.mission_name)
-            putString(LaunchDetailBundle.launchSite, launch.launch_site_long)
-            putString(LaunchDetailBundle.launchDate, launch.launch_date_utc)
-            putString(LaunchDetailBundle.launchYear, launch.launch_year)
-            putString(LaunchDetailBundle.details, launch.details)
-            putString(LaunchDetailBundle.articleLink, launch.article_link)
-            putString(LaunchDetailBundle.videoLink, launch.video_link)
-            putStringArray(LaunchDetailBundle.imageLinks, launch.image_links?.toTypedArray())
+            putString(LaunchDetailFields.id, launch.id)
+            putString(LaunchDetailFields.missionName, launch.mission_name)
+            putString(LaunchDetailFields.launchSite, launch.launch_site_long)
+            putString(LaunchDetailFields.launchDate, launch.launch_date_utc)
+            putString(LaunchDetailFields.launchYear, launch.launch_year)
+            putString(LaunchDetailFields.details, launch.details)
+            putString(LaunchDetailFields.articleLink, launch.article_link)
+            putString(LaunchDetailFields.videoLink, launch.video_link)
+            putStringArray(LaunchDetailFields.imageLinks, launch.image_links?.toTypedArray())
         }
 
         val launchDetailsFragment = LaunchDetailsFragment()
@@ -90,12 +85,12 @@ class LandingPageFragment : Fragment() {
     private fun addSearchListeners() {
         binding.filters.search.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
-                filterBySearchTerm(text)
+                adapter.updateSearchTerm(text?.lowercase())
                 return false
             }
 
             override fun onQueryTextChange(text: String?): Boolean {
-                filterBySearchTerm(text)
+                adapter.updateSearchTerm(text?.lowercase())
                 return false
             }
         })
@@ -105,16 +100,6 @@ class LandingPageFragment : Fragment() {
             hideKeyboardOnTouchOutside(motionEvent)
             true
         }
-    }
-
-    private fun addLaunchSiteFilter(siteName: String = "") {
-        adapter.addLaunchSiteFilter(siteName)
-        setListHeaderText(adapter.itemCount)
-    }
-
-    private fun removeLaunchSiteFilter(siteName: String = "") {
-        adapter.removeLaunchSiteFilter(siteName)
-        setListHeaderText(adapter.itemCount)
     }
 
     private fun addSiteChip(site: String) {
@@ -127,16 +112,17 @@ class LandingPageFragment : Fragment() {
 
         filterChip.setOnCloseIconClickListener {
             chipLayout.removeView(filterChip)
-            removeLaunchSiteFilter(site)
+            adapter.removeFilter(LaunchDetailFields.launchSite)
         }
+
         filterChip.text = site
         chipLayout.addView(filterChip)
     }
 
     private fun addSiteToSubMenu(subMenu: SubMenu, site: String) {
         subMenu.add(site).setOnMenuItemClickListener {
-            if (!adapter.hasLaunchSiteFilter(site)) {
-                addLaunchSiteFilter(site)
+            if (!adapter.hasFilter(LaunchDetailFields.launchSite)) {
+                adapter.addFilter(LaunchDetailFields.launchSite, site)
                 addSiteChip(site)
             }
             true
@@ -164,7 +150,10 @@ class LandingPageFragment : Fragment() {
         showSpinner()
 
         // Add button press animation
-        adapter = LaunchOverviewAdapter(LaunchClickListener(this::navigateToLaunchDetails))
+        adapter = LaunchOverviewAdapter(
+            LaunchClickListener(this::navigateToLaunchDetails),
+            this::setListHeaderText
+        )
         binding.listing.list.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
@@ -197,9 +186,9 @@ class LandingPageFragment : Fragment() {
         }
     }
 
-    private fun pluralizeLaunches(amount: Int): String = when {
-        amount == 0 -> "There aren't any launches..."
-        amount == 1 -> "There is 1 launch \uD83D\uDE80"
+    private fun pluralizeLaunches(amount: Int): String = when (amount) {
+        0 -> "There aren't any launches..."
+        1 -> "There is 1 launch \uD83D\uDE80"
         else -> "There are $amount total launches \uD83D\uDE80"
     }
 
