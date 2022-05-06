@@ -1,5 +1,6 @@
 package com.example.voyagerx
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,6 +17,10 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.backButton.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
         // NOTE: when directing to login activity, add extra to intent to direct to correct page ("view" = "register" or "login")
         val intendedView = intent.getStringExtra(getString(R.string.intended_login_view))
