@@ -23,6 +23,8 @@ import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -157,6 +159,7 @@ class LandingPageFragment : Fragment() {
         binding.listing.list.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+
             val result = launchRepository.getLaunches()
             hideSpinner()
 
@@ -168,6 +171,7 @@ class LandingPageFragment : Fragment() {
                 showNetworkError()
             }
         }
+
     }
 
     private fun hideKeyboardOnTouchOutside(event: MotionEvent) {

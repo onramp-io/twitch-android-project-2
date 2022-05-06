@@ -1,101 +1,75 @@
 package com.example.voyagerx.ui.fragments.settings
 
-
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.preference.*
 import com.example.voyagerx.R
-import com.example.voyagerx.databinding.FragmentSettingsBinding
-import com.example.voyagerx.util.FontSizeUtility
 import com.example.voyagerx.util.SharedPreferencesManager
 
-
-class SettingsFragment : Fragment() {
-    private lateinit var binding: FragmentSettingsBinding
+class SettingsFragment : PreferenceFragmentCompat() {
     private val SharedPreferencesManager by lazy { SharedPreferencesManager(requireContext()) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        //load preferences from an XML resource
+        setPreferencesFromResource(R.xml.root_preferences, rootKey)
+
+        //getting switch preference for background
+        val backgroundPreference: SwitchPreferenceCompat? = findPreference("background")
+        backgroundPreference?.let { setBackgroundWallpaper(it) }
+
+        //getting list preference for text size **this does not do anything
+        val fontSizePreference: ListPreference? = findPreference("font_sizes")
+        fontSizePreference?.let { setFontSize(it) }
 
 
-        getSharedPrefs()
-        createFontSizesAdapter()
-        setFontSize()
-        setBackgroundWallpaper()
-        setNotifications()
-
-        return binding.root
-    }
-
-    private fun getSharedPrefs() {
-        binding.switchAppearance.isChecked = SharedPreferencesManager.getBackgroundWallpaper()
-        binding.switchNotify.isChecked = SharedPreferencesManager.getLaunchNotifications()
-        binding.autoCompleteTextView.setText(SharedPreferencesManager.getTextInDropdown())
+        //getting switch preference for background **only showing a toast message
+        val notificationPreference: SwitchPreferenceCompat? = findPreference("alerts")
+        notificationPreference?.let { setNotifications(it) }
 
     }
 
-    //used to populate font size dropdown with large, medium, and small selections
-    private fun createFontSizesAdapter() {
-        val fontSizes = resources.getStringArray(R.array.font_sizes)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_font_sizes, fontSizes)
-        binding.autoCompleteTextView.setAdapter(arrayAdapter)
-    }
+    private fun setBackgroundWallpaper(backgroundPref: SwitchPreferenceCompat) {
 
-    private fun setFontSize() {
-
-        //ignore - needs to be updated with styles when time permits
-/*        binding.autoCompleteTextView.setOnClickListener {
-            when (binding.autoCompleteTextView.text.toString()) {
-                "Large" -> context?.let { large -> FontSizeUtility().adjustFontScale(large, 1.0F) }
-                "Medium" -> context?.let { medium -> FontSizeUtility().adjustFontScale(medium,0.9F) }
-                "Small" -> context?.let { small -> FontSizeUtility().adjustFontScale(small, 0.8F) }
+        backgroundPref.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue == true){
+                SharedPreferencesManager.setBackgroundWallpaper(newValue as Boolean)
+            } else {
+                SharedPreferencesManager.setBackgroundWallpaper(newValue as Boolean)
             }
-        }*/
-
-        binding.autoCompleteTextView.setOnClickListener {
-            when (binding.autoCompleteTextView.text.toString()) {
-                "Large" -> {
-                    SharedPreferencesManager.setTextInDropdown("Large")
-                }
-                "Medium" -> {
-                    SharedPreferencesManager.setTextInDropdown("Medium")
-                }
-                "Small" -> {
-                    SharedPreferencesManager.setTextInDropdown("Small")
-                }
-            }
+            true
         }
     }
 
-    private fun setBackgroundWallpaper() {
-        binding.switchAppearance.setOnCheckedChangeListener { _, isChecked ->
-            if (binding.switchAppearance.isChecked) {
-                SharedPreferencesManager.setBackgroundWallpaper(isChecked)
-                Log.d("wallPaperSwitch", isChecked.toString())
-            } else {
-                SharedPreferencesManager.setBackgroundWallpaper(isChecked)
-                Log.d("wallPaperSwitch", isChecked.toString())
+    private fun setFontSize(fontSizePreference: ListPreference) {
+
+        fontSizePreference.setOnPreferenceChangeListener { preference, newValue ->
+            if (preference is ListPreference) {
+                val index = preference.findIndexOfValue(newValue.toString())
+                val entryvalue = preference.entryValues[index]
+                Log.i("selected val", " position - $index, entryvalue - $entryvalue ")
+                when (entryvalue) {
+                    "Large" -> SharedPreferencesManager.setTextInDropdown("Large")
+                    "Medium" -> SharedPreferencesManager.setTextInDropdown("Medium")
+                    "Small" -> SharedPreferencesManager.setTextInDropdown("Small")
+                }
             }
+            true
         }
     }
 
-    private fun setNotifications() {
-        binding.switchNotify.setOnCheckedChangeListener { _, isChecked ->
-            if (binding.switchNotify.isChecked) {
-                SharedPreferencesManager.setLaunchNotifications(isChecked)
-                Log.d("notificationsSwitch", isChecked.toString())
+    private fun setNotifications(notificationPreference: SwitchPreferenceCompat) {
+        notificationPreference.setOnPreferenceChangeListener {_, newValue ->
+            if (newValue == true){
+                SharedPreferencesManager.setLaunchNotifications(newValue as Boolean)
+                val toast = Toast.makeText(requireContext(), R.string.notified_of_launches, Toast.LENGTH_SHORT)
+                toast.show()
             } else {
-                SharedPreferencesManager.setBackgroundWallpaper(isChecked)
-                Log.d("notificationsSwitch", isChecked.toString())
+                SharedPreferencesManager.setLaunchNotifications(newValue as Boolean)
+                val toast = Toast.makeText(requireContext(), R.string.not_notified_of_launches, Toast.LENGTH_SHORT)
+                toast.show()
             }
+            true
         }
     }
 

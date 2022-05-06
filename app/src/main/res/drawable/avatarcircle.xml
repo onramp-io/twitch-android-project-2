@@ -7,7 +7,7 @@
 
     <stroke
         android:width="5sp"
-        android:color="@color/purple_200"/>
+        android:color="@color/secondary"/>
 
     
 

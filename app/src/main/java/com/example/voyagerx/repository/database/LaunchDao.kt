@@ -16,7 +16,7 @@ interface LaunchDao {
     fun insertAll(launches: List<Launch>)
 
     @Query("SELECT * FROM Launch")
-    fun getAll(): List<Launch>
+    fun getAll(): List<Launch>?
 
     @Query("SELECT * FROM Launch WHERE id = :id")
     fun findLaunchById(id: String): Launch

@@ -1,16 +1,15 @@
 package com.example.voyagerx
-
-import android.app.Activity
 import android.graphics.Typeface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.example.voyagerx.adapters.LaunchCarouselAdapter
@@ -21,13 +20,10 @@ import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.repository.model.Launch
-import com.example.voyagerx.repository.model.User
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -72,7 +68,10 @@ class LaunchDetailsFragment : Fragment() {
         displayImages()
         displayLaunchDetails()
         displayFavorite()
+        binding.ivFavorite.setOnClickListener { handleFavoriteClick() }
         binding.ivShare.setOnClickListener { shareLaunch() }
+        binding.tvVideoLink.setOnClickListener { handleLinkClick(launchObj.video_link) }
+        binding.tvArticleLink.setOnClickListener { handleLinkClick(launchObj.article_link) }
     }
 
     override fun onDestroyView() {
@@ -180,5 +179,41 @@ class LaunchDetailsFragment : Fragment() {
                 Log.d("user", "there was an error checking favorites $e")
             }
         }
+    }
+
+    private fun handleLinkClick(link : String?) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        startActivity(browserIntent)
+    }
+
+
+    private fun handleFavoriteClick() {
+        var currUser = userRepository.getCurrentUser()
+        (if (currUser == null) {
+            showLoginPopup()
+            }
+        )
+    }
+
+    private fun showLoginPopup() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.account_needed_title))
+            .setMessage(getString(R.string.need_account_msg))
+            .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
+                //default closes the window
+            }
+            .setNegativeButton(getString(R.string.register)) { _, _ ->
+                val intent = Intent(activity, LoginActivity::class.java).apply {
+                    putExtra(getString(R.string.intended_login_view), getString(R.string.title_register))
+                }
+                startActivity(intent)
+            }
+            .setPositiveButton(getString(R.string.log_in)) { _, _ ->
+                val intent = Intent(activity, LoginActivity::class.java).apply {
+                    putExtra(getString(R.string.intended_login_view), getString(R.string.title_login))
+                }
+                startActivity(intent)
+            }
+            .show()
     }
 }

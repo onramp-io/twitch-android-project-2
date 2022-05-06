@@ -1,0 +1,8 @@
+<resources>
+    <!-- Font sizes -->
+    <string-array name="font_sizes">
+        <item>Large</item>
+        <item>Medium</item>
+        <item>Small</item>
+    </string-array>
+</resources>
