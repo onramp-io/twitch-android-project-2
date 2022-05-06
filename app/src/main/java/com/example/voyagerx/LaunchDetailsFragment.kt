@@ -1,7 +1,6 @@
 package com.example.voyagerx
-
-import android.content.Intent
 import android.graphics.Typeface
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +18,7 @@ import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.repository.model.Launch
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -66,6 +66,7 @@ class LaunchDetailsFragment : Fragment() {
         displayImages()
         displayLaunchDetails()
         displayFavorite()
+        binding.ivFavorite.setOnClickListener { handleFavoriteClick() }
         binding.ivShare.setOnClickListener { shareLaunch() }
         binding.tvVideoLink.setOnClickListener { handleLinkClick(launchObj.video_link) }
         binding.tvArticleLink.setOnClickListener { handleLinkClick(launchObj.article_link) }
@@ -181,5 +182,36 @@ class LaunchDetailsFragment : Fragment() {
     private fun handleLinkClick(link : String?) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
         startActivity(browserIntent)
+    }
+
+
+    private fun handleFavoriteClick() {
+        var currUser = userRepository.getCurrentUser()
+        (if (currUser == null) {
+            showLoginPopup()
+            }
+        )
+    }
+
+    private fun showLoginPopup() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.account_needed_title))
+            .setMessage(getString(R.string.need_account_msg))
+            .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
+                //default closes the window
+            }
+            .setNegativeButton(getString(R.string.register)) { _, _ ->
+                val intent = Intent(activity, LoginActivity::class.java).apply {
+                    putExtra(getString(R.string.intended_login_view), getString(R.string.title_register))
+                }
+                startActivity(intent)
+            }
+            .setPositiveButton(getString(R.string.log_in)) { _, _ ->
+                val intent = Intent(activity, LoginActivity::class.java).apply {
+                    putExtra(getString(R.string.intended_login_view), getString(R.string.title_login))
+                }
+                startActivity(intent)
+            }
+            .show()
     }
 }
