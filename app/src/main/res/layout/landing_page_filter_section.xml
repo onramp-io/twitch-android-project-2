@@ -9,13 +9,13 @@
         android:id="@+id/search"
         android:layout_width="0dp"
         android:layout_height="@dimen/landing_search_height"
+        android:layout_marginTop="@dimen/margin_md"
         android:background="@drawable/bg_search_rounded_md"
         android:focusableInTouchMode="false"
         android:searchIcon="@drawable/ic_baseline_search_24"
         app:iconifiedByDefault="false"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintStart_toEndOf="@+id/filter_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:queryBackground="@color/transparent"
         app:queryHint="Search launches...">
@@ -23,7 +23,7 @@
     </androidx.appcompat.widget.SearchView>
 
     <ImageButton
-        android:id="@+id/icon"
+        android:id="@+id/filter_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -34,5 +34,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/search"
         app:srcCompat="@drawable/ic_baseline_filter_alt_32" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/filter_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_md"
+        android:layout_marginTop="@dimen/margin_md"
+        app:chipSpacing="@dimen/margin_sm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

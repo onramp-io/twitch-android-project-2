@@ -1,6 +1,6 @@
 package com.example.voyagerx.data
 
-object LaunchDetailBundle {
+object LaunchDetailFields {
     const val id = "id"
     const val missionName = "mission_name"
     const val launchSite = "launch_site_long"
