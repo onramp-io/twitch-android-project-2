@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.voyagerx.adapters.LaunchCarouselAdapter
 import coil.size.Precision
 import coil.size.Scale
-import com.example.voyagerx.data.LaunchDetailBundle
+import com.example.voyagerx.data.LaunchDetailFields
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.UserRepository
@@ -53,15 +53,15 @@ class LaunchDetailsFragment : Fragment() {
         _binding = FragmentLaunchDetailsBinding.inflate(inflater, container, false)
 
         launchObj = Launch(
-            arguments?.getString(LaunchDetailBundle.id)!!,
-            arguments?.getString(LaunchDetailBundle.missionName),
-            arguments?.getString(LaunchDetailBundle.launchSite),
-            arguments?.getString(LaunchDetailBundle.launchDate),
-            arguments?.getString(LaunchDetailBundle.launchYear),
-            arguments?.getString(LaunchDetailBundle.details),
-            arguments?.getString(LaunchDetailBundle.articleLink),
-            arguments?.getString(LaunchDetailBundle.videoLink),
-            arguments?.getStringArray(LaunchDetailBundle.imageLinks)?.toList()
+            arguments?.getString(LaunchDetailFields.id)!!,
+            arguments?.getString(LaunchDetailFields.missionName),
+            arguments?.getString(LaunchDetailFields.launchSite),
+            arguments?.getString(LaunchDetailFields.launchDate),
+            arguments?.getString(LaunchDetailFields.launchYear),
+            arguments?.getString(LaunchDetailFields.details),
+            arguments?.getString(LaunchDetailFields.articleLink),
+            arguments?.getString(LaunchDetailFields.videoLink),
+            arguments?.getStringArray(LaunchDetailFields.imageLinks)?.toList()
         )
 
         return binding.root
