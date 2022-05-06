@@ -85,8 +85,17 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton(R.string.confirm_dialog){ _, _ -> }
                 .show()
 
+            checkIfLogoutProfileFragment()
             setLogInOrLogoutButtonText()
         }
+    }
+
+    private fun checkIfLogoutProfileFragment(){
+        val currFragment = supportFragmentManager.findFragmentById(R.id.frame)
+        if(currFragment is ProfileFragment){
+            changeFragmentView(LandingPageFragment())
+        }
+
     }
 
     //temporary function used to update fontScale
