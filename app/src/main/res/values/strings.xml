@@ -92,6 +92,9 @@
     <string name="invalid_confirm_password_error">Passwords must match</string>
     <string name="menu_site">Site</string>
     <string name="filter_site_submenu">Launch Sites</string>
+    <string name="filter_article_link">Has Articles</string>
+    <string name="filter_image_link">Has Images</string>
+    <string name="filter_video_link">Has Video</string>
 
     <string name="cancel">cancel</string>
     <string name="register">Register</string>

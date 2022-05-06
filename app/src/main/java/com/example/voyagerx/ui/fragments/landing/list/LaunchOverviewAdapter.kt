@@ -16,7 +16,8 @@ class LaunchOverviewAdapter(
     private var visibleLaunches: List<Launch> = listOf()
     private var allLaunches: List<Launch> = listOf()
     // map of an item field to a list of matches to filter on
-    private val filters: MutableMap<String, MutableList<String>> = mutableMapOf()
+    private val filtersAnyMatch: MutableMap<String, MutableList<String>> = mutableMapOf()
+    private val filtersAllMatch: MutableMap<String, MutableList<String>> = mutableMapOf()
     private var searchTerm: String = ""
 
     fun initializeList(launches: List<Launch>) {
@@ -35,10 +36,12 @@ class LaunchOverviewAdapter(
         }
     }
 
-    private fun fieldMatchesFilters(field: String, launch: Launch, matches: List<String>) =
+    private fun fieldMatchesFilters(field: String, launch: Launch, matches: List<String>): Boolean =
         when (field) {
-            LaunchDetailFields.launchSite -> matches.isEmpty() ||
-                    matches.contains(launch.launch_site_long)
+            LaunchDetailFields.launchSite -> launch.launch_site_long in matches
+            LaunchDetailFields.articleLink -> launch.article_link?.isNotEmpty() ?: false
+            LaunchDetailFields.imageLinks -> launch.image_links?.isNotEmpty() ?: false
+            LaunchDetailFields.videoLink -> launch.video_link?.isNotEmpty() ?: false
             else -> true
         }
 
@@ -47,9 +50,18 @@ class LaunchOverviewAdapter(
         visibleLaunches = allLaunches
             .asSequence()
             .filter { launch ->
-                filters.isEmpty() || filters.entries.firstOrNull {
-                    fieldMatchesFilters(it.key, launch, it.value)
+                // find first filter that item passes and pass item through filter
+                filtersAnyMatch.isEmpty() || filtersAnyMatch.entries.firstOrNull { filterToMatches ->
+                    filterToMatches.value.isEmpty() ||
+                            fieldMatchesFilters(filterToMatches.key, launch, filterToMatches.value)
                 } != null
+            }
+            .filter { launch ->
+                // find first filter that item does not pass, otherwise pass item through filter
+                filtersAllMatch.isEmpty() || filtersAllMatch.entries.firstOrNull {
+                        filterToMatches ->
+                    !fieldMatchesFilters(filterToMatches.key, launch, filterToMatches.value)
+                } == null
             }
             .filter { filterBySearchTerm(it) }
             .toList()
@@ -62,21 +74,45 @@ class LaunchOverviewAdapter(
         filterAll()
     }
 
-    fun addFilter(field: String, match: String) {
-        if (filters[field] == null) {
-            filters[field] = mutableListOf(match)
+    fun addAnyFilter(field: String, match: String) {
+        if (filtersAnyMatch[field] == null) {
+            filtersAnyMatch[field] = mutableListOf(match)
         } else {
-            filters[field]?.add(match)
+            filtersAnyMatch[field]?.add(match)
         }
         filterAll()
     }
 
-    fun removeFilter(field: String, match: String) {
-        filters[field]?.remove(match)
+    fun addAllFilter(field: String, match: String) {
+        if (filtersAllMatch[field] == null) {
+            filtersAllMatch[field] = mutableListOf(match)
+        } else {
+            filtersAllMatch[field]?.add(match)
+        }
         filterAll()
     }
 
-    fun hasFilter(field: String, match: String): Boolean = filters[field]?.contains(match) ?: false
+    fun removeAnyFilter(field: String, match: String) {
+        filtersAnyMatch[field]?.remove(match)
+        if (filtersAnyMatch[field]?.isEmpty() == true) {
+            filtersAnyMatch.remove(field)
+        }
+        filterAll()
+    }
+
+    fun removeAllFilter(field: String, match: String) {
+        filtersAllMatch[field]?.remove(match)
+        if (filtersAllMatch[field]?.isEmpty() == true) {
+            filtersAllMatch.remove(field)
+        }
+        filterAll()
+    }
+
+    fun hasAnyFilter(field: String, match: String): Boolean =
+        filtersAnyMatch[field]?.contains(match) ?: false
+
+    fun hasAllFilter(field: String, match: String): Boolean =
+        filtersAllMatch[field]?.contains(match) ?: false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchOverviewViewHolder =
         LaunchOverviewViewHolder(
@@ -98,7 +134,7 @@ class LaunchOverviewAdapter(
         .map { it.launch_site_long }
         .distinct()
         .filterNot {
-            filters[LaunchDetailFields.launchSite]?.contains(it) ?: false
+            filtersAnyMatch[LaunchDetailFields.launchSite]?.contains(it) ?: false
         }
         .filterNotNull()
         .toList()

@@ -23,8 +23,6 @@ import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -41,7 +39,7 @@ class LandingPageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentLandingPageBinding.inflate(inflater)
@@ -104,7 +102,7 @@ class LandingPageFragment : Fragment() {
         }
     }
 
-    private fun addFilterChip(field: String, filter: String, ) {
+    private fun addFilterChip(field: String, filter: String) {
         val chipGroup = binding.filters.filterChipGroup
         val filterChipLayout = layoutInflater.inflate(
             R.layout.landing_page_filter_chip, null
@@ -114,39 +112,91 @@ class LandingPageFragment : Fragment() {
 
         filterChip.setOnCloseIconClickListener {
             chipGroup.removeView(filterChip)
-            adapter.removeFilter(field, filter)
+            adapter.removeAnyFilter(field, filter)
         }
 
         filterChip.text = filter
         chipGroup.addView(filterChip)
     }
 
-    private fun addFilter(field: String, filter: String) {
-        if (!adapter.hasFilter(field, filter)) {
-            adapter.addFilter(field, filter)
+    private fun addAnyFilter(field: String, filter: String) {
+        if (!adapter.hasAnyFilter(field, filter)) {
+            adapter.addAnyFilter(field, filter)
             addFilterChip(field, filter)
+        }
+    }
+
+    private fun addAllFilter(field: String, filter: String) {
+        if (!adapter.hasAllFilter(field, filter)) {
+            adapter.addAllFilter(field, filter)
         }
     }
 
     private fun addSiteToSubMenu(subMenu: SubMenu, site: String) {
         subMenu.add(site).setOnMenuItemClickListener {
-            addFilter(LaunchDetailFields.launchSite, site)
+            addAnyFilter(LaunchDetailFields.launchSite, site)
             true
         }
     }
 
     private fun setupFilterMenu() {
         binding.filters.filterIcon.setOnClickListener { view ->
+            val popupMenu = PopupMenu(context, view)
+
             val siteNames = adapter.getSiteFilters()
-            if (adapter.itemCount > 0 && siteNames.isNotEmpty()) {
-                val popupMenu = PopupMenu(context, view)
+            if (siteNames.isNotEmpty()) {
                 val siteMenu = popupMenu.menu.addSubMenu(getString(R.string.filter_site_submenu))
                 siteNames.forEach {
                     addSiteToSubMenu(siteMenu, it)
                 }
-                popupMenu.inflate(R.menu.filter_menu)
-                popupMenu.show()
             }
+
+            val articleFilterText = getString(R.string.filter_article_link)
+            val articleItem = popupMenu.menu.add(articleFilterText)
+            articleItem.isCheckable = true
+            articleItem.isChecked =
+                adapter.hasAllFilter(LaunchDetailFields.articleLink, articleFilterText)
+            articleItem.setOnMenuItemClickListener {
+                it.isChecked = !it.isChecked
+                if (it.isChecked) {
+                    addAllFilter(LaunchDetailFields.articleLink, articleFilterText)
+                } else {
+                    adapter.removeAllFilter(LaunchDetailFields.articleLink, articleFilterText)
+                }
+                true
+            }
+
+            val imageFilterText = getString(R.string.filter_image_link)
+            val imageItem = popupMenu.menu.add(imageFilterText)
+            imageItem.isCheckable = true
+            imageItem.isChecked = adapter.hasAllFilter(LaunchDetailFields.imageLinks, imageFilterText)
+            imageItem.setOnMenuItemClickListener {
+                it.isChecked = !it.isChecked
+                if (it.isChecked) {
+                    addAllFilter(LaunchDetailFields.imageLinks, imageFilterText)
+                } else {
+                    adapter.removeAllFilter(LaunchDetailFields.imageLinks, imageFilterText)
+                }
+                true
+            }
+
+            val videoFilterText = getString(R.string.filter_video_link)
+            val videoItem = popupMenu.menu.add(videoFilterText)
+            videoItem.isCheckable = true
+            videoItem.isChecked = adapter.hasAllFilter(LaunchDetailFields.videoLink, videoFilterText)
+            videoItem.setOnMenuItemClickListener {
+                it.isChecked = !it.isChecked
+                if (it.isChecked) {
+                    addAllFilter(LaunchDetailFields.videoLink, videoFilterText)
+                } else {
+                    adapter.removeAllFilter(LaunchDetailFields.videoLink, videoFilterText)
+                }
+                true
+            }
+
+            popupMenu.inflate(R.menu.filter_menu)
+            popupMenu.show()
+
         }
     }
 
