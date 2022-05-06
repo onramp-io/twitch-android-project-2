@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/secondary_dark"
     android:paddingBottom="50dp">
 
     <LinearLayout
@@ -26,6 +27,8 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpLaunchPhotos"
             android:layout_width="match_parent"
+            android:background="@color/black"
+
             android:layout_height="300dp">
         </androidx.viewpager.widget.ViewPager>
 
@@ -48,6 +51,7 @@
                         android:layout_marginVertical="@dimen/margin_lg"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         app:layout_constrainedWidth="true"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -86,7 +90,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_baseline_share_24" />
+                        app:srcCompat="@drawable/ic_baseline_share_24"
+                        app:tint="@color/white" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -95,6 +100,8 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/margin_sm"
                     android:paddingVertical="@dimen/margin_sm"
+                    android:textColor="@color/white"
+                    android:drawableTint="@color/white"
                     tools:text="@string/sample_site_name_long"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:drawableStartCompat="@drawable/ic_baseline_pin_drop_24" />
@@ -106,7 +113,8 @@
                     android:drawablePadding="@dimen/margin_sm"
                     android:paddingVertical="@dimen/margin_sm"
                     tools:text="@string/sample_site_name_long"
-                    android:drawableTint="@color/gray"
+                    android:drawableTint="@color/white"
+                    android:textColor="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:drawableStartCompat="@drawable/ic_baseline_calendar_today_24" />
 
@@ -123,6 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/margin_sm"
                         android:text="@string/detailSubheader"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
@@ -131,6 +140,7 @@
                         android:layout_height="wrap_content"
                         tools:text="@string/sample_launch_details"
                         android:lineSpacingMultiplier="1.2"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
                 </LinearLayout>
 
@@ -146,6 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/margin_sm"
                         android:text="@string/LinksHeader"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
@@ -155,6 +166,7 @@
                         android:drawableEnd="@drawable/ic_baseline_link_24"
                         android:drawablePadding="@dimen/margin_sm"
                         android:text="@string/video_link_text"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <TextView
@@ -164,6 +176,7 @@
                         android:drawableEnd="@drawable/ic_baseline_link_24"
                         android:drawablePadding="@dimen/margin_sm"
                         android:text="@string/article_link_text"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
                 </LinearLayout>
             </LinearLayout>
