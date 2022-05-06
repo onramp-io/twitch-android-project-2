@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +18,8 @@ import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.repository.model.Launch
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,7 +35,6 @@ class LaunchDetailsFragment : Fragment() {
 
     private var _binding: FragmentLaunchDetailsBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var launchObj: Launch
 
     @Inject
@@ -66,15 +66,84 @@ class LaunchDetailsFragment : Fragment() {
         displayImages()
         displayLaunchDetails()
         displayFavorite()
-        binding.ivFavorite.setOnClickListener { handleFavoriteClick() }
         binding.ivShare.setOnClickListener { shareLaunch() }
         binding.tvVideoLink.setOnClickListener { handleLinkClick(launchObj.video_link) }
         binding.tvArticleLink.setOnClickListener { handleLinkClick(launchObj.article_link) }
+        binding.ivFavorite.setOnClickListener { favoriteLaunch() }
+        binding.ivFavoriteTrue.setOnClickListener { unfavoriteLaunch() }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun favoriteLaunch() {
+        lifecycleScope.launch{
+            try {
+
+                var currUser = userRepository.getCurrentUser()
+                if (currUser != null) {
+                    userRepository.insertUserFavoriteLaunch(launchObj, currUser!!)
+                    Snackbar.make(binding.ivFavoriteTrue,
+                        getString(R.string.favorite_launch_msg, launchObj.mission_name),
+                        Snackbar.LENGTH_SHORT)
+                        .setAnchorView(activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView))
+                        .show()
+                    displayFavorite()
+                } else {
+                    showLoginPopup()
+                }
+            } catch (e: Exception) {
+                Log.d("user", "$e")
+                displayErrorSnackbar(binding.ivFavoriteTrue)
+            }
+        }
+    }
+
+    private fun unfavoriteLaunch() {
+        lifecycleScope.launch {
+            try {
+//                val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                var currUser = userRepository.getCurrentUser()
+                if (currUser != null) {
+                    userRepository.removeUserFavoriteLaunch(launchObj, currUser!!)
+                    Snackbar.make(binding.ivFavoriteTrue,
+                        getString(R.string.unfavorite_launch_msg, launchObj.mission_name),
+                        Snackbar.LENGTH_SHORT)
+                        .setAnchorView(activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView))
+                        .show()
+                    displayFavorite()
+                } else {
+                    showLoginPopup()
+                }
+            } catch (e: java.lang.Exception) {
+                displayErrorSnackbar(binding.ivFavorite)
+            }
+        }
+    }
+
+    private fun displayFavorite() {
+        lifecycleScope.launch { //lifecycle scope is used here since we want to cancel coroutine if fragment is destroyed
+            try {
+                var currUser = userRepository.getCurrentUser()
+                if (currUser?.favoriteLaunches != null) {
+                    if (currUser.favoriteLaunches!!.contains(launchObj)) {
+                        // changes to ui need to happen on the main thread
+                        launch(Dispatchers.Main) {
+                            showView(binding.ivFavoriteTrue)
+                        }
+                    } else {
+                        launch(Dispatchers.Main) {
+                            showView(binding.ivFavorite)
+                            hideView(binding.ivFavoriteTrue)
+                        }
+                    }
+                }
+            } catch (e: Exception){
+                Log.d("user", "there was an error checking favorites $e")
+            }
+        }
     }
 
     private fun displayLaunchDetails() {
@@ -118,20 +187,10 @@ class LaunchDetailsFragment : Fragment() {
         }
     }
 
-    private fun hideView(view: View) {
-        view.visibility = View.GONE
-    }
-
-
-    private fun displayNullMessage(message:String, textView:TextView) {
-        textView.setTypeface(null, Typeface.ITALIC)
-        textView.text = message
-    }
-
     private fun displayImages() {
         //launchObj.image_links will return an empty list (instead of null) if no photos are available
         if (launchObj.image_links.isNullOrEmpty()) {
-            binding.ivDefaultImage.visibility = ImageView.VISIBLE
+            showView(binding.ivDefaultImage)
             hideView(binding.vpLaunchPhotos)
         } else {
             displayCarousel()
@@ -161,36 +220,14 @@ class LaunchDetailsFragment : Fragment() {
         startActivity(share)
     }
 
-    private fun displayFavorite() {
-        lifecycleScope.launch { //lifecycle scope is used here since we want to cancel coroutine if fragment is destroyed
-            try {
-                var currUser = userRepository.getCurrentUser()
-                if (currUser?.favoriteLaunches != null) {
-                    if (currUser.favoriteLaunches!!.contains(launchObj)) {
-                        // changes to ui need to happen on the main thread
-                         launch(Dispatchers.Main) {
-                            binding.ivFavoriteTrue.visibility = ImageView.VISIBLE
-                        }
-                    }
-                }
-            } catch (e: Exception){
-                Log.d("user", "there was an error checking favorites $e")
-            }
-        }
+    private fun displayNullMessage(message:String, textView:TextView) {
+        textView.setTypeface(null, Typeface.ITALIC)
+        textView.text = message
     }
 
     private fun handleLinkClick(link : String?) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
         startActivity(browserIntent)
-    }
-
-
-    private fun handleFavoriteClick() {
-        var currUser = userRepository.getCurrentUser()
-        (if (currUser == null) {
-            showLoginPopup()
-            }
-        )
     }
 
     private fun showLoginPopup() {
@@ -202,16 +239,32 @@ class LaunchDetailsFragment : Fragment() {
             }
             .setNegativeButton(getString(R.string.register)) { _, _ ->
                 val intent = Intent(activity, LoginActivity::class.java).apply {
-                    putExtra(getString(R.string.intended_login_view), getString(R.string.title_register))
+                    putExtra(getString(R.string.intended_login_view),
+                        getString(R.string.title_register))
                 }
                 startActivity(intent)
             }
             .setPositiveButton(getString(R.string.log_in)) { _, _ ->
                 val intent = Intent(activity, LoginActivity::class.java).apply {
-                    putExtra(getString(R.string.intended_login_view), getString(R.string.title_login))
+                    putExtra(getString(R.string.intended_login_view),
+                        getString(R.string.title_login))
                 }
                 startActivity(intent)
             }
             .show()
+    }
+
+    private fun displayErrorSnackbar(view: View) {
+        Snackbar.make(view, getString(R.string.favorite_error), Snackbar.LENGTH_SHORT)
+            .setAnchorView(activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView))
+            .show()
+    }
+
+    private fun hideView(view: View) {
+        view.visibility = View.GONE
+    }
+
+    private fun showView(view: View) {
+        view.visibility = View.VISIBLE
     }
 }
