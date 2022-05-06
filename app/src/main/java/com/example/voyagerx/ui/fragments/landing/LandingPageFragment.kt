@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -55,8 +57,8 @@ class LandingPageFragment : Fragment() {
         }
     }
 
-    private fun filterLaunches(searchTerm: String?) {
-        adapter.filterBySearchTerm(searchTerm?.lowercase())
+    private fun filterBySearchTerm(searchTerm: String?) {
+        adapter.updateSearchTerm(searchTerm?.lowercase())
         setListHeaderText(adapter.itemCount)
     }
 
@@ -88,12 +90,12 @@ class LandingPageFragment : Fragment() {
     private fun addSearchListeners() {
         binding.filters.search.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
-                filterLaunches(text)
+                filterBySearchTerm(text)
                 return false
             }
 
             override fun onQueryTextChange(text: String?): Boolean {
-                filterLaunches(text)
+                filterBySearchTerm(text)
                 return false
             }
         })
@@ -105,10 +107,38 @@ class LandingPageFragment : Fragment() {
         }
     }
 
+    private fun addLaunchSiteFilter(siteName: String = "") {
+        adapter.addLaunchSiteFilter(siteName)
+        setListHeaderText(adapter.itemCount)
+    }
+
+    private fun removeLaunchSiteFilter(siteName: String = "") {
+        adapter.removeLaunchSiteFilter(siteName)
+        setListHeaderText(adapter.itemCount)
+    }
+
+    private fun addSiteChip(site: String) {
+        val chipLayout = binding.filters.filterChipLayout
+        val filterChipLayout = layoutInflater.inflate(
+            R.layout.landing_page_filter_chip, null
+        ) as ConstraintLayout
+        val filterChip = filterChipLayout.getChildAt(0) as Chip
+        filterChipLayout.removeView(filterChip)
+
+        filterChip.setOnCloseIconClickListener {
+            chipLayout.removeView(filterChip)
+            removeLaunchSiteFilter(site)
+        }
+        filterChip.text = site
+        chipLayout.addView(filterChip)
+    }
+
     private fun addSiteToSubMenu(subMenu: SubMenu, site: String) {
         subMenu.add(site).setOnMenuItemClickListener {
-            adapter.filterByLaunchSite(site)
-            setListHeaderText(adapter.itemCount)
+            if (!adapter.hasLaunchSiteFilter(site)) {
+                addLaunchSiteFilter(site)
+                addSiteChip(site)
+            }
             true
         }
     }

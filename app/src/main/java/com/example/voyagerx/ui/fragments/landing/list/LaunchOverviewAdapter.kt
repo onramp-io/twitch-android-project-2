@@ -11,6 +11,8 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchCl
     RecyclerView.Adapter<LaunchOverviewViewHolder>() {
     private var visibleLaunches: List<Launch> = listOf()
     private var allLaunches: List<Launch> = listOf()
+    private val launchSiteFilters: MutableSet<String> = mutableSetOf()
+    private var searchTerm: String = ""
 
     fun initializeList(launches: List<Launch>) {
         allLaunches = launches
@@ -18,27 +20,45 @@ class LaunchOverviewAdapter(private val listener: LaunchClickListener = LaunchCl
         notifyDataSetChanged()
     }
 
-    fun filterBySearchTerm(searchTerm: String?) {
-        visibleLaunches = if (searchTerm?.isNotEmpty() == true) {
-            allLaunches.filter {
-                it.mission_name?.lowercase()?.contains(searchTerm) ?: true ||
-                        it.launch_site_long?.lowercase()?.contains(searchTerm) ?: true ||
-                        it.launch_date_utc?.lowercase()?.contains(searchTerm) ?: true
-            }
+    private fun filterBySearchTerm(launch: Launch): Boolean {
+        return if (searchTerm.isNotEmpty()) {
+            launch.mission_name?.lowercase()?.contains(searchTerm) ?: true ||
+                    launch.launch_site_long?.lowercase()?.contains(searchTerm) ?: true ||
+                    launch.launch_date_utc?.lowercase()?.contains(searchTerm) ?: true
         } else {
-            allLaunches
+            true
         }
+    }
+
+    private fun filterByLaunchSite(launch: Launch): Boolean {
+        return launchSiteFilters.isEmpty() || launchSiteFilters.contains(launch.launch_site_long)
+    }
+
+    private fun filterAll() {
+        visibleLaunches = allLaunches
+            .asSequence()
+            .filter(this::filterByLaunchSite)
+            .filter { filterBySearchTerm(it) }
+            .toList()
         notifyDataSetChanged()
     }
 
-    fun filterByLaunchSite(site: String) {
-        visibleLaunches = if (site.isNotBlank()) {
-            allLaunches.filter { it.launch_site_long == site }
-        } else {
-            allLaunches
-        }
-        notifyDataSetChanged()
+    fun updateSearchTerm(searchTerm: String?) {
+        this.searchTerm = searchTerm ?: ""
+        filterAll()
     }
+
+    fun addLaunchSiteFilter(site: String) {
+        launchSiteFilters.add(site)
+        filterAll()
+    }
+
+    fun removeLaunchSiteFilter(site: String) {
+        launchSiteFilters.remove(site)
+        filterAll()
+    }
+
+    fun hasLaunchSiteFilter(site: String): Boolean = launchSiteFilters.contains(site)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchOverviewViewHolder =
         LaunchOverviewViewHolder(
