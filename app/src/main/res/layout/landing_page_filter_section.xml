@@ -34,13 +34,12 @@
         app:layout_constraintTop_toTopOf="@+id/search"
         app:srcCompat="@drawable/ic_baseline_filter_alt_32" />
 
-    <LinearLayout
-        android:id="@+id/filter_chip_layout"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/filter_chip_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/margin_md"
         android:layout_marginTop="@dimen/margin_md"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search" />

@@ -52,8 +52,6 @@ class LandingPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        hideNetworkError()
-
         if (!this::launches.isInitialized) {
             setupList()
         }
@@ -62,15 +60,17 @@ class LandingPageFragment : Fragment() {
     private fun navigateToLaunchDetails(launch: Launch) {
         val bundle = Bundle()
         bundle.apply {
-            putString(LaunchDetailFields.id, launch.id)
-            putString(LaunchDetailFields.missionName, launch.mission_name)
-            putString(LaunchDetailFields.launchSite, launch.launch_site_long)
-            putString(LaunchDetailFields.launchDate, launch.launch_date_utc)
-            putString(LaunchDetailFields.launchYear, launch.launch_year)
-            putString(LaunchDetailFields.details, launch.details)
-            putString(LaunchDetailFields.articleLink, launch.article_link)
-            putString(LaunchDetailFields.videoLink, launch.video_link)
-            putStringArray(LaunchDetailFields.imageLinks, launch.image_links?.toTypedArray())
+            LaunchDetailFields.let {
+                putString(it.id, launch.id)
+                putString(it.missionName, launch.mission_name)
+                putString(it.launchSite, launch.launch_site_long)
+                putString(it.launchDate, launch.launch_date_utc)
+                putString(it.launchYear, launch.launch_year)
+                putString(it.details, launch.details)
+                putString(it.articleLink, launch.article_link)
+                putString(it.videoLink, launch.video_link)
+                putStringArray(it.imageLinks, launch.image_links?.toTypedArray())
+            }
         }
 
         val launchDetailsFragment = LaunchDetailsFragment()
@@ -104,8 +104,8 @@ class LandingPageFragment : Fragment() {
         }
     }
 
-    private fun addSiteChip(site: String) {
-        val chipLayout = binding.filters.filterChipLayout
+    private fun addFilterChip(field: String, filter: String, ) {
+        val chipGroup = binding.filters.filterChipGroup
         val filterChipLayout = layoutInflater.inflate(
             R.layout.landing_page_filter_chip, null
         ) as ConstraintLayout
@@ -113,20 +113,24 @@ class LandingPageFragment : Fragment() {
         filterChipLayout.removeView(filterChip)
 
         filterChip.setOnCloseIconClickListener {
-            chipLayout.removeView(filterChip)
-            adapter.removeFilter(LaunchDetailFields.launchSite, site)
+            chipGroup.removeView(filterChip)
+            adapter.removeFilter(field, filter)
         }
 
-        filterChip.text = site
-        chipLayout.addView(filterChip)
+        filterChip.text = filter
+        chipGroup.addView(filterChip)
+    }
+
+    private fun addFilter(field: String, filter: String) {
+        if (!adapter.hasFilter(field, filter)) {
+            adapter.addFilter(field, filter)
+            addFilterChip(field, filter)
+        }
     }
 
     private fun addSiteToSubMenu(subMenu: SubMenu, site: String) {
         subMenu.add(site).setOnMenuItemClickListener {
-            if (!adapter.hasFilter(LaunchDetailFields.launchSite, site)) {
-                adapter.addFilter(LaunchDetailFields.launchSite, site)
-                addSiteChip(site)
-            }
+            addFilter(LaunchDetailFields.launchSite, site)
             true
         }
     }
@@ -149,6 +153,7 @@ class LandingPageFragment : Fragment() {
     private fun setupList() {
         addSearchListeners()
         setupFilterMenu()
+        hideNetworkError()
         showSpinner()
 
         // Add button press animation
