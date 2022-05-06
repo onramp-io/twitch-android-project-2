@@ -1,33 +1,27 @@
 package com.example.voyagerx
 
-import android.app.Activity
-import android.graphics.Typeface
 import android.content.Intent
+import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.example.voyagerx.adapters.LaunchCarouselAdapter
-import coil.size.Precision
-import coil.size.Scale
 import com.example.voyagerx.data.LaunchDetailBundle
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.repository.model.Launch
-import com.example.voyagerx.repository.model.User
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -73,6 +67,8 @@ class LaunchDetailsFragment : Fragment() {
         displayLaunchDetails()
         displayFavorite()
         binding.ivShare.setOnClickListener { shareLaunch() }
+        binding.tvVideoLink.setOnClickListener { handleLinkClick(launchObj.video_link) }
+        binding.tvArticleLink.setOnClickListener { handleLinkClick(launchObj.article_link) }
     }
 
     override fun onDestroyView() {
@@ -180,5 +176,10 @@ class LaunchDetailsFragment : Fragment() {
                 Log.d("user", "there was an error checking favorites $e")
             }
         }
+    }
+
+    private fun handleLinkClick(link : String?) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        startActivity(browserIntent)
     }
 }
