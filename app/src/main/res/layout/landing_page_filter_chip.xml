@@ -5,10 +5,8 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.chip.Chip
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="@dimen/margin_sm"
-        android:layout_marginEnd="@dimen/margin_sm"
+        android:layout_width="@dimen/landing_page_filter_chip_width"
+        android:layout_height="@dimen/landing_page_filter_chip_height"
         android:elevation="@dimen/cardview_default_elevation"
         android:text="@string/example_launch_overview_site_name"
         android:textColor="@color/white"
