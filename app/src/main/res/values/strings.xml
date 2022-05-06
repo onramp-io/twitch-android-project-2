@@ -102,6 +102,7 @@
     <string name="log_in">Log in</string>
     <string name="need_account_msg">You must be signed in to favorite a launch.</string>
     <string name="account_needed_title">Account Needed</string>
+    <string name="log_in_sign_up">Log in/Sign up</string>
 
 </resources>
 
