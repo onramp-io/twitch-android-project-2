@@ -109,6 +109,9 @@
     <string name="notify_user_of_launches">Notify me of new launches</string>
     <string name="notified_of_launches">You will be notified of future launches!</string>
     <string name="not_notified_of_launches">You will not be notified of future launches!</string>
+    <string name="favorite_error">There was an error.</string>
+    <string name="favorite_launch_msg">Favorited \"%1$s\" launch.</string>
+    <string name="unfavorite_launch_msg">Unfavorited \"%1$s\" launch.</string>
 
 </resources>
 
