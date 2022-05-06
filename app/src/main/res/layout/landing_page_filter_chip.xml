@@ -7,11 +7,14 @@
     <com.google.android.material.chip.Chip
         android:layout_width="100dp"
         android:layout_height="45dp"
+        android:layout_marginStart="@dimen/margin_sm"
+        android:layout_marginEnd="@dimen/margin_sm"
         android:elevation="@dimen/cardview_default_elevation"
         android:text="@string/example_launch_overview_site_name"
         android:textColor="@color/white"
         app:chipSurfaceColor="@color/secondary_light"
         app:closeIconVisible="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

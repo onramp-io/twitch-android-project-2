@@ -114,7 +114,7 @@ class LandingPageFragment : Fragment() {
 
         filterChip.setOnCloseIconClickListener {
             chipLayout.removeView(filterChip)
-            adapter.removeFilter(LaunchDetailFields.launchSite)
+            adapter.removeFilter(LaunchDetailFields.launchSite, site)
         }
 
         filterChip.text = site
@@ -123,7 +123,7 @@ class LandingPageFragment : Fragment() {
 
     private fun addSiteToSubMenu(subMenu: SubMenu, site: String) {
         subMenu.add(site).setOnMenuItemClickListener {
-            if (!adapter.hasFilter(LaunchDetailFields.launchSite)) {
+            if (!adapter.hasFilter(LaunchDetailFields.launchSite, site)) {
                 adapter.addFilter(LaunchDetailFields.launchSite, site)
                 addSiteChip(site)
             }
@@ -133,8 +133,8 @@ class LandingPageFragment : Fragment() {
 
     private fun setupFilterMenu() {
         binding.filters.filterIcon.setOnClickListener { view ->
-            if (adapter.itemCount > 0) {
-                val siteNames = adapter.getVisibleSiteNames()
+            val siteNames = adapter.getSiteFilters()
+            if (adapter.itemCount > 0 && siteNames.isNotEmpty()) {
                 val popupMenu = PopupMenu(context, view)
                 val siteMenu = popupMenu.menu.addSubMenu(getString(R.string.filter_site_submenu))
                 siteNames.forEach {

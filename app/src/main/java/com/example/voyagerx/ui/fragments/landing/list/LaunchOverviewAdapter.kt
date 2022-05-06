@@ -15,7 +15,8 @@ class LaunchOverviewAdapter(
     RecyclerView.Adapter<LaunchOverviewViewHolder>() {
     private var visibleLaunches: List<Launch> = listOf()
     private var allLaunches: List<Launch> = listOf()
-    private val filters: MutableMap<String, String> = mutableMapOf()
+    // map of an item field to a list of matches to filter on
+    private val filters: MutableMap<String, MutableList<String>> = mutableMapOf()
     private var searchTerm: String = ""
 
     fun initializeList(launches: List<Launch>) {
@@ -34,10 +35,12 @@ class LaunchOverviewAdapter(
         }
     }
 
-    private fun fieldMatchesFilter(field: String, launch: Launch, match: String) = when (field) {
-        LaunchDetailFields.launchSite -> launch.launch_site_long == match
-        else -> true
-    }
+    private fun fieldMatchesFilters(field: String, launch: Launch, matches: List<String>) =
+        when (field) {
+            LaunchDetailFields.launchSite -> matches.isEmpty() ||
+                    matches.contains(launch.launch_site_long)
+            else -> true
+        }
 
     // checks if item matches any of the selected filters or contains the search term
     private fun filterAll() {
@@ -45,7 +48,7 @@ class LaunchOverviewAdapter(
             .asSequence()
             .filter { launch ->
                 filters.isEmpty() || filters.entries.firstOrNull {
-                    fieldMatchesFilter(it.key, launch, it.value)
+                    fieldMatchesFilters(it.key, launch, it.value)
                 } != null
             }
             .filter { filterBySearchTerm(it) }
@@ -60,16 +63,20 @@ class LaunchOverviewAdapter(
     }
 
     fun addFilter(field: String, match: String) {
-        filters[field] = match
+        if (filters[field] == null) {
+            filters[field] = mutableListOf(match)
+        } else {
+            filters[field]?.add(match)
+        }
         filterAll()
     }
 
-    fun removeFilter(field: String) {
-        filters.remove(field)
+    fun removeFilter(field: String, match: String) {
+        filters[field]?.remove(match)
         filterAll()
     }
 
-    fun hasFilter(field: String): Boolean = filters.contains(field)
+    fun hasFilter(field: String, match: String): Boolean = filters[field]?.contains(match) ?: false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchOverviewViewHolder =
         LaunchOverviewViewHolder(
@@ -86,11 +93,14 @@ class LaunchOverviewAdapter(
         }
     }
 
-    fun getVisibleSiteNames(): List<String> = visibleLaunches
+    fun getSiteFilters(): List<String> = allLaunches
         .asSequence()
         .map { it.launch_site_long }
-        .filterNotNull()
         .distinct()
+        .filterNot {
+            filters[LaunchDetailFields.launchSite]?.contains(it) ?: false
+        }
+        .filterNotNull()
         .toList()
 
     override fun getItemCount(): Int = visibleLaunches.size
