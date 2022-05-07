@@ -66,7 +66,6 @@ class EditProfileFragment : Fragment() {
         val usersName: String? = userRepository.getCurrentUser()?.name
         val userBio: String? = userRepository.getCurrentUser()?.bio
         val usersLocation: String? = userRepository.getCurrentUser()?.location
-        val usersPassword: String? = userRepository.getCurrentUser()?.password
 
         fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
         //show user initial in avatar
@@ -101,16 +100,13 @@ class EditProfileFragment : Fragment() {
             binding.editLocationField.text = usersLocation.toString().toEditable()
         }
 
-        val userInfo = mutableListOf(usersName, userBio, usersLocation, usersPassword)
-
-        saveInfoInDatabase(userInfo)
-
+        saveInfoInDatabase()
 
     }
 
 
 
-    private fun saveInfoInDatabase(userInfo: MutableList<String?>) {
+    private fun saveInfoInDatabase() {
         val newUserDetails = User(
             userRepository.getCurrentUser()?.id!!.toInt(),
             userRepository.getCurrentUser()?.email.toString(),
@@ -136,11 +132,8 @@ class EditProfileFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                     userRepository.updateUser(newUserDetails)
                 }
-            parentFragmentManager.beginTransaction().replace(R.id.frame, ProfileFragment()).commit()
+            parentFragmentManager.beginTransaction().remove(ProfileFragment()).replace(R.id.frame, ProfileFragment()).commit()
         }
-
-
-
     }
 
     private fun setProfileBackgroundWallpaperAndFontColors(wallpaper: Boolean) {
