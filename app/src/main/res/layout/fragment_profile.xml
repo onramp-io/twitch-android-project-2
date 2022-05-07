@@ -106,29 +106,6 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/labelCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:contentPaddingTop="5dp"
-        app:contentPaddingBottom="5dp"
-        app:contentPaddingLeft="15dp"
-        app:contentPaddingRight="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/outerCardView"
-        android:backgroundTint="@color/secondary">
-
-        <TextView
-            android:id="@+id/tvFavoriteLaunchesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/your_favorite_launches_label"
-            android:textSize="16sp"
-            android:textColor="@color/white" />
-    </com.google.android.material.card.MaterialCardView>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_profile_favorites"
         android:layout_width="0dp"
@@ -142,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelCard"
+        app:layout_constraintTop_toBottomOf="@+id/outerCardView"
         app:layout_constraintVertical_bias="0.0">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -156,7 +133,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/labelCard"
+        app:layout_constraintTop_toBottomOf="@id/outerCardView"
         card_view:cardElevation="0dp">
 
 
@@ -172,7 +149,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/emptyFavesCaseCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelCard"
+        app:layout_constraintTop_toBottomOf="@+id/outerCardView"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
