@@ -132,7 +132,12 @@ class EditProfileFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                     userRepository.updateUser(newUserDetails)
                 }
-            parentFragmentManager.beginTransaction().remove(ProfileFragment()).replace(R.id.frame, ProfileFragment()).commit()
+
+            parentFragmentManager.beginTransaction()
+
+                .remove(ProfileFragment())
+                .replace(R.id.frame, ProfileFragment())
+                .commit()
         }
     }
 

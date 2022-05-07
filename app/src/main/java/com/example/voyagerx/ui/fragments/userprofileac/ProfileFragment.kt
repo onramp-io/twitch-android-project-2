@@ -40,7 +40,7 @@ class ProfileFragment : Fragment() {
 
         setProfileBackgroundWallpaperAndFontColors(SharedPreferencesManager.getBackgroundWallpaper())
 
-        getUserInfoFromDatabase()
+
 
         return binding.root
     }
@@ -73,6 +73,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         createRecyclerView()
+        getUserInfoFromDatabase()
 
     }
 
