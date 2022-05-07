@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
 import com.example.voyagerx.ui.fragments.settings.SettingsFragment
+import com.example.voyagerx.ui.fragments.userprofileac.Profile2Fragment
 import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.example.voyagerx.util.FontSizeUtility

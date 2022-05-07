@@ -106,7 +106,6 @@
     <string name="appearance_settings_label">Appearance</string>
     <string name="alerts_settings_label">Alerts</string>
 
-
     <!-- Sync Preferences -->
     <string name="starry_background_option">Starry user profile background</string>
     <string name="font_size">Font size</string>
@@ -117,8 +116,5 @@
     <string name="favorite_launch_msg">Favorited \"%1$s\" launch.</string>
     <string name="unfavorite_launch_msg">Unfavorited \"%1$s\" launch.</string>
 
-
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit luctus leo, vel lobortis nisi. Cras luctus ornare mauris imperdiet pellentesque. Morbi purus odio, lobortis non eros et, consectetur aliquam ipsum. Integer et sapien nisl. Duis nunc dui, tempus vel elit a, malesuada imperdiet leo. Curabitur in auctor tortor, ut pretium nulla. Duis a ultricies eros. Curabitur dictum, augue sed suscipit lobortis, nunc tellus lobortis leo, eget consectetur lectus nisi ac odio. Quisque elementum nunc nec nisi bibendum, id sodales tellus egestas. Integer finibus eget magna scelerisque varius. Quisque quis tincidunt risus. Nunc quis erat tempus, sollicitudin quam ac, vehicula quam. Ut mattis elit sit amet quam scelerisque volutpat. Duis a convallis turpis, ut hendrerit risus. Morbi at mollis massa.
-Donec efficitur, magna vel pretium fringilla, nisl felis tristique sapien, ut facilisis ipsum massa quis enim. Morbi condimentum id ipsum vel maximus. Aliquam erat volutpat. Quisque ac dignissim magna. Vivamus luctus ligula eget purus luctus, eget facilisis ipsum aliquam. Aliquam dui lectus, ornare tristique lectus sed, congue mollis magna. Sed at ex nibh. Phasellus finibus lacinia orci ut aliquam. Nunc ornare finibus erat, vitae ornare odio ultrices vitae. Etiam eget risus sit amet augue luctus pharetra. Vestibulum venenatis, quam vel ullamcorper tristique, est mi vehicula tellus, nec rhoncus ipsum neque condimentum sapien. Nulla condimentum iaculis ipsum at tincidunt. Sed non viverra mi. Aliquam auctor ac arcu vel pulvinar. Pellentesque auctor massa tempus ornare fringilla.</string>
 </resources>
 
