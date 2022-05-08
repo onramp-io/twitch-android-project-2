@@ -25,7 +25,6 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private val SharedPreferencesManager by lazy {SharedPreferencesManager(requireContext())}
 
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -39,8 +38,6 @@ class ProfileFragment : Fragment() {
         }
 
         setProfileBackgroundWallpaperAndFontColors(SharedPreferencesManager.getBackgroundWallpaper())
-
-
 
         return binding.root
     }
@@ -76,8 +73,6 @@ class ProfileFragment : Fragment() {
         getUserInfoFromDatabase()
 
     }
-
-
 
     private fun createRecyclerView() {
         val adapter = FavoritesAdapter(userRepository.getCurrentUser())

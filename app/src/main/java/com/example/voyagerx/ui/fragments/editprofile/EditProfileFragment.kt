@@ -2,18 +2,15 @@ package com.example.voyagerx.ui.fragments.editprofile
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.commit
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentEditProfileBinding
 import com.example.voyagerx.repository.UserRepository
-import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.repository.model.User
 import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
 import com.example.voyagerx.util.SharedPreferencesManager
@@ -97,13 +94,13 @@ class EditProfileFragment : Fragment() {
             binding.editLocationField.text = usersLocation.toString().toEditable()
         }
 
-        saveInfoInDatabase()
+        updateInfoInDatabase()
 
     }
 
 
 
-    private fun saveInfoInDatabase() {
+    private fun updateInfoInDatabase() {
         val newUserDetails = User(
             userRepository.getCurrentUser()?.id!!.toInt(),
             userRepository.getCurrentUser()?.email.toString(),
@@ -128,7 +125,6 @@ class EditProfileFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                     userRepository.updateUser(newUserDetails)
                 }
-
 
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame, ProfileFragment())
