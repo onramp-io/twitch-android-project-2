@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.commit
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentEditProfileBinding
 import com.example.voyagerx.repository.UserRepository
@@ -32,8 +33,6 @@ class EditProfileFragment : Fragment() {
     private val userWord = "User"
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,8 +52,6 @@ class EditProfileFragment : Fragment() {
         setUserInfoInTextFields()
 
     }
-
-
 
     private fun setCancelButton() {
         binding.tvCancelChanges.setOnClickListener {
@@ -118,7 +115,6 @@ class EditProfileFragment : Fragment() {
         )
 
         binding.btnSave.setOnClickListener {
-
             if ((userRepository.getCurrentUser()?.name) != binding.editNameField.text.toString()) {
                 newUserDetails.name = binding.editNameField.text.toString()
             }
@@ -133,9 +129,8 @@ class EditProfileFragment : Fragment() {
                     userRepository.updateUser(newUserDetails)
                 }
 
-            parentFragmentManager.beginTransaction()
 
-                .remove(ProfileFragment())
+            parentFragmentManager.beginTransaction()
                 .replace(R.id.frame, ProfileFragment())
                 .commit()
         }

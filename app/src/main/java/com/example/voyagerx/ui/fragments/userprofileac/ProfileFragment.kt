@@ -78,6 +78,7 @@ class ProfileFragment : Fragment() {
     }
 
 
+
     private fun createRecyclerView() {
         val adapter = FavoritesAdapter(userRepository.getCurrentUser())
         binding.rvUserProfileFavorites.layoutManager = LinearLayoutManager(requireContext())
