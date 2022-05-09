@@ -37,7 +37,7 @@ class LandingPageFragment : Fragment() {
     private val SharedPreferencesManager by lazy { SharedPreferencesManager(requireContext()) }
 
     private lateinit var binding: FragmentLandingPageBinding
-    private lateinit var launches: List<Launch>
+    private var launches: List<Launch> = listOf()
     private lateinit var adapter: LaunchOverviewAdapter
 
     companion object {
@@ -77,18 +77,21 @@ class LandingPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-
         restoreRecyclerViewState(savedInstanceState)
 
-        fetchLaunches()
+        if (launches.isEmpty()) {
+            // only do this once when fragment created/re-created
+            fetchLaunches()
+        } else {
+            // use saved data
+            setLaunchListing(launches)
+        }
+
+        addSearchListeners()
+        setupFilterMenu()
     }
 
     private fun setupRecyclerView() {
-        addSearchListeners()
-        setupFilterMenu()
-        hideNetworkError()
-        showSpinner()
-
         // Add button press animation
         adapter = LaunchOverviewAdapter(
             LaunchClickListener(this::navigateToLaunchDetails),
@@ -98,12 +101,12 @@ class LandingPageFragment : Fragment() {
     }
 
     private fun fetchLaunches() {
+        showSpinner()
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             val result = launchRepository.getLaunches()
-
+            hideSpinner()
             if (!result.isNullOrEmpty()) {
                 setLaunchListing(result)
-                applySavedFilters()
             } else {
                 showNetworkError()
             }
@@ -125,7 +128,7 @@ class LandingPageFragment : Fragment() {
         this.launches = launches.filterNotNull()
         adapter.initializeList(this.launches)
         setListHeaderText(launches.size)
-        hideSpinner()
+        applySavedFilters()
     }
 
     private fun navigateToLaunchDetails(launch: Launch) {

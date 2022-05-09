@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavView = binding.bottomNavigationView
 
         // don't re-attach the fragment again if onSaveInstanceState was called, otherwise
-        // onViewCreated will be called twice for this fragment
+        // onViewCreated will be called twice for this fragment using an empty bundle
         // https://stackoverflow.com/questions/10983396/fragment-oncreateview-and-onactivitycreated-called-twice
         if (savedInstanceState == null) {
             changeFragmentView(landingPageFragment) //setting initial view to landing page as you only get here after bypassing login/register screens
