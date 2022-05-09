@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavView: BottomNavigationView
     lateinit var binding: ActivityMainBinding
 
+    // use same instance of fragment during the activity lifecycle
+    private val landingPageFragment: LandingPageFragment = LandingPageFragment()
+
     @Inject
     lateinit var userRepository: UserRepository
 
@@ -36,17 +39,21 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavView = binding.bottomNavigationView
 
-        changeFragmentView(LandingPageFragment()) //setting initial view to landing page as you only get here after bypassing login/register screens
+        // don't re-attach the fragment again if onSaveInstanceState was called, otherwise
+        // onViewCreated will be called twice for this fragment
+        // https://stackoverflow.com/questions/10983396/fragment-oncreateview-and-onactivitycreated-called-twice
+        if (savedInstanceState == null) {
+            changeFragmentView(landingPageFragment) //setting initial view to landing page as you only get here after bypassing login/register screens
+        }
 
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.landingPageFragment -> changeFragmentView(LandingPageFragment())
+                R.id.landingPageFragment -> changeFragmentView(landingPageFragment)
                 R.id.profileFragment -> if(userRepository.getCurrentUser() == null) showLoginPopup() else changeFragmentView(ProfileFragment())
                 R.id.settingsFragment -> changeFragmentView(SettingsFragment())
             }
             true
         }
-
 
         setLogInOrLogoutButtonText()
         binding.logInOrOutButton.setOnClickListener {
