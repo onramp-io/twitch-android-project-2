@@ -115,6 +115,8 @@
     <string name="favorite_error">There was an error.</string>
     <string name="favorite_launch_msg">Favorited \"%1$s\" launch.</string>
     <string name="unfavorite_launch_msg">Unfavorited \"%1$s\" launch.</string>
+    <string name="default_location">Space</string>
+    <string name="location">Location</string>
 
 </resources>
 
