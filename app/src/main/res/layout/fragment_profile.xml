@@ -6,51 +6,57 @@
     android:id="@+id/profileLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.userprofileac.ProfileFragment">
+    tools:context=".ui.fragments.userprofileac.ProfileFragment"
+    android:layout_marginBottom="20dp">
 
 
-    <TextView
-        android:id="@+id/tvNameinProfile"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/outerCardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/users_profile_heading"
-        style="@style/profileFontSize"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.037" />
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        card_view:cardElevation="0dp"
-        app:cardBackgroundColor="@color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameinProfile">
-
+        android:elevation="10dp"
+        android:hardwareAccelerated="true">
 
         <ImageView
-            android:id="@+id/ivAvatarBackground"
-            android:layout_width="135sp"
-            android:layout_height="135sp"
-            android:layout_marginTop="12dp"
-            android:src="@drawable/avatarcircle"
-            android:contentDescription="@string/first_letter_of_user_name_content_description" />
+            android:id="@+id/header_cover_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/starry_appearance" />
 
-        <TextView
-            android:id="@+id/tvUserInitial"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/avatarInitial"
-            android:textSize="80sp" />
+            app:cardBackgroundColor="@color/transparent"
+            android:layout_below="@+id/header_cover_image"
+            card_view:cardElevation="0dp"
+            android:layout_marginTop="-80dp"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/ivAvatarBackground"
+                android:layout_width="120sp"
+                android:layout_height="120sp"
+                android:layout_marginTop="12dp"
+                android:contentDescription="@string/first_letter_of_user_name_content_description"
+                android:src="@drawable/avatarcircle" />
+
+            <TextView
+                android:id="@+id/tvUserInitial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/avatarInitial"
+                android:textSize="80sp" />
+
+
+        </com.google.android.material.card.MaterialCardView>
 
         <ImageButton
             android:id="@+id/editProfileImageBtn"
@@ -58,63 +64,60 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:background="@color/transparent"
+            android:contentDescription="@string/edit_profile_button_content_description"
             android:src="@drawable/ic_editprofile"
             tools:layout_editor_absoluteX="266dp"
             tools:layout_editor_absoluteY="49dp"
-            android:contentDescription="@string/edit_profile_button_content_description" />
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp" />
 
+        <TextView
+            android:id="@+id/tvNameinProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/users_profile_heading"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/cardView"
+            android:layout_centerHorizontal="true"
+            tools:layout_editor_absoluteX="123dp" />
 
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location"
+            android:textSize="14sp"
+            android:layout_below="@id/tvNameinProfile"
+            android:layout_centerHorizontal="true"
+            tools:layout_editor_absoluteX="123dp" />
 
-    <TextView
-        android:id="@+id/tvBio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/user_bio"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-    <TextView
-        android:id="@+id/tvFavoriteLaunchesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:text="@string/your_favorite_launches_label"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBio" />
-
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/material_divider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        app:dividerInsetEnd="16dp"
-        app:dividerInsetStart="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFavoriteLaunchesLabel"
-        tools:layout_editor_absoluteX="0dp" />
-
+        <TextView
+            android:id="@+id/tvBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvLocation"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/user_bio"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_profile_favorites"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="40dp"
         app:cardCornerRadius="@dimen/landing_card_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/material_divider"
+        app:layout_constraintTop_toBottomOf="@+id/outerCardView"
         app:layout_constraintVertical_bias="0.0">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -128,7 +131,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/material_divider"
+        app:layout_constraintTop_toBottomOf="@id/outerCardView"
         card_view:cardElevation="0dp">
 
 
@@ -136,32 +139,30 @@
 
     <ImageView
         android:id="@+id/ivRocketShip"
-        android:layout_width="135sp"
-        android:layout_height="135sp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
         android:layout_gravity="center"
         android:contentDescription="@string/no_favorite_launches_content_desc"
         android:src="@drawable/ic_rocket_launch_empty_case_24"
         app:layout_constraintBottom_toBottomOf="@+id/emptyFavesCaseCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFavoriteLaunchesLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/outerCardView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tv_empty_favorites_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:text="@string/no_favorite_launches_case_msg"
         android:textAlignment="center"
-        android:textSize="30sp"
-        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textColor="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emptyFavesCaseCard"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.1" />
 
 
 

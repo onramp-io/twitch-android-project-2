@@ -69,7 +69,6 @@
     <string name="notify_me_of_new_launches">Notify me of new launches</string>
 
 
-
     <string name="user_preference">user_preference</string>
     <string name="curr_user">current_user</string>
 
@@ -107,7 +106,6 @@
     <string name="appearance_settings_label">Appearance</string>
     <string name="alerts_settings_label">Alerts</string>
 
-
     <!-- Sync Preferences -->
     <string name="starry_background_option">Starry user profile background</string>
     <string name="font_size">Font size</string>
@@ -117,6 +115,8 @@
     <string name="favorite_error">There was an error.</string>
     <string name="favorite_launch_msg">Favorited \"%1$s\" launch.</string>
     <string name="unfavorite_launch_msg">Unfavorited \"%1$s\" launch.</string>
+    <string name="default_location">Space</string>
+    <string name="location">Location</string>
 
 </resources>
 
