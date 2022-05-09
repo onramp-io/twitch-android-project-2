@@ -19,7 +19,8 @@ class LaunchCarouselAdapter(private val mContext: Context, private val imageList
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(mContext)
-        imageView.scaleType = ImageView.ScaleType.FIT_CENTER
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        imageView.adjustViewBounds = true
         imageView.load(imageList?.elementAt(position))
         container.addView(imageView, 0)
         return imageView

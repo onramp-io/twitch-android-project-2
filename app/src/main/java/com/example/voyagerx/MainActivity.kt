@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
 import com.example.voyagerx.ui.fragments.settings.SettingsFragment
+import com.example.voyagerx.ui.fragments.userprofileac.Profile2Fragment
 import com.example.voyagerx.ui.fragments.userprofileac.ProfileFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.example.voyagerx.util.FontSizeUtility
@@ -85,8 +86,17 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton(R.string.confirm_dialog){ _, _ -> }
                 .show()
 
+            checkIfLogoutProfileFragment()
             setLogInOrLogoutButtonText()
         }
+    }
+
+    private fun checkIfLogoutProfileFragment(){
+        val currFragment = supportFragmentManager.findFragmentById(R.id.frame)
+        if(currFragment is ProfileFragment){
+            changeFragmentView(LandingPageFragment())
+        }
+
     }
 
     //temporary function used to update fontScale

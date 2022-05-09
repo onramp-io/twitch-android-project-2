@@ -69,7 +69,6 @@
     <string name="notify_me_of_new_launches">Notify me of new launches</string>
 
 
-
     <string name="user_preference">user_preference</string>
     <string name="curr_user">current_user</string>
 
@@ -90,6 +89,11 @@
     <string name="invalid_email_error">Invalid email</string>
     <string name="invalid_password_error">Invalid password - Must be at least 6 characters</string>
     <string name="invalid_confirm_password_error">Passwords must match</string>
+    <string name="menu_site">Site</string>
+    <string name="filter_site_submenu">Launch Sites</string>
+    <string name="filter_article_link">Has Articles</string>
+    <string name="filter_image_link">Has Images</string>
+    <string name="filter_video_link">Has Video</string>
 
     <string name="cancel">cancel</string>
     <string name="register">Register</string>
@@ -102,13 +106,17 @@
     <string name="appearance_settings_label">Appearance</string>
     <string name="alerts_settings_label">Alerts</string>
 
-
     <!-- Sync Preferences -->
     <string name="starry_background_option">Starry user profile background</string>
     <string name="font_size">Font size</string>
     <string name="notify_user_of_launches">Notify me of new launches</string>
     <string name="notified_of_launches">You will be notified of future launches!</string>
     <string name="not_notified_of_launches">You will not be notified of future launches!</string>
+    <string name="favorite_error">There was an error.</string>
+    <string name="favorite_launch_msg">Favorited \"%1$s\" launch.</string>
+    <string name="unfavorite_launch_msg">Unfavorited \"%1$s\" launch.</string>
+    <string name="default_location">Space</string>
+    <string name="location">Location</string>
 
 </resources>
 

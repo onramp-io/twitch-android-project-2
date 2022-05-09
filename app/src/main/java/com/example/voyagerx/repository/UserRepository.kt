@@ -38,6 +38,9 @@ class UserRepository @Inject constructor(
                 newFavLaunches?.add(launch)
                 database.userDao().updateUserFavoriteLaunches(user.id, newFavLaunches)
             }
+            getUserByEmail(user.email)?.let{
+                updateSharedPrefUser(it)
+            }
         }
     }
 
@@ -46,6 +49,9 @@ class UserRepository @Inject constructor(
             val newFavLaunches = user.favoriteLaunches
             newFavLaunches?.remove(launch)
             database.userDao().updateUserFavoriteLaunches(user.id, newFavLaunches)
+            getUserByEmail(user.email)?.let{
+                updateSharedPrefUser(it)
+            }
         }
     }
 
@@ -96,8 +102,15 @@ class UserRepository @Inject constructor(
     fun getCurrentUser(): User?{
         val sharedPref = getSharedPreferences()
         val userJson = sharedPref.getString(context.getString(R.string.curr_user), null)
-
         return convertJsonToUser(userJson)
+    }
+
+    private fun updateSharedPrefUser(updatedUser: User) {
+        val sharedPref = getSharedPreferences()
+        with(sharedPref.edit()) {
+            putString(context.getString(R.string.curr_user), convertUserToJson(updatedUser))
+            apply()
+        }
     }
 
     private fun convertUserToJson(user: User): String{
@@ -118,11 +131,4 @@ class UserRepository @Inject constructor(
         return context.getSharedPreferences(context.getString(R.string.user_preference), Context.MODE_PRIVATE)
     }
 
-    private fun updateSharedPrefUser(updatedUser: User) {
-        val sharedPref = getSharedPreferences()
-        with(sharedPref.edit()) {
-            putString(context.getString(R.string.curr_user), convertUserToJson(updatedUser))
-            apply()
-        }
-    }
 }

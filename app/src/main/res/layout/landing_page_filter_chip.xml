@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.chip.Chip
+        android:layout_width="@dimen/landing_page_filter_chip_width"
+        android:layout_height="@dimen/landing_page_filter_chip_height"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:text="@string/example_launch_overview_site_name"
+        android:textColor="@color/white"
+        app:chipSurfaceColor="@color/secondary_light"
+        app:closeIconVisible="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
