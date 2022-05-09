@@ -57,19 +57,7 @@ class LandingPageFragment : Fragment() {
 
     private fun navigateToLaunchDetails(launch: Launch) {
         val bundle = Bundle()
-        bundle.apply {
-            LaunchDetailFields.let {
-                putString(it.id, launch.id)
-                putString(it.missionName, launch.mission_name)
-                putString(it.launchSite, launch.launch_site_long)
-                putString(it.launchDate, launch.launch_date_utc)
-                putString(it.launchYear, launch.launch_year)
-                putString(it.details, launch.details)
-                putString(it.articleLink, launch.article_link)
-                putString(it.videoLink, launch.video_link)
-                putStringArray(it.imageLinks, launch.image_links?.toTypedArray())
-            }
-        }
+        bundle.putParcelable(Launch.BUNDLE_KEY, launch)
 
         val launchDetailsFragment = LaunchDetailsFragment()
         launchDetailsFragment.arguments = bundle

@@ -47,19 +47,7 @@ class LaunchDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLaunchDetailsBinding.inflate(inflater, container, false)
-
-        launchObj = Launch(
-            arguments?.getString(LaunchDetailFields.id)!!,
-            arguments?.getString(LaunchDetailFields.missionName),
-            arguments?.getString(LaunchDetailFields.launchSite),
-            arguments?.getString(LaunchDetailFields.launchDate),
-            arguments?.getString(LaunchDetailFields.launchYear),
-            arguments?.getString(LaunchDetailFields.details),
-            arguments?.getString(LaunchDetailFields.articleLink),
-            arguments?.getString(LaunchDetailFields.videoLink),
-            arguments?.getStringArray(LaunchDetailFields.imageLinks)?.toList()
-        )
-
+        launchObj = arguments?.getParcelable(Launch.BUNDLE_KEY)!!
         return binding.root
     }
 
