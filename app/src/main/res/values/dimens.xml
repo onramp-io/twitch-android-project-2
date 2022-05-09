@@ -25,4 +25,23 @@
     <dimen name="text_md">12sp</dimen>
     <dimen name="landing_page_filter_chip_width">100dp</dimen>
     <dimen name="landing_page_filter_chip_height">45dp</dimen>
+
+    <!-- User profile -->
+    <dimen name="profile_header_large">25sp</dimen>
+    <dimen name="profile_header_medium">23sp</dimen>
+    <dimen name="profile_header_small">21sp</dimen>
+
+    <dimen name="profile_bio_large">16sp</dimen>
+    <dimen name="profile_bio_medium">14sp</dimen>
+    <dimen name="profile_bio_small">12sp</dimen>
+
+    <dimen name="profile_location_large">14sp</dimen>
+    <dimen name="profile_location_medium">13sp</dimen>
+    <dimen name="profile_location_small">11sp</dimen>
+
+    <!-- Edit profile -->
+    <dimen name="edit_profile_large">16sp</dimen>
+    <dimen name="edit_profile_medium">14sp</dimen>
+    <dimen name="edit_profile_small">12sp</dimen>
+
 </resources>

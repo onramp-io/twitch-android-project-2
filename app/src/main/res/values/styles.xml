@@ -14,13 +14,45 @@
     </style>
 
     <style name="profileFontSize">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">@dimen/profile_header_large</item>
     </style>
     <style name="profileFontSize.Medium">
-        <item name="android:textSize">23sp</item>
+        <item name="android:textSize">@dimen/profile_header_medium</item>
     </style>
     <style name="profileFontSize.Small">
-        <item name="android:textSize">21sp</item>
+        <item name="android:textSize">@dimen/profile_header_small</item>
     </style>
+
+    <style name="profileBio">
+        <item name="android:textSize">@dimen/profile_bio_large</item>
+    </style>
+    <style name="profileBio.Medium">
+        <item name="android:textSize">@dimen/profile_bio_medium</item>
+    </style>
+    <style name="profileBio.Small">
+        <item name="android:textSize">@dimen/profile_bio_small</item>
+    </style>
+
+    <style name="profileLocation">
+        <item name="android:textSize">@dimen/profile_location_large</item>
+    </style>
+    <style name="profileLocation.Medium">
+        <item name="android:textSize">@dimen/profile_location_medium</item>
+    </style>
+    <style name="profileLocation.Small">
+        <item name="android:textSize">@dimen/profile_location_small</item>
+    </style>
+
+    <style name="editProfile">
+        <item name="android:textSize">@dimen/edit_profile_large</item>
+    </style>
+    <style name="editProfile.Medium">
+        <item name="android:textSize">@dimen/edit_profile_medium</item>
+    </style>
+    <style name="editProfile.Small">
+        <item name="android:textSize">@dimen/edit_profile_small</item>
+    </style>
+
+
 
 </resources>

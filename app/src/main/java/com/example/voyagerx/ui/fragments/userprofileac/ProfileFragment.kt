@@ -66,16 +66,22 @@ class ProfileFragment : Fragment() {
             SharedPreferencesManager.getTextInDropdown() == "Large" -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation)
+                    binding.tvBio.setTextAppearance(R.style.profileBio)
                 }
             }
             SharedPreferencesManager.getTextInDropdown() == "Medium" -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize_Medium)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation_Medium)
+                    binding.tvBio.setTextAppearance(R.style.profileBio_Medium)
                 }
             }
             else -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize_Small)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation_Small)
+                    binding.tvBio.setTextAppearance(R.style.profileBio_Small)
                 }
             }
         }
