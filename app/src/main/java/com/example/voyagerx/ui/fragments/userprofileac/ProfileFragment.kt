@@ -1,5 +1,6 @@
 package com.example.voyagerx.ui.fragments.userprofileac
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -46,6 +47,7 @@ class ProfileFragment : Fragment() {
         }
 
         setProfileBackgroundWallpaperAndFontColors(SharedPreferencesManager.getBackgroundWallpaper())
+        setFontSizes()
 
         return binding.root
     }
@@ -73,6 +75,28 @@ class ProfileFragment : Fragment() {
             binding.editProfileImageBtn.setImageResource(R.drawable.ic_editprofile_black)
         }
     }
+
+    private fun setFontSizes() {
+        when {
+            SharedPreferencesManager.getTextInDropdown() == "Large" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize)
+                }
+            }
+            SharedPreferencesManager.getTextInDropdown() == "Medium" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize_Medium)
+                }
+            }
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize_Small)
+                }
+            }
+        }
+
+    }
+
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
