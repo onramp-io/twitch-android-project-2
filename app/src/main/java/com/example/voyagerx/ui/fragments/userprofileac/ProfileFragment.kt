@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.voyagerx.repository.UserRepository
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.voyagerx.LaunchDetailsFragment
 import com.example.voyagerx.data.LaunchDetailFields
@@ -21,11 +19,7 @@ import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.util.SharedPreferencesManager
 import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
-import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -61,6 +55,14 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        createRecyclerView()
+        getUserInfoFromDatabase()
+
+    }
+
     private fun setFontSizes() {
         when {
             SharedPreferencesManager.getTextInDropdown() == "Large" -> {
@@ -85,15 +87,6 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
-
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        createRecyclerView()
-        getUserInfoFromDatabase()
 
     }
 
