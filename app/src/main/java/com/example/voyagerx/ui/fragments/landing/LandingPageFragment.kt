@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -21,6 +22,7 @@ import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
+import com.example.voyagerx.util.SharedPreferencesManager
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -32,9 +34,15 @@ class LandingPageFragment : Fragment() {
     @Inject
     lateinit var launchRepository: LaunchRepository
 
+    private val SharedPreferencesManager by lazy { SharedPreferencesManager(requireContext()) }
+
     private lateinit var binding: FragmentLandingPageBinding
-    private lateinit var launches: List<Launch>
+    private var launches: List<Launch> = listOf()
     private lateinit var adapter: LaunchOverviewAdapter
+
+    companion object {
+        const val RECYCLER_VIEW_BUNDLE_KEY =  "launches_recycler_view"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,29 +55,85 @@ class LandingPageFragment : Fragment() {
         return binding.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(RECYCLER_VIEW_BUNDLE_KEY, binding.listing.list.layoutManager?.onSaveInstanceState())
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onPause() {
+        SharedPreferencesManager.setListingFilterSetting(false, adapter.filtersAllMatch)
+        SharedPreferencesManager.setListingFilterSetting(true, adapter.filtersAnyMatch)
+        super.onPause()
+    }
+
+    // this will restore the list position during orientation changes/after navigation
+    private fun restoreRecyclerViewState(savedInstanceState: Bundle?) {
+        savedInstanceState?.getParcelable<Parcelable>(RECYCLER_VIEW_BUNDLE_KEY).let {
+            binding.listing.list.layoutManager?.onRestoreInstanceState(it)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (!this::launches.isInitialized) {
-            setupList()
+        setupRecyclerView()
+        restoreRecyclerViewState(savedInstanceState)
+
+        if (launches.isEmpty()) {
+            // only do this once when fragment created/re-created
+            fetchLaunches()
+        } else {
+            // use saved data
+            setLaunchListing(launches)
         }
+
+        addSearchListeners()
+        setupFilterMenu()
+    }
+
+    private fun setupRecyclerView() {
+        // Add button press animation
+        adapter = LaunchOverviewAdapter(
+            LaunchClickListener(this::navigateToLaunchDetails),
+            this::setListHeaderText
+        )
+        binding.listing.list.adapter = adapter
+    }
+
+    private fun fetchLaunches() {
+        showSpinner()
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            val result = launchRepository.getLaunches()
+            hideSpinner()
+            if (!result.isNullOrEmpty()) {
+                setLaunchListing(result)
+            } else {
+                showNetworkError()
+            }
+        }
+    }
+
+    private fun applySavedFilters() {
+        val allFilters = SharedPreferencesManager.getListingFilterSetting(false)
+        allFilters?.forEach { (field, matches) ->
+            matches.forEach { match -> addAllFilter(field, match) }
+        }
+        val anyFilters = SharedPreferencesManager.getListingFilterSetting(true)
+        anyFilters?.forEach { (field, matches) ->
+            matches.forEach { match -> addAnyFilter(field, match) }
+        }
+    }
+
+    private fun setLaunchListing(launches: List<Launch?>) {
+        this.launches = launches.filterNotNull()
+        adapter.initializeList(this.launches)
+        setListHeaderText(launches.size)
+        applySavedFilters()
     }
 
     private fun navigateToLaunchDetails(launch: Launch) {
         val bundle = Bundle()
-        bundle.apply {
-            LaunchDetailFields.let {
-                putString(it.id, launch.id)
-                putString(it.missionName, launch.mission_name)
-                putString(it.launchSite, launch.launch_site_long)
-                putString(it.launchDate, launch.launch_date_utc)
-                putString(it.launchYear, launch.launch_year)
-                putString(it.details, launch.details)
-                putString(it.articleLink, launch.article_link)
-                putString(it.videoLink, launch.video_link)
-                putStringArray(it.imageLinks, launch.image_links?.toTypedArray())
-            }
-        }
+        bundle.putParcelable(Launch.BUNDLE_KEY, launch)
 
         val launchDetailsFragment = LaunchDetailsFragment()
         launchDetailsFragment.arguments = bundle
@@ -183,35 +247,6 @@ class LandingPageFragment : Fragment() {
             popupMenu.show()
 
         }
-    }
-
-    private fun setupList() {
-        addSearchListeners()
-        setupFilterMenu()
-        hideNetworkError()
-        showSpinner()
-
-        // Add button press animation
-        adapter = LaunchOverviewAdapter(
-            LaunchClickListener(this::navigateToLaunchDetails),
-            this::setListHeaderText
-        )
-        binding.listing.list.adapter = adapter
-
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-
-            val result = launchRepository.getLaunches()
-            hideSpinner()
-
-            if (result != null) {
-                launches = result.filterNotNull()
-                adapter.initializeList(launches)
-                setListHeaderText(launches.size)
-            } else {
-                showNetworkError()
-            }
-        }
-
     }
 
     private fun hideKeyboardOnTouchOutside(event: MotionEvent) {
