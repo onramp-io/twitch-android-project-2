@@ -60,13 +60,14 @@ class LaunchDetailsPresenter(private var userRepository: UserRepository, var vie
     }
 
     fun shareLaunch() {
+        Log.d("user", launchObj.toString())
         val share = Intent.createChooser(Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT, "Check out this SpaceX Launch!\n\n" +
-                        if (!launchObj.mission_name.isNullOrEmpty()) "${launchObj.mission_name}\n\n" else "" +
-                                if (!launchObj.details.isNullOrEmpty()) "${launchObj.details}\n\n" else "" +
-                                        if (!launchObj.video_link.isNullOrEmpty()) "Watch the launch video:\n ${launchObj.video_link}" else ""
+                        (if (!launchObj.mission_name.isNullOrEmpty()) "${launchObj.mission_name}\n\n" else "") +
+                        (if (!launchObj.details.isNullOrEmpty()) "${launchObj.details}\n\n" else "") +
+                        (if (!launchObj.video_link.isNullOrEmpty()) "Watch the launch video:\n ${launchObj.video_link}" else "")
             )
             type = "text/plain"
         }, null)
