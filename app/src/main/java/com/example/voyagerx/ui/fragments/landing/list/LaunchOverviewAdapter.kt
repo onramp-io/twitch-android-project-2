@@ -19,9 +19,9 @@ class LaunchOverviewAdapter(
     private var visibleLaunches: List<Launch> = listOf()
     private var allLaunches: List<Launch> = listOf()
     // map of an item field to a list of matches to filter on
-    private val filtersAnyMatch: MutableMap<String, MutableList<String>> = mutableMapOf()
-    private val filtersAllMatch: MutableMap<String, MutableList<String>> = mutableMapOf()
-    private var searchTerm: String = ""
+    val filtersAnyMatch: MutableMap<String, MutableList<String>> = mutableMapOf()
+    val filtersAllMatch: MutableMap<String, MutableList<String>> = mutableMapOf()
+    var searchTerm: String = ""
 
     fun initializeList(launches: List<Launch>) {
         allLaunches = launches

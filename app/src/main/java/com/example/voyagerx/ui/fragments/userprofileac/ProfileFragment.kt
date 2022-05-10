@@ -105,17 +105,7 @@ class ProfileFragment : Fragment() {
 
     private fun navigateToLaunchDetails(launch: Launch) {
         val bundle = Bundle()
-        bundle.apply {
-            putString(LaunchDetailFields.id, launch.id)
-            putString(LaunchDetailFields.missionName, launch.mission_name)
-            putString(LaunchDetailFields.launchSite, launch.launch_site_long)
-            putString(LaunchDetailFields.launchDate, launch.launch_date_utc)
-            putString(LaunchDetailFields.launchYear, launch.launch_year)
-            putString(LaunchDetailFields.details, launch.details)
-            putString(LaunchDetailFields.articleLink, launch.article_link)
-            putString(LaunchDetailFields.videoLink, launch.video_link)
-            putStringArray(LaunchDetailFields.imageLinks, launch.image_links?.toTypedArray())
-        }
+        bundle.putParcelable(Launch.BUNDLE_KEY, launch)
 
         val launchDetailsFragment = LaunchDetailsFragment()
         launchDetailsFragment.arguments = bundle
