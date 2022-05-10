@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondary_dark"
+    android:background="@color/white"
     android:paddingBottom="50dp">
 
     <LinearLayout
@@ -50,7 +50,7 @@
                         android:layout_marginVertical="@dimen/margin_lg"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         app:layout_constrainedWidth="true"
-                        android:textColor="@color/white"
+                        android:textColor="@color/primary"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -67,7 +67,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
-
                     <ImageView
                         android:id="@+id/ivFavoriteTrue"
                         style="@style/Widget.AppCompat.Button.Borderless"
@@ -90,7 +89,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_share_24"
-                        app:tint="@color/white" />
+                        app:tint="@color/black" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -99,8 +98,8 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/margin_sm"
                     android:paddingVertical="@dimen/margin_sm"
-                    android:textColor="@color/white"
-                    android:drawableTint="@color/white"
+                    android:textColor="@color/primary_light"
+                    android:drawableTint="@color/primary_light"
                     tools:text="@string/sample_site_name_long"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:drawableStartCompat="@drawable/ic_baseline_pin_drop_24" />
@@ -112,8 +111,8 @@
                     android:drawablePadding="@dimen/margin_sm"
                     android:paddingVertical="@dimen/margin_sm"
                     tools:text="@string/sample_site_name_long"
-                    android:drawableTint="@color/white"
-                    android:textColor="@color/white"
+                    android:drawableTint="@color/primary_light"
+                    android:textColor="@color/primary_light"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:drawableStartCompat="@drawable/ic_baseline_calendar_today_24" />
 
@@ -130,16 +129,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/margin_sm"
                         android:text="@string/detailSubheader"
-                        android:textColor="@color/white"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textColor="@color/primary_light"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                     <TextView
                         android:id="@+id/tvDetailParagraph"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="@string/sample_launch_details"
-                        android:lineSpacingMultiplier="1.4"
-                        android:textColor="@color/white"
+                        android:lineSpacingMultiplier="1.2"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
                 </LinearLayout>
 
@@ -155,8 +155,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/margin_sm"
                         android:text="@string/LinksHeader"
-                        android:textColor="@color/white"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textColor="@color/primary_light"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                     <TextView
                         android:id="@+id/tvVideoLink"
@@ -165,8 +166,8 @@
                         android:drawableEnd="@drawable/ic_baseline_link_24"
                         android:drawablePadding="@dimen/margin_sm"
                         android:text="@string/video_link_text"
-                        android:textColor="@color/white"
-                        android:drawableTint="@color/white"
+                        android:textColor="@color/primary"
+                        android:drawableTint="@color/primary"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <TextView
@@ -176,8 +177,8 @@
                         android:drawableEnd="@drawable/ic_baseline_link_24"
                         android:drawablePadding="@dimen/margin_sm"
                         android:text="@string/article_link_text"
-                        android:textColor="@color/white"
-                        android:drawableTint="@color/white"
+                        android:textColor="@color/primary"
+                        android:drawableTint="@color/primary"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
                 </LinearLayout>
             </LinearLayout>
