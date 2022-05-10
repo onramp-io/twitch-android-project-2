@@ -57,7 +57,7 @@ class EditProfileFragment : Fragment() {
         var index = 0
 
         when {
-            SharedPreferencesManager.getTextInDropdown() == "Large" -> {
+            SharedPreferencesManager.getFontSize() == "Large" -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     for (view in views) {
                         views[index].setTextAppearance(R.style.editProfile)
@@ -65,7 +65,7 @@ class EditProfileFragment : Fragment() {
                     }
                 }
             }
-            SharedPreferencesManager.getTextInDropdown() == "Medium" -> {
+            SharedPreferencesManager.getFontSize() == "Medium" -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     index = 0
                     for (view in views) {

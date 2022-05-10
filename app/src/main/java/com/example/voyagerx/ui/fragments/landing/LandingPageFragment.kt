@@ -3,6 +3,7 @@ package com.example.voyagerx.ui.fragments.landing
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -21,6 +22,7 @@ import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.LaunchRepository
 import com.example.voyagerx.repository.model.Launch
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
+import com.example.voyagerx.util.SharedPreferencesManager
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -36,6 +38,8 @@ class LandingPageFragment : Fragment() {
     private lateinit var launches: List<Launch>
     private lateinit var adapter: LaunchOverviewAdapter
 
+    private val SharedPreferencesManager by lazy {SharedPreferencesManager(requireContext())}
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +47,8 @@ class LandingPageFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentLandingPageBinding.inflate(inflater)
+
+        setFontSizes()
 
         return binding.root
     }
@@ -191,6 +197,7 @@ class LandingPageFragment : Fragment() {
         hideNetworkError()
         showSpinner()
 
+
         // Add button press animation
         adapter = LaunchOverviewAdapter(
             LaunchClickListener(this::navigateToLaunchDetails),
@@ -207,10 +214,12 @@ class LandingPageFragment : Fragment() {
                 launches = result.filterNotNull()
                 adapter.initializeList(launches)
                 setListHeaderText(launches.size)
+
             } else {
                 showNetworkError()
             }
         }
+
 
     }
 
@@ -259,5 +268,26 @@ class LandingPageFragment : Fragment() {
         binding.error.root.visibility = View.INVISIBLE
         binding.listing.root.visibility = View.VISIBLE
         binding.filters.root.visibility = View.VISIBLE
+    }
+
+    private fun setFontSizes() {
+        when {
+            SharedPreferencesManager.getFontSize() == "Large" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.listing.header.setTextAppearance(R.style.landingPageHeader)
+                }
+            }
+            SharedPreferencesManager.getFontSize() == "Medium" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.listing.header.setTextAppearance(R.style.landingPageHeader_Medium)
+                }
+            }
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.listing.header.setTextAppearance(R.style.landingPageHeader_Small)
+                }
+            }
+        }
+
     }
 }

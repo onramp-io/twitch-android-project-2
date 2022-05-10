@@ -53,6 +53,47 @@
         <item name="android:textSize">@dimen/edit_profile_small</item>
     </style>
 
+    <style name="rvMissionName">
+        <item name="android:textSize">@dimen/mission_name_large</item>
+    </style>
+    <style name="rvMissionName.Medium">
+        <item name="android:textSize">@dimen/mission_name_medium</item>
+    </style>
+    <style name="rvMissionName.Small">
+        <item name="android:textSize">@dimen/mission_name_small</item>
+    </style>
+
+    <style name="rvSiteName">
+        <item name="android:textSize">@dimen/site_name_large</item>
+    </style>
+    <style name="rvSiteName.Medium">
+        <item name="android:textSize">@dimen/site_name_medium</item>
+    </style>
+    <style name="rvSiteName.Small">
+        <item name="android:textSize">@dimen/site_name_small</item>
+    </style>
+
+    <style name="rvDate">
+        <item name="android:textSize">@dimen/date_large</item>
+    </style>
+    <style name="rvDate.Medium">
+        <item name="android:textSize">@dimen/date_medium</item>
+    </style>
+    <style name="rvDate.Small">
+        <item name="android:textSize">@dimen/date_small</item>
+    </style>
+
+    <style name="landingPageHeader">
+        <item name="android:textSize">@dimen/header_large</item>
+    </style>
+    <style name="landingPageHeader.Medium">
+        <item name="android:textSize">@dimen/header_medium</item>
+    </style>
+    <style name="landingPageHeader.Small">
+        <item name="android:textSize">@dimen/header_small</item>
+    </style>
+
+
 
 
 </resources>
