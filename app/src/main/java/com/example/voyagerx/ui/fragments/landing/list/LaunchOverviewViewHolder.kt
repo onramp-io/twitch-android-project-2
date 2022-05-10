@@ -43,23 +43,23 @@ class LaunchOverviewViewHolder(private val binding: LandingPageOverviewCardBindi
         when (textSize) {
             "Large" -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    binding.launchOverviewCardMissionName.textSize = 20f
-                    binding.launchOverviewCardSiteName.textSize = 12f
-                    binding.launchOverviewCardYear.textSize = 10f
+                    binding.launchOverviewCardMissionName.setTextAppearance(R.style.rvMissionName)
+                    binding.launchOverviewCardSiteName.setTextAppearance(R.style.rvSiteName)
+                    binding.launchOverviewCardYear.setTextAppearance(R.style.rvDate)
                 }
             }
             "Medium" -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    binding.launchOverviewCardMissionName.textSize = 18f
-                    binding.launchOverviewCardSiteName.textSize = 11f
-                    binding.launchOverviewCardYear.textSize = 9f
+                    binding.launchOverviewCardMissionName.setTextAppearance(R.style.rvMissionName_Medium)
+                    binding.launchOverviewCardSiteName.setTextAppearance(R.style.rvSiteName_Medium)
+                    binding.launchOverviewCardYear.setTextAppearance(R.style.rvDate_Medium)
                 }
             }
             else -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    binding.launchOverviewCardMissionName.textSize = 16f
-                    binding.launchOverviewCardSiteName.textSize = 10f
-                    binding.launchOverviewCardYear.textSize = 8f
+                    binding.launchOverviewCardMissionName.setTextAppearance(R.style.rvMissionName_Small)
+                    binding.launchOverviewCardSiteName.setTextAppearance(R.style.rvSiteName_Small)
+                    binding.launchOverviewCardYear.setTextAppearance(R.style.rvDate_Small)
                 }
             }
         }

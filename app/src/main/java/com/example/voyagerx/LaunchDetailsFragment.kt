@@ -2,8 +2,10 @@ package com.example.voyagerx
 import android.graphics.Typeface
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.helpers.DateFormatter
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.repository.model.Launch
+import com.example.voyagerx.util.SharedPreferencesManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -38,6 +41,8 @@ class LaunchDetailsFragment : Fragment() {
     private var _binding: FragmentLaunchDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var launchObj: Launch
+
+    private val SharedPreferencesManager by lazy { SharedPreferencesManager(requireContext()) }
 
     @Inject
     lateinit var userRepository: UserRepository
@@ -68,6 +73,7 @@ class LaunchDetailsFragment : Fragment() {
         displayImages()
         displayLaunchDetails()
         displayFavorite()
+        setFontSizes()
         binding.ivShare.setOnClickListener { shareLaunch() }
         binding.tvVideoLink.setOnClickListener { handleLinkClick(launchObj.video_link) }
         binding.tvArticleLink.setOnClickListener { handleLinkClick(launchObj.article_link) }
@@ -268,5 +274,47 @@ class LaunchDetailsFragment : Fragment() {
 
     private fun showView(view: View) {
         view.visibility = View.VISIBLE
+    }
+
+    private fun setFontSizes() {
+        when {
+            SharedPreferencesManager.getFontSize() == "Large" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvMissionName.setTextAppearance(R.style.detailsPageMissionName)
+                    binding.tvSiteName.setTextAppearance(R.style.detailsBodyText)
+                    binding.tvLaunchDate.setTextAppearance(R.style.detailsBodyText)
+                    binding.tvDetailHeader.setTextAppearance(R.style.detailsHeader)
+                    binding.tvDetailParagraph.setTextAppearance(R.style.detailsBodyText)
+                    binding.tvLinksHeader.setTextAppearance(R.style.detailsHeader)
+                    binding.tvVideoLink.setTextAppearance(R.style.detailsBodyText)
+                    binding.tvArticleLink.setTextAppearance(R.style.detailsBodyText)
+                }
+            }
+            SharedPreferencesManager.getFontSize() == "Medium" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvMissionName.setTextAppearance(R.style.detailsPageMissionName_Medium)
+                    binding.tvSiteName.setTextAppearance(R.style.detailsBodyText_Medium)
+                    binding.tvLaunchDate.setTextAppearance(R.style.detailsBodyText_Medium)
+                    binding.tvDetailHeader.setTextAppearance(R.style.detailsHeader_Medium)
+                    binding.tvDetailParagraph.setTextAppearance(R.style.detailsBodyText_Medium)
+                    binding.tvLinksHeader.setTextAppearance(R.style.detailsHeader_Medium)
+                    binding.tvVideoLink.setTextAppearance(R.style.detailsBodyText_Medium)
+                    binding.tvArticleLink.setTextAppearance(R.style.detailsBodyText_Medium)
+                }
+            }
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvMissionName.setTextAppearance(R.style.detailsPageMissionName_Small)
+                    binding.tvSiteName.setTextAppearance(R.style.detailsBodyText_Small)
+                    binding.tvLaunchDate.setTextAppearance(R.style.detailsBodyText_Small)
+                    binding.tvDetailHeader.setTextAppearance(R.style.detailsHeader_Small)
+                    binding.tvDetailParagraph.setTextAppearance(R.style.detailsBodyText_Small)
+                    binding.tvLinksHeader.setTextAppearance(R.style.detailsHeader_Small)
+                    binding.tvVideoLink.setTextAppearance(R.style.detailsBodyText_Small)
+                    binding.tvArticleLink.setTextAppearance(R.style.detailsBodyText_Small)
+                }
+            }
+        }
+
     }
 }

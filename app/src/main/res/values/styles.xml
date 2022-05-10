@@ -93,6 +93,35 @@
         <item name="android:textSize">@dimen/header_small</item>
     </style>
 
+    <style name="detailsPageMissionName">
+        <item name="android:textSize">@dimen/det_mission_name_lg</item>
+    </style>
+    <style name="detailsPageMissionName.Medium">
+        <item name="android:textSize">@dimen/det_mission_name_med</item>
+    </style>
+    <style name="detailsPageMissionName.Small">
+        <item name="android:textSize">@dimen/det_mission_name_sm</item>
+    </style>
+
+    <style name="detailsBodyText">
+        <item name="android:textSize">@dimen/body_text_lg</item>
+    </style>
+    <style name="detailsBodyText.Medium">
+        <item name="android:textSize">@dimen/body_text_med</item>
+    </style>
+    <style name="detailsBodyText.Small">
+        <item name="android:textSize">@dimen/body_text_sm</item>
+    </style>
+
+    <style name="detailsHeader">
+        <item name="android:textSize">@dimen/det_header_lg</item>
+    </style>
+    <style name="detailsHeader.Medium">
+        <item name="android:textSize">@dimen/det_header_med</item>
+    </style>
+    <style name="detailsHeader.Small">
+        <item name="android:textSize">@dimen/det_header_sm</item>
+    </style>
 
 
 
