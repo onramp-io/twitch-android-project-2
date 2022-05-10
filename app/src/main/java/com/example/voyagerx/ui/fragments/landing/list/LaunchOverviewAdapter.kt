@@ -128,7 +128,6 @@ class LaunchOverviewAdapter(
         val context: Context = holder.itemView.context
         val launch = visibleLaunches[position]
         holder.setTextSize(SharedPreferencesManager(context).getFontSize())
-        Log.d("text size in adapter", SharedPreferencesManager(context).getFontSize())
         holder.bind(launch)
 
         holder.itemView.setOnClickListener {

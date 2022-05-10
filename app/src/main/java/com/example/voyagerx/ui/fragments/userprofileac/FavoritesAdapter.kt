@@ -1,5 +1,7 @@
 package com.example.voyagerx.ui.fragments.userprofileac
 
+import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +11,7 @@ import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.User
 import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewViewHolder
 import com.example.voyagerx.ui.fragments.userprofileac.FavoritesAdapter.*
+import com.example.voyagerx.util.SharedPreferencesManager
 
 
 class FavoritesAdapter(
@@ -30,6 +33,8 @@ class FavoritesAdapter(
 
 
     override fun onBindViewHolder(holder: LaunchOverviewViewHolder, position: Int) {
+        val context: Context = holder.itemView.context
+        holder.setTextSize(SharedPreferencesManager(context).getFontSize())
         val favoriteLaunch = user!!.favoriteLaunches!![position]
 
         if (itemCount == 0) {
@@ -42,9 +47,9 @@ class FavoritesAdapter(
             holder.itemView.setOnClickListener {
                 listener.onClick(favoriteLaunch)
             }
+            holder.setTextSize(SharedPreferencesManager(context).getFontSize())
         }
 
     }
-
 
 }
