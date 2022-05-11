@@ -95,41 +95,58 @@ class EditProfileFragment : Fragment() {
             binding.editLocationField.text = usersLocation.toString().toEditable()
         }
 
-        updateInfoInDatabase()
-
+        if (currentUser != null) {
+            updateInfoInDatabase(currentUser)
+        }
     }
 
 
 
-    private fun updateInfoInDatabase() {
+    private fun updateInfoInDatabase(user: User) {
         val newUserDetails = User(
-            userRepository.getCurrentUser()?.id!!.toInt(),
-            userRepository.getCurrentUser()?.email.toString(),
-            userRepository.getCurrentUser()?.password.toString(),
-            userRepository.getCurrentUser()?.name.toString(),
-            userRepository.getCurrentUser()?.location.toString(),
-            userRepository.getCurrentUser()?.bio.toString(),
-            userRepository.getCurrentUser()?.favoriteLaunches
+            user.id,
+            user.email,
+            user.password,
+            user.name,
+            user.location,
+            user.bio,
+            user.favoriteLaunches
         )
-
+        
         binding.btnSave.setOnClickListener {
-            if ((userRepository.getCurrentUser()?.name) != binding.editNameField.text.toString()) {
+
+
+            if ((user.name) != binding.editNameField.text.toString()) {
                 newUserDetails.name = binding.editNameField.text.toString()
             }
-            if ((userRepository.getCurrentUser()?.bio) != binding.editBio.text.toString()) {
+            if ((user.bio) != binding.editBio.text.toString()) {
                 newUserDetails.bio = binding.editBio.text.toString()
             }
-            if ((userRepository.getCurrentUser()?.location) != binding.editLocationField.text.toString()) {
+            if ((user.location) != binding.editLocationField.text.toString()) {
                 newUserDetails.location = binding.editLocationField.text.toString()
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
+            val isUserNameBlank = validateUserName(newUserDetails.name)
+
+            if (!isUserNameBlank) {
+                CoroutineScope(Dispatchers.IO).launch {
                     userRepository.updateUser(newUserDetails)
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.frame, ProfileFragment())
                         .commit()
                 }
+            }
+        }
+    }
+
+    private fun validateUserName(userName: String?) : Boolean {
+        return if (userName.isNullOrEmpty()) {
+            binding.editNameField.requestFocus()
+            binding.editNameField.error = "Your name cannot be blank!"
+            true
+        } else {
+            false
         }
     }
 
