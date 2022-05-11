@@ -93,9 +93,10 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setUserInfoInTextFields() {
-        val usersName: String? = userRepository.getCurrentUser()?.name
-        val userBio: String? = userRepository.getCurrentUser()?.bio
-        val usersLocation: String? = userRepository.getCurrentUser()?.location
+        val currentUser = userRepository.getCurrentUser()
+        val usersName: String? = currentUser?.name
+        val userBio: String? = currentUser?.bio
+        val usersLocation: String? = currentUser?.location
 
         fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
         //show user initial in avatar
