@@ -78,9 +78,10 @@
             android:id="@+id/editProfileFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_below="@id/cardView"
+            android:orientation="vertical"
             android:padding="30dp">
+
             <TextView
                 android:id="@+id/tvNameLabel"
                 android:layout_width="wrap_content"
@@ -91,58 +92,62 @@
 
             <EditText
                 android:id="@+id/editNameField"
-                android:layout_width="wrap_content"
+                android:layout_width="322dp"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
                 android:background="@android:color/transparent"
                 android:hint="@string/enter_name_here"
                 android:importantForAutofill="no"
                 android:inputType="text"
+                android:maxLength="25"
                 android:minWidth="48dp"
-                android:layout_marginVertical="10dp"
                 android:text="@string/user_temp_name"
                 android:textColor="@color/purple_200"
-                android:textColorHint="@color/hint_color" />
+                android:textColorHint="@color/hint_color"
+                app:errorEnabled="false" />
 
             <TextView
                 android:id="@+id/tvBioLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bio_profile_label"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
-                android:inputType="textMultiLine"
                 android:id="@+id/editBio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
                 android:layout_marginVertical="10dp"
-                android:text="@string/user_bio"
+                android:background="@android:color/transparent"
                 android:hint="@string/enter_bio_here"
-                android:textColorHint="@color/hint_color"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:maxLength="41"
+                android:text="@string/user_bio"
                 android:textColor="@color/purple_200"
-                android:importantForAutofill="no" />
+                android:textColorHint="@color/hint_color" />
 
             <TextView
                 android:id="@+id/tvLocationLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location_profile_label"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editLocationField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:hint="@string/enter_location_here_hint"
-                android:layout_marginVertical="10dp"
-                android:textColor="@color/purple_200"
-                android:textColorHint="@color/hint_color"
                 android:inputType="text"
-                android:autofillHints="" />
+                android:maxLength="30"
+                android:textColor="@color/purple_200"
+                android:textColorHint="@color/hint_color" />
         </LinearLayout>
 
         <LinearLayout
