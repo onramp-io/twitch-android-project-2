@@ -147,7 +147,7 @@ class EditProfileFragment : Fragment() {
             user.bio,
             user.favoriteLaunches
         )
-
+        
         binding.btnSave.setOnClickListener {
             if ((user.name) != binding.editNameField.text.toString()) {
                 newUserDetails.name = binding.editNameField.text.toString()
@@ -159,13 +159,27 @@ class EditProfileFragment : Fragment() {
                 newUserDetails.location = binding.editLocationField.text.toString()
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
+            val isUserNameBlank = validateUserName(newUserDetails.name)
+
+            if (!isUserNameBlank) {
+                CoroutineScope(Dispatchers.IO).launch {
                     userRepository.updateUser(newUserDetails)
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.frame, ProfileFragment())
                         .commit()
                 }
+            }
+        }
+    }
+
+    private fun validateUserName(userName: String?) : Boolean {
+        return if (userName.isNullOrBlank()) {
+            binding.editNameField.requestFocus()
+            binding.editNameField.error = "Your name cannot be blank!"
+            true
+        } else {
+            false
         }
     }
 
