@@ -1,6 +1,8 @@
 package com.example.voyagerx.ui.fragments.userprofileac
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.voyagerx.repository.UserRepository
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.voyagerx.LaunchDetailsFragment
 import com.example.voyagerx.data.LaunchDetailFields
@@ -19,11 +19,7 @@ import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.util.SharedPreferencesManager
 import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
-import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,35 +41,20 @@ class ProfileFragment : Fragment() {
             parentFragmentManager.beginTransaction().replace(R.id.frame, EditProfileFragment()).commit()
         }
 
-        setProfileBackgroundWallpaperAndFontColors(SharedPreferencesManager.getBackgroundWallpaper())
+        setProfileBackgroundWallpaper(SharedPreferencesManager.getBackgroundWallpaper())
+        setFontSizes()
 
         return binding.root
     }
 
-    private fun setProfileBackgroundWallpaperAndFontColors(wallpaper: Boolean) {
-        val profileLayout: ConstraintLayout = binding.profileLayout
+    private fun setProfileBackgroundWallpaper(wallpaper: Boolean) {
         if (wallpaper) {
-            profileLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.stars_background)
-            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvBio.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvEmptyFavoritesMsg.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvFavoriteLaunchesLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.editProfileImageBtn.setImageResource(R.drawable.ic_editprofile_white)
+            binding.headerCoverImage.setImageResource(R.drawable.stars_background)
         } else {
-            profileLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvBio.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvEmptyFavoritesMsg.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvFavoriteLaunchesLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvUserInitial.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.tvNameinProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.editProfileImageBtn.setImageResource(R.drawable.ic_editprofile_black)
+            binding.headerCoverImage.setImageResource(R.drawable.plain_background)
         }
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -82,6 +63,32 @@ class ProfileFragment : Fragment() {
 
     }
 
+    private fun setFontSizes() {
+        when {
+            SharedPreferencesManager.getFontSize() == "Large" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation)
+                    binding.tvBio.setTextAppearance(R.style.profileBio)
+                }
+            }
+            SharedPreferencesManager.getFontSize() == "Medium" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize_Medium)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation_Medium)
+                    binding.tvBio.setTextAppearance(R.style.profileBio_Medium)
+                }
+            }
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize_Small)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation_Small)
+                    binding.tvBio.setTextAppearance(R.style.profileBio_Small)
+                }
+            }
+        }
+
+    }
 
     private fun createRecyclerView() {
         val adapter = FavoritesAdapter(userRepository.getCurrentUser(), LaunchClickListener(this::navigateToLaunchDetails))
@@ -137,7 +144,8 @@ class ProfileFragment : Fragment() {
         val userWord = "User"
         val userBio: String? = userRepository.getCurrentUser()?.bio
         val usersName: String? = userRepository.getCurrentUser()?.name
-
+        val usersLocation: String? = userRepository.getCurrentUser()?.location
+        Log.d("getuserInfo","$usersName")
         //get first letter of user's name from database; pass to setting function
         if (userRepository.getCurrentUser()?.name.equals(null)) {
                 setInitialInAvatar(userWord.first().uppercaseChar())
@@ -163,6 +171,15 @@ class ProfileFragment : Fragment() {
         } else {
             setUsernameInHeader(usersName.toString())
         }
+
+        //get user location from database; pass to setting function
+        if (usersLocation.equals(null)) {
+            setUsersLocation(getString(R.string.default_location))
+        } else {
+            setUsersLocation(usersLocation.toString())
+        }
+
+
     }
 
     private fun setUsernameInHeader(usersName: String) {
@@ -180,6 +197,11 @@ class ProfileFragment : Fragment() {
     private fun setUserBio(bio: String) {
         binding.tvBio.text = bio
     }
+
+    private fun setUsersLocation(location: String) {
+        binding.tvLocation.text = location
+    }
+
 
 
 }

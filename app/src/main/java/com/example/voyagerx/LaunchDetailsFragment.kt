@@ -1,6 +1,7 @@
 package com.example.voyagerx
 import android.graphics.Typeface
 import android.content.Intent
+import android.os.Build
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -17,8 +18,11 @@ import coil.size.Scale
 import com.example.voyagerx.data.LaunchDetailFields
 import com.example.voyagerx.databinding.FragmentLaunchDetailsBinding
 import com.example.voyagerx.helpers.DateFormatter
+import com.example.voyagerx.presenters.LaunchDetailsPresenter
 import com.example.voyagerx.repository.UserRepository
 import com.example.voyagerx.repository.model.Launch
+import com.example.voyagerx.util.SharedPreferencesManager
+import com.example.voyagerx.repository.model.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -37,30 +41,42 @@ class LaunchDetailsFragment : Fragment() {
 
     private var _binding: FragmentLaunchDetailsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var launchObj: Launch
+    private lateinit var presenter : LaunchDetailsPresenter
+
+    private val SharedPreferencesManager by lazy { SharedPreferencesManager(requireContext()) }
 
     @Inject
     lateinit var userRepository: UserRepository
+
+    private fun setPresenter(presenter: LaunchDetailsPresenter) {
+        this.presenter = presenter
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setPresenter(LaunchDetailsPresenter(userRepository,this, requireContext()))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLaunchDetailsBinding.inflate(inflater, container, false)
-        launchObj = arguments?.getParcelable(Launch.BUNDLE_KEY)!!
+        presenter.setDetailsLaunchObj(arguments?.getParcelable(Launch.BUNDLE_KEY)!!)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        displayImages()
-        displayLaunchDetails()
-        displayFavorite()
-        binding.ivShare.setOnClickListener { shareLaunch() }
-        binding.tvVideoLink.setOnClickListener { handleLinkClick(launchObj.video_link) }
-        binding.tvArticleLink.setOnClickListener { handleLinkClick(launchObj.article_link) }
-        binding.ivFavorite.setOnClickListener { favoriteLaunch() }
-        binding.ivFavoriteTrue.setOnClickListener { unfavoriteLaunch() }
+        displayImages(presenter.launchObj)
+        displayLaunchDetails(presenter.launchObj)
+        setFontSizes()
+        presenter.currUser?.let { displayFavorite(it, presenter.launchObj) }
+        binding.ivShare.setOnClickListener { presenter.shareLaunch() }
+        binding.tvVideoLink.setOnClickListener { presenter.handleLinkClick(presenter.launchObj.video_link) }
+        binding.tvArticleLink.setOnClickListener { presenter.handleLinkClick(presenter.launchObj.article_link) }
+        binding.ivFavorite.setOnClickListener { presenter.favoriteLaunch() }
+        binding.ivFavoriteTrue.setOnClickListener { presenter.unfavoriteLaunch() }
     }
 
     override fun onDestroyView() {
@@ -68,55 +84,17 @@ class LaunchDetailsFragment : Fragment() {
         _binding = null
     }
 
-    private fun favoriteLaunch() {
-        lifecycleScope.launch{
-            try {
-
-                var currUser = userRepository.getCurrentUser()
-                if (currUser != null) {
-                    userRepository.insertUserFavoriteLaunch(launchObj, currUser!!)
-                    Snackbar.make(binding.ivFavoriteTrue,
-                        getString(R.string.favorite_launch_msg, launchObj.mission_name),
-                        Snackbar.LENGTH_SHORT)
-                        .setAnchorView(activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView))
-                        .show()
-                    displayFavorite()
-                } else {
-                    showLoginPopup()
-                }
-            } catch (e: Exception) {
-                Log.d("user", "$e")
-                displayErrorSnackbar(binding.ivFavoriteTrue)
-            }
-        }
+    fun displayFavoriteSnackBar(message: String) {
+        Snackbar.make(binding.ivFavoriteTrue,
+            message,
+            Snackbar.LENGTH_SHORT)
+            .setAnchorView(activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView))
+            .show()
     }
 
-    private fun unfavoriteLaunch() {
-        lifecycleScope.launch {
-            try {
-//                val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-                var currUser = userRepository.getCurrentUser()
-                if (currUser != null) {
-                    userRepository.removeUserFavoriteLaunch(launchObj, currUser!!)
-                    Snackbar.make(binding.ivFavoriteTrue,
-                        getString(R.string.unfavorite_launch_msg, launchObj.mission_name),
-                        Snackbar.LENGTH_SHORT)
-                        .setAnchorView(activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView))
-                        .show()
-                    displayFavorite()
-                } else {
-                    showLoginPopup()
-                }
-            } catch (e: java.lang.Exception) {
-                displayErrorSnackbar(binding.ivFavorite)
-            }
-        }
-    }
-
-    private fun displayFavorite() {
+    fun displayFavorite(currUser : User, launchObj: Launch) {
         lifecycleScope.launch { //lifecycle scope is used here since we want to cancel coroutine if fragment is destroyed
             try {
-                var currUser = userRepository.getCurrentUser()
                 if (currUser?.favoriteLaunches != null) {
                     if (currUser.favoriteLaunches!!.contains(launchObj)) {
                         // changes to ui need to happen on the main thread
@@ -136,7 +114,7 @@ class LaunchDetailsFragment : Fragment() {
         }
     }
 
-    private fun displayLaunchDetails() {
+    private fun displayLaunchDetails(launchObj: Launch) {
         launchObj.mission_name?.let {
             binding.tvMissionName.text = it
         } ?: run {
@@ -177,17 +155,17 @@ class LaunchDetailsFragment : Fragment() {
         }
     }
 
-    private fun displayImages() {
+    private fun displayImages(launchObj : Launch) {
         //launchObj.image_links will return an empty list (instead of null) if no photos are available
         if (launchObj.image_links.isNullOrEmpty()) {
             showView(binding.ivDefaultImage)
             hideView(binding.vpLaunchPhotos)
         } else {
-            displayCarousel()
+            displayCarousel(launchObj)
         }
     }
 
-    private fun displayCarousel() {
+    private fun displayCarousel(launchObj: Launch) {
         val viewPager: ViewPager = binding.vpLaunchPhotos
         val imageAdapter = LaunchCarouselAdapter(
             requireContext(),
@@ -196,31 +174,12 @@ class LaunchDetailsFragment : Fragment() {
         viewPager.adapter = imageAdapter
     }
 
-    private fun shareLaunch() {
-        val share = Intent.createChooser(Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(
-                Intent.EXTRA_TEXT, "Check out this SpaceX Launch!\n\n" +
-                        if (!launchObj.mission_name.isNullOrEmpty()) "${launchObj.mission_name}\n\n" else "" +
-                                if (!launchObj.details.isNullOrEmpty()) "${launchObj.details}\n\n" else "" +
-                                        if (!launchObj.video_link.isNullOrEmpty()) "Watch the launch video:\n ${launchObj.video_link}" else ""
-            )
-            type = "text/plain"
-        }, null)
-        startActivity(share)
-    }
-
     private fun displayNullMessage(message:String, textView:TextView) {
         textView.setTypeface(null, Typeface.ITALIC)
         textView.text = message
     }
 
-    private fun handleLinkClick(link : String?) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-        startActivity(browserIntent)
-    }
-
-    private fun showLoginPopup() {
+    fun displayLoginPopup() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.account_needed_title))
             .setMessage(getString(R.string.need_account_msg))
@@ -244,8 +203,8 @@ class LaunchDetailsFragment : Fragment() {
             .show()
     }
 
-    private fun displayErrorSnackbar(view: View) {
-        Snackbar.make(view, getString(R.string.favorite_error), Snackbar.LENGTH_SHORT)
+    fun displayErrorSnackBar() {
+        Snackbar.make(binding.ivFavoriteTrue, getString(R.string.favorite_error), Snackbar.LENGTH_SHORT)
             .setAnchorView(activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView))
             .show()
     }
@@ -256,5 +215,47 @@ class LaunchDetailsFragment : Fragment() {
 
     private fun showView(view: View) {
         view.visibility = View.VISIBLE
+    }
+
+    private fun setFontSizes() {
+        when {
+            SharedPreferencesManager.getFontSize() == "Large" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvMissionName.setTextAppearance(R.style.detailsPageMissionName)
+                    binding.tvSiteName.setTextAppearance(R.style.detailsBodyText)
+                    binding.tvLaunchDate.setTextAppearance(R.style.detailsBodyText)
+                    binding.tvDetailHeader.setTextAppearance(R.style.detailsHeader)
+                    binding.tvDetailParagraph.setTextAppearance(R.style.detailsBodyText)
+                    binding.tvLinksHeader.setTextAppearance(R.style.detailsHeader)
+                    binding.tvVideoLink.setTextAppearance(R.style.detailsBodyText)
+                    binding.tvArticleLink.setTextAppearance(R.style.detailsBodyText)
+                }
+            }
+            SharedPreferencesManager.getFontSize() == "Medium" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvMissionName.setTextAppearance(R.style.detailsPageMissionName_Medium)
+                    binding.tvSiteName.setTextAppearance(R.style.detailsBodyText_Medium)
+                    binding.tvLaunchDate.setTextAppearance(R.style.detailsBodyText_Medium)
+                    binding.tvDetailHeader.setTextAppearance(R.style.detailsHeader_Medium)
+                    binding.tvDetailParagraph.setTextAppearance(R.style.detailsBodyText_Medium)
+                    binding.tvLinksHeader.setTextAppearance(R.style.detailsHeader_Medium)
+                    binding.tvVideoLink.setTextAppearance(R.style.detailsBodyText_Medium)
+                    binding.tvArticleLink.setTextAppearance(R.style.detailsBodyText_Medium)
+                }
+            }
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvMissionName.setTextAppearance(R.style.detailsPageMissionName_Small)
+                    binding.tvSiteName.setTextAppearance(R.style.detailsBodyText_Small)
+                    binding.tvLaunchDate.setTextAppearance(R.style.detailsBodyText_Small)
+                    binding.tvDetailHeader.setTextAppearance(R.style.detailsHeader_Small)
+                    binding.tvDetailParagraph.setTextAppearance(R.style.detailsBodyText_Small)
+                    binding.tvLinksHeader.setTextAppearance(R.style.detailsHeader_Small)
+                    binding.tvVideoLink.setTextAppearance(R.style.detailsBodyText_Small)
+                    binding.tvArticleLink.setTextAppearance(R.style.detailsBodyText_Small)
+                }
+            }
+        }
+
     }
 }

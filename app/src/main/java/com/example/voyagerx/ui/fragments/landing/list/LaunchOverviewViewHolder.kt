@@ -1,5 +1,6 @@
 package com.example.voyagerx.ui.fragments.landing.list
 
+import android.os.Build
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -37,4 +38,31 @@ class LaunchOverviewViewHolder(private val binding: LandingPageOverviewCardBindi
             }
         }
     }
+
+    fun setTextSize(textSize: String) {
+        when (textSize) {
+            "Large" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.launchOverviewCardMissionName.setTextAppearance(R.style.rvMissionName)
+                    binding.launchOverviewCardSiteName.setTextAppearance(R.style.rvSiteName)
+                    binding.launchOverviewCardYear.setTextAppearance(R.style.rvDate)
+                }
+            }
+            "Medium" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.launchOverviewCardMissionName.setTextAppearance(R.style.rvMissionName_Medium)
+                    binding.launchOverviewCardSiteName.setTextAppearance(R.style.rvSiteName_Medium)
+                    binding.launchOverviewCardYear.setTextAppearance(R.style.rvDate_Medium)
+                }
+            }
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.launchOverviewCardMissionName.setTextAppearance(R.style.rvMissionName_Small)
+                    binding.launchOverviewCardSiteName.setTextAppearance(R.style.rvSiteName_Small)
+                    binding.launchOverviewCardYear.setTextAppearance(R.style.rvDate_Small)
+                }
+            }
+        }
+    }
 }
+
