@@ -1,5 +1,7 @@
 package com.example.voyagerx.ui.fragments.landing.list
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,10 +9,11 @@ import com.example.voyagerx.data.LaunchDetailFields
 import com.example.voyagerx.databinding.LandingPageOverviewCardBinding
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.Launch
+import com.example.voyagerx.util.SharedPreferencesManager
 
 class LaunchOverviewAdapter(
     private val listener: LaunchClickListener = LaunchClickListener { },
-    private val filterCallback: (Int) -> Unit
+    private val filterCallback: (Int) -> Unit,
 ) :
     RecyclerView.Adapter<LaunchOverviewViewHolder>() {
     private var visibleLaunches: List<Launch> = listOf()
@@ -122,11 +125,15 @@ class LaunchOverviewAdapter(
         )
 
     override fun onBindViewHolder(holder: LaunchOverviewViewHolder, position: Int) {
+        val context: Context = holder.itemView.context
         val launch = visibleLaunches[position]
+        holder.setTextSize(SharedPreferencesManager(context).getFontSize())
         holder.bind(launch)
+
         holder.itemView.setOnClickListener {
             listener.onClick(launch)
         }
+
     }
 
     fun getSiteFilters(): List<String> = allLaunches
@@ -140,4 +147,7 @@ class LaunchOverviewAdapter(
         .toList()
 
     override fun getItemCount(): Int = visibleLaunches.size
+
+
+
 }

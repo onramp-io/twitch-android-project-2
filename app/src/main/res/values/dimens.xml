@@ -25,4 +25,55 @@
     <dimen name="text_md">12sp</dimen>
     <dimen name="landing_page_filter_chip_width">100dp</dimen>
     <dimen name="landing_page_filter_chip_height">45dp</dimen>
+
+    <!-- User profile -->
+    <dimen name="profile_header_large">25sp</dimen>
+    <dimen name="profile_header_medium">23sp</dimen>
+    <dimen name="profile_header_small">21sp</dimen>
+
+    <dimen name="profile_bio_large">16sp</dimen>
+    <dimen name="profile_bio_medium">14sp</dimen>
+    <dimen name="profile_bio_small">12sp</dimen>
+
+    <dimen name="profile_location_large">14sp</dimen>
+    <dimen name="profile_location_medium">13sp</dimen>
+    <dimen name="profile_location_small">11sp</dimen>
+
+    <!-- Edit profile -->
+    <dimen name="edit_profile_large">16sp</dimen>
+    <dimen name="edit_profile_medium">14sp</dimen>
+    <dimen name="edit_profile_small">12sp</dimen>
+
+    <!-- RecyclerView -->
+    <dimen name="mission_name_large">20sp</dimen>
+    <dimen name="mission_name_medium">18sp</dimen>
+    <dimen name="mission_name_small">16sp</dimen>
+
+    <dimen name="site_name_large">12sp</dimen>
+    <dimen name="site_name_medium">11sp</dimen>
+    <dimen name="site_name_small">10sp</dimen>
+
+    <dimen name="date_large">10sp</dimen>
+    <dimen name="date_medium">9sp</dimen>
+    <dimen name="date_small">8sp</dimen>
+
+    <!-- Landing page -->
+    <dimen name="header_large">16sp</dimen>
+    <dimen name="header_medium">14sp</dimen>
+    <dimen name="header_small">12sp</dimen>
+
+    <!-- Details page -->
+    <dimen name="det_mission_name_lg">24sp</dimen>
+    <dimen name="det_mission_name_med">22sp</dimen>
+    <dimen name="det_mission_name_sm">20sp</dimen>
+
+    <dimen name="body_text_lg">16sp</dimen>
+    <dimen name="body_text_med">14sp</dimen>
+    <dimen name="body_text_sm">12sp</dimen>
+
+    <dimen name="det_header_lg">18sp</dimen>
+    <dimen name="det_header_med">16sp</dimen>
+    <dimen name="det_header_sm">14sp</dimen>
+
+
 </resources>

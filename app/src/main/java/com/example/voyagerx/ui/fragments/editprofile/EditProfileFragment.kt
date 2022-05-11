@@ -1,14 +1,13 @@
 package com.example.voyagerx.ui.fragments.editprofile
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
+import android.widget.TextView
 import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentEditProfileBinding
 import com.example.voyagerx.repository.UserRepository
@@ -39,6 +38,7 @@ class EditProfileFragment : Fragment() {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 
         setProfileBackgroundWallpaper(SharedPreferencesManager.getBackgroundWallpaper())
+        setFontSizes()
 
         return binding.root
     }
@@ -49,6 +49,41 @@ class EditProfileFragment : Fragment() {
         setCancelButton()
         setUserInfoInTextFields()
 
+    }
+
+    private fun setFontSizes() {
+        val views : List<TextView> = listOf(binding.tvNameLabel, binding.editNameField,
+            binding.tvLocationLabel, binding.editLocationField, binding.tvBioLabel, binding.editBio)
+        var index = 0
+
+        when {
+            SharedPreferencesManager.getFontSize() == "Large" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    for (view in views) {
+                        views[index].setTextAppearance(R.style.editProfile)
+                        index++
+                    }
+                }
+            }
+            SharedPreferencesManager.getFontSize() == "Medium" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    index = 0
+                    for (view in views) {
+                        views[index].setTextAppearance(R.style.editProfile_Medium)
+                        index++
+                    }
+                }
+            }
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    index = 0
+                    for (view in views) {
+                        views[index].setTextAppearance(R.style.editProfile_Small)
+                        index++
+                    }
+                }
+            }
+        }
     }
 
     private fun setCancelButton() {

@@ -77,22 +77,22 @@
             android:id="@+id/tvNameinProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/cardView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:text="@string/users_profile_heading"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/cardView"
-            android:layout_centerHorizontal="true"
             tools:layout_editor_absoluteX="123dp" />
 
         <TextView
             android:id="@+id/tvLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="location"
-            android:textSize="14sp"
             android:layout_below="@id/tvNameinProfile"
             android:layout_centerHorizontal="true"
+            android:text="location"
+            android:textSize="14sp"
             tools:layout_editor_absoluteX="123dp" />
 
         <TextView

@@ -1,5 +1,6 @@
 package com.example.voyagerx.ui.fragments.userprofileac
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.voyagerx.repository.UserRepository
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.voyagerx.LaunchDetailsFragment
 import com.example.voyagerx.data.LaunchDetailFields
@@ -20,11 +19,7 @@ import com.example.voyagerx.R
 import com.example.voyagerx.databinding.FragmentProfileBinding
 import com.example.voyagerx.util.SharedPreferencesManager
 import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
-import com.example.voyagerx.ui.fragments.landing.list.LaunchOverviewAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,6 +42,7 @@ class ProfileFragment : Fragment() {
         }
 
         setProfileBackgroundWallpaper(SharedPreferencesManager.getBackgroundWallpaper())
+        setFontSizes()
 
         return binding.root
     }
@@ -58,12 +54,39 @@ class ProfileFragment : Fragment() {
             binding.headerCoverImage.setImageResource(R.drawable.plain_background)
         }
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         createRecyclerView()
         getUserInfoFromDatabase()
+
+    }
+
+    private fun setFontSizes() {
+        when {
+            SharedPreferencesManager.getFontSize() == "Large" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation)
+                    binding.tvBio.setTextAppearance(R.style.profileBio)
+                }
+            }
+            SharedPreferencesManager.getFontSize() == "Medium" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize_Medium)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation_Medium)
+                    binding.tvBio.setTextAppearance(R.style.profileBio_Medium)
+                }
+            }
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.tvNameinProfile.setTextAppearance(R.style.profileFontSize_Small)
+                    binding.tvLocation.setTextAppearance(R.style.profileLocation_Small)
+                    binding.tvBio.setTextAppearance(R.style.profileBio_Small)
+                }
+            }
+        }
 
     }
 

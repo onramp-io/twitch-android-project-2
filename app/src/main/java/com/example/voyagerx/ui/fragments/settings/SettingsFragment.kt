@@ -49,9 +49,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 val entryvalue = preference.entryValues[index]
                 Log.i("selected val", " position - $index, entryvalue - $entryvalue ")
                 when (entryvalue) {
-                    "Large" -> SharedPreferencesManager.setTextInDropdown("Large")
-                    "Medium" -> SharedPreferencesManager.setTextInDropdown("Medium")
-                    "Small" -> SharedPreferencesManager.setTextInDropdown("Small")
+                    "Large" -> SharedPreferencesManager.setTextSize("Large")
+                    "Medium" -> SharedPreferencesManager.setTextSize("Medium")
+                    "Small" -> SharedPreferencesManager.setTextSize("Small")
                 }
             }
             true

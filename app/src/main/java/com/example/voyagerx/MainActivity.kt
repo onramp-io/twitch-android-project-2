@@ -105,12 +105,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-    //temporary function used to update fontScale
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(FontSizeUtility().adjustFontScale(newBase, 1.0F))
-    }
-
+    
     private fun showLoginPopup() {
         MaterialAlertDialogBuilder(this@MainActivity)
             .setTitle(getString(R.string.account_needed_title))

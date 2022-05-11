@@ -45,20 +45,11 @@ class SharedPreferencesManager(val context: Context) {
         return PREF_BKG_APPEARANCE.getBoolean()
     }
 
-    fun setTextInDropdown(dropDownText: String) = PREF_DROP_DOWN_TEXT.put(dropDownText)
-
-    fun getTextInDropdown(): String {
-        PREF_DROP_DOWN_TEXT.getString()
-        Log.d("font size drop dwn text", PREF_DROP_DOWN_TEXT.getString())
-        return PREF_DROP_DOWN_TEXT.getString()
-    }
-
-    //to be updated later if styles are used
     fun setTextSize(fontSize: String) = PREF_FONT_SIZE.put(fontSize)
 
-    fun getFontSize(): String {
+    fun getFontSize() : String {
         PREF_FONT_SIZE.getString()
-        Log.d("font size value", PREF_FONT_SIZE.getBoolean().toString())
+        Log.d("font size value", PREF_FONT_SIZE.getString())
         return PREF_FONT_SIZE.getString()
     }
 
@@ -97,7 +88,6 @@ class SharedPreferencesManager(val context: Context) {
         const val PREFERENCE_NAME = "SHARED_PREFS"
         const val PREF_BKG_APPEARANCE = "PREF_BKG_APPEARANCE"
         const val PREF_FONT_SIZE = "PREF_FONT_SIZE"
-        const val PREF_DROP_DOWN_TEXT = "PREF_DROP_DOWN_TEXT"
         const val PREF_LAUNCH_NOTIFICATIONS = "PREF_LAUNCH_NOTIFICATIONS"
         const val PREF_LAUNCH_FILTER_ANY = "PREF_LAUNCH_FILTER_ANY"
         const val PREF_LAUNCH_FILTER_ALL = "PREF_LAUNCH_FILTER_ALL"
