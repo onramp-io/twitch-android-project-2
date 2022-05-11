@@ -140,8 +140,9 @@ class LaunchOverviewAdapter(
             Timer().schedule(NAV_DELAY) {
                 listener.onClick(launch)
             }
-        holder.setTextSize(SharedPreferencesManager(context).getFontSize())
-        holder.bind(launch)
+            holder.setTextSize(SharedPreferencesManager(context).getFontSize())
+            holder.bind(launch)
+        }
     }
 
     fun getSiteFilters(): List<String> = allLaunches
@@ -155,7 +156,5 @@ class LaunchOverviewAdapter(
         .toList()
 
     override fun getItemCount(): Int = visibleLaunches.size
-
-
 
 }
