@@ -24,16 +24,18 @@
 
     <ImageButton
         android:id="@+id/filter_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/landing_filter_icon_size"
+        android:layout_height="@dimen/landing_filter_icon_size"
         android:adjustViewBounds="true"
-        android:backgroundTint="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         android:contentDescription="@string/filter_launches_content_description"
         app:layout_constraintBottom_toBottomOf="@+id/search"
         app:layout_constraintEnd_toStartOf="@id/search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/search"
-        app:srcCompat="@drawable/ic_baseline_filter_alt_32" />
+        app:srcCompat="@drawable/ic_baseline_filter_alt_32"
+        android:focusable="true" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/filter_chip_group"

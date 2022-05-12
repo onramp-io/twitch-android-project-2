@@ -4,11 +4,15 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.voyagerx.R
 import com.example.voyagerx.data.LaunchDetailFields
 import com.example.voyagerx.databinding.LandingPageOverviewCardBinding
 import com.example.voyagerx.helpers.LaunchClickListener
 import com.example.voyagerx.repository.model.Launch
+import java.util.*
+import kotlin.concurrent.schedule
 import com.example.voyagerx.util.SharedPreferencesManager
 
 class LaunchOverviewAdapter(
@@ -22,6 +26,11 @@ class LaunchOverviewAdapter(
     val filtersAnyMatch: MutableMap<String, MutableList<String>> = mutableMapOf()
     val filtersAllMatch: MutableMap<String, MutableList<String>> = mutableMapOf()
     var searchTerm: String = ""
+
+    companion object {
+        // ripple animation length should be used here
+        const val NAV_DELAY = 250L
+    }
 
     fun initializeList(launches: List<Launch>) {
         allLaunches = launches
@@ -127,13 +136,13 @@ class LaunchOverviewAdapter(
     override fun onBindViewHolder(holder: LaunchOverviewViewHolder, position: Int) {
         val context: Context = holder.itemView.context
         val launch = visibleLaunches[position]
-        holder.setTextSize(SharedPreferencesManager(context).getFontSize())
         holder.bind(launch)
-
-        holder.itemView.setOnClickListener {
-            listener.onClick(launch)
+        holder.itemView.findViewById<CardView>(R.id.launch_overview_card_view).setOnClickListener {
+            Timer().schedule(NAV_DELAY) {
+                listener.onClick(launch)
+            }
+            holder.setTextSize(SharedPreferencesManager(context).getFontSize())
         }
-
     }
 
     fun getSiteFilters(): List<String> = allLaunches
@@ -147,7 +156,5 @@ class LaunchOverviewAdapter(
         .toList()
 
     override fun getItemCount(): Int = visibleLaunches.size
-
-
 
 }
