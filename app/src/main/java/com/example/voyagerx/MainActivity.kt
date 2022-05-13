@@ -11,6 +11,7 @@ import com.example.voyagerx.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.voyagerx.repository.UserRepository
+import com.example.voyagerx.ui.fragments.editprofile.EditProfileFragment
 import com.example.voyagerx.ui.fragments.landing.LandingPageFragment
 import com.example.voyagerx.ui.fragments.settings.SettingsFragment
 import com.example.voyagerx.ui.fragments.userprofileac.Profile2Fragment
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkIfLogoutProfileFragment(){
         val currFragment = supportFragmentManager.findFragmentById(R.id.frame)
-        if(currFragment is ProfileFragment){
+        if(currFragment is ProfileFragment || currFragment is EditProfileFragment){
             changeFragmentView(LandingPageFragment())
         }
 
@@ -109,7 +110,7 @@ class MainActivity : AppCompatActivity() {
     private fun showLoginPopup() {
         MaterialAlertDialogBuilder(this@MainActivity)
             .setTitle(getString(R.string.account_needed_title))
-            .setMessage(getString(R.string.need_account_msg))
+            .setMessage(getString(R.string.need_account_msg_profile))
             .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
                 //default closes the window
             }
