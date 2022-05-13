@@ -137,11 +137,11 @@ class LaunchOverviewAdapter(
         val context: Context = holder.itemView.context
         val launch = visibleLaunches[position]
         holder.bind(launch)
+        holder.setTextSize(SharedPreferencesManager(context).getFontSize())
         holder.itemView.findViewById<CardView>(R.id.launch_overview_card_view).setOnClickListener {
             Timer().schedule(NAV_DELAY) {
                 listener.onClick(launch)
             }
-            holder.setTextSize(SharedPreferencesManager(context).getFontSize())
         }
     }
 
