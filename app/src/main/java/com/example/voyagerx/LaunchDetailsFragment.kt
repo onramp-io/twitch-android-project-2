@@ -100,6 +100,7 @@ class LaunchDetailsFragment : Fragment() {
                         // changes to ui need to happen on the main thread
                         launch(Dispatchers.Main) {
                             showView(binding.ivFavoriteTrue)
+                            hideView(binding.ivFavorite)
                         }
                     } else {
                         launch(Dispatchers.Main) {
