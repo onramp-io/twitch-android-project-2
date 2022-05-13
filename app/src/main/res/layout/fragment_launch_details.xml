@@ -39,23 +39,20 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvMissionName"
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/margin_lg"
+                        android:textAlignment="viewStart"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@color/primary"
-                        app:layout_constrainedWidth="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ivShare"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.48"
                         tools:text="@string/sample_mission_name" />
 
                     <ImageView
@@ -64,9 +61,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:adjustViewBounds="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
                     <ImageView
                         android:id="@+id/ivFavoriteTrue"
@@ -74,9 +68,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:adjustViewBounds="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_favorite_24"
                         android:visibility="gone"/>
 
@@ -86,12 +77,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginVertical="@dimen/margin_sm"
                         app:srcCompat="@drawable/ic_baseline_share_24"
                         app:tint="@color/black" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvSiteName"
