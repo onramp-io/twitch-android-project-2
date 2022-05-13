@@ -53,7 +53,7 @@
     <string name="sample_launch_date">2014-01-08</string>
     <string name="sample_launch_details">Second GTO launch for Falcon 9. The USAF evaluated launch data from this flight as part of a separate certification program for SpaceX to qualify to fly U.S. military payloads and found that the Thaicom 6 launch had \'unacceptable fuel reserves at engine cutoff of the stage 2 second burnoff\'</string>
     <string name="location_icon_description">location icon</string>
-    <string name="sample_mission_name">Thaicom 6</string>
+    <string name="sample_mission_name">SAOCOM 1B, GNOMES-1, TYVAK-0172</string>
     <string name="sample_site_name_long">Cape Canaveral Air Force Station</string>
     <string name="LinksHeader">LINKS</string>
     <string name="video_link_text">Watch the launch video</string>
