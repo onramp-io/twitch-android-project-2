@@ -1,4 +1,4 @@
-# VoyagerX - Twitch Cohort 2 Android Projec
+# VoyagerX - Twitch Cohort 2 Android Project
 ## Overview
 Blast off with VoyagerX! This app allows you to view and keep track of the latest and greatest SpaceX launches. Users have the ability to browse and filter launches. Enjoy all the photos, videos, and articles surrounding these monumental events. If you want to keep track of your favorite launches, you can do that too by signing up for an account. Customize your experience however you want, from personalizing your profile page to changing the text size of the UI. Conquer the final frontier with VoyagerX!
 
