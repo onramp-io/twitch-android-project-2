@@ -7,7 +7,7 @@ Blast off with VoyagerX! This app allows you to view and keep track of the lates
 - New users register using their email and password. The form validates email addresses (valid email, email not in use) and passwords (length, password confirmation). 
 - After registration, users can login to access the profile page as well as the favorite launches feature.
 
-## Landing Screen
+### Landing Screen
 - The landing screen gives the user access to a list of recent SpaceX launch events.
 - Users can view a list of launches with overview information including mission name, launch site, launch date and an image of the launch if one is available.
 - Users can search and filter the list of launches by launch site and by media available on each launch event. 
